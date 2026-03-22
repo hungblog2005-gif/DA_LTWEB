@@ -1,0 +1,188 @@
+﻿@{
+    ViewData["Title"] = "Giới Thiệu - KIZUNA";
+    Layout = "_LayoutTailwind"; // <-- Sử dụng layout chung cho các trang có Tailwind
+}
+
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-20 py-4 sticky top-0 z-50">
+    <div class="flex items-center gap-4">
+        <div class="text-primary">
+            <span class="material-symbols-outlined text-3xl">auto_awesome</span>
+        </div>
+        <h2 class="text-xl font-bold tracking-tight">KIZUNA</h2>
+    </div>
+    <nav class="hidden md:flex flex-1 justify-center gap-10">
+        <a class="text-sm font-medium hover:text-primary transition-colors" href="@Url.Action("Index", "Home")">Cửa hàng</a> <!-- Giả sử Cửa hàng là trang chủ -->
+        <a class="text-sm font-medium hover:text-primary transition-colors" href="/Shop">Bộ sưu tập</a>
+        <a class="text-sm font-medium text-primary" href="@Url.Action("About", "Home")">Giới thiệu</a> <!-- Link đến chính nó -->
+        <a class="text-sm font-medium hover:text-primary transition-colors" href="@Url.Action("Contact", "Home")">Liên hệ</a>
+    </nav>
+    <div class="flex gap-3">
+        <button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-primary/10 hover:text-primary transition-all">
+            <span class="material-symbols-outlined">shopping_bag</span>
+        </button>
+        <button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-primary/10 hover:text-primary transition-all">
+            <span class="material-symbols-outlined">person</span>
+        </button>
+    </div>
+</header>
+
+<main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="relative h-[70vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-black/30 z-10"></div>
+        <div class="absolute inset-0 bg-cover bg-center" data-alt="High quality minimalist Japanese zen garden with rocks and raked sand" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAZ329rA1HtkHhJJ0SooB8mc0NYt9B38YIMpCgWsfA42l8Yiz8krf-FhOBaca9OkZ9rJlZn4xH0m-Jbyw7SAJgqEWIrfHPMQNapcq6If5hPOqPPeRVPBDV6MgEpOQs3y0abfVtTSxk1SxAgULRHuwFCvG8VNTugw8apC18MZ-EOTcx9uuK_FiJ26Z7mfhIDV5c4a_QCIWKHAgbV6HA5OFHcOLTsGqL3DTOVPgYRVtccezW4GfKzxqillsfTapAV3F6Ve-aAfcfwi3M');"></div>
+        <div class="relative z-20 text-center px-4">
+            <h1 class="text-white text-6xl md:text-8xl font-black tracking-tighter mb-4">KIZUNA</h1>
+            <div class="h-1 w-24 bg-primary mx-auto mb-6"></div>
+            <p class="text-white text-lg md:text-xl font-light tracking-widest uppercase">Tinh hoa tối giản Nhật Bản</p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="max-w-5xl mx-auto px-6 py-24">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <span class="text-primary font-bold tracking-widest text-sm uppercase mb-4 block">Câu chuyện thương hiệu</span>
+                <h2 class="text-4xl font-bold mb-8 leading-tight">Di sản kết nối giữa <br />Quá khứ và Hiện tại</h2>
+                <div class="space-y-6 text-slate-600 dark:text-slate-400 leading-relaxed text-lg font-light">
+                    <p>
+                        Bắt nguồn từ triết lý <strong>"Wabi-sabi"</strong> - một thế giới quan của người Nhật tập trung vào việc chấp nhận tính phù du và sự không hoàn hảo. Tại KIZUNA, chúng tôi tin rằng vẻ đẹp thực sự nằm ở những điều giản đơn và chân thực nhất.
+                    </p>
+                    <p>
+                        KIZUNA trong tiếng Nhật có nghĩa là "Sợi dây kết nối". Đó không chỉ là sự liên kết giữa các sợi vải, mà còn là sợi dây tinh thần gắn kết người mặc với thiên nhiên, với bản sắc cá nhân và với những giá trị bền vững theo thời gian.
+                    </p>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="aspect-[4/5] bg-slate-200 dark:bg-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                    <img alt="Minimalist Japanese architecture and light" class="w-full h-full object-cover" data-alt="Minimalist Japanese architecture with wood and soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdeV6qFV7Iwvokeb2rq54V-fJN4JYN0vTSbKAViBFAcOTLapd--65uYJLCUXCWX0bI9wrSP_dTE0TMqcKcciMkmaN0rmkX2nQF4uoEoDLNFE9XQmPTtcFod5z66GXAijwdOvpWuEj3V9LvSJ-pp5Bq_Dpw2kE-OVXdcAj9I8KXFG96TUhi-ebwYYZzQGXJ1B7GeiWYOYSsuywfn1TQhi0hicHjnHiHrEJbbyusb81Vj1CB1uKimt3U0z-T0TewkJJMqjOSNsU" />
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-white dark:bg-slate-900 p-8 shadow-xl max-w-xs hidden md:block border-l-4 border-primary">
+                    <p class="italic text-slate-500 font-serif">"Tối giản không phải là thiếu thốn, mà là sự trọn vẹn của những điều thiết yếu."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Philosophy Section -->
+    <section class="bg-white dark:bg-slate-900 py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Triết lý Thiết kế</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">Chúng tôi tạo ra những bộ trang phục vượt xa khỏi xu hướng nhất thời, hướng tới sự trường tồn qua ba trụ cột cốt lõi.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-10 rounded-xl border border-slate-100 dark:border-slate-800 bg-background-light dark:bg-background-dark flex flex-col items-center text-center transition-transform hover:-translate-y-2">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6">eco</span>
+                    <h3 class="text-xl font-bold mb-3">Bền vững</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Sử dụng sợi tự nhiên như Linen, Organic Cotton và Silk được tuyển chọn kỹ lưỡng, thân thiện với làn da và môi trường.</p>
+                </div>
+                <div class="p-10 rounded-xl border border-slate-100 dark:border-slate-800 bg-background-light dark:bg-background-dark flex flex-col items-center text-center transition-transform hover:-translate-y-2">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6">view_in_ar</span>
+                    <h3 class="text-xl font-bold mb-3">Tối giản</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Loại bỏ những chi tiết thừa thãi để tập trung vào phom dáng tinh tế, cho phép cá tính của người mặc được tỏa sáng.</p>
+                </div>
+                <div class="p-10 rounded-xl border border-slate-100 dark:border-slate-800 bg-background-light dark:bg-background-dark flex flex-col items-center text-center transition-transform hover:-translate-y-2">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6">air</span>
+                    <h3 class="text-xl font-bold mb-3">Thoải mái</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Mỗi đường cắt đều được tính toán để đảm bảo sự tự do trong chuyển động, mang lại cảm giác nhẹ nhàng như không.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Craftsmanship Section -->
+    <section class="py-24 max-w-6xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+            <div class="w-full md:w-1/2 grid grid-cols-2 gap-4">
+                <div class="aspect-square rounded-lg overflow-hidden">
+                    <img alt="Fabric detail" class="w-full h-full object-cover" data-alt="Close up of high quality white linen fabric texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6uDMLxGi-ACMwiLaSAJUU5NJbh6mDGkfH5UOw6aKgOjpE1OGNQEPskvSK1IodCX8TO4ouHnnB4Bp-iZV7hlLgKAVWimPm_szugnnEvz7SdEgykDVEvYcP3BjEJwWmTK0GsOW7tSQj_hZjab-Vwf_673rjNSPkyEtLIxPm3lwfuMgFoIY4h-XS6GjlEB3LL8JW6QuDM15IIO0IYKReFrpPHp8brHGmHTIUKRCkFTCvQTxmrPoc-N4J7heJ3V055yNmygVo" />
+                </div>
+                <div class="aspect-square rounded-lg overflow-hidden mt-8">
+                    <img alt="Japanese craftsmanship" class="w-full h-full object-cover" data-alt="Detailed shot of hands working on traditional Japanese textile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqyNoml-F7IDqs31dGxWIc0wsEV4BZ0ZYos0f6gc5IsSTvJj42Yek_P_GUkUZUqfDUVtnyILOliJQcxxA3GsU96JTA_hRsZimLVY9gP4DpVCLnq2zEkFLy6MWwwwqWe_rOr5CkXiuhMIht5K552xq-j7113eO3sPMDuKUKoNRYDixc0oeDASRFO_qPMRImLO-61kc9rj6VTgyxBO_-BI2tJRqdHQOMTZGnJtuzybppAOyiRRDwcgC7xSR23vPVGxpws6xMQso4TZk" />
+                </div>
+            </div>
+            <div class="w-full md:w-1/2">
+                <h2 class="text-4xl font-bold mb-6 italic font-serif">Nghệ thuật Thủ công</h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                    Tại xưởng may của KIZUNA, mỗi đường kim mũi chỉ là một lời cam kết về chất lượng. Chúng tôi kết hợp kỹ thuật may truyền thống của Nhật Bản với công nghệ hiện đại để tạo ra những sản phẩm có độ bền lên đến hàng thập kỷ.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">check_circle</span>
+                        <span class="font-medium">Kỹ thuật may giấu chỉ tinh tế</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">check_circle</span>
+                        <span class="font-medium">Nhuộm thủ công từ màu tự nhiên</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">check_circle</span>
+                        <span class="font-medium">Kiểm soát chất lượng 5 bước nghiêm ngặt</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="bg-primary py-20 text-white text-center px-6">
+        <div class="max-w-3xl mx-auto">
+            <span class="material-symbols-outlined text-5xl mb-6 opacity-50">format_quote</span>
+            <blockquote class="text-2xl md:text-3xl font-light leading-snug mb-8">
+                "Thời trang có thể phai nhạt, nhưng phong cách bắt nguồn từ sự tĩnh lặng tâm hồn sẽ trường tồn mãi mãi."
+            </blockquote>
+            <cite class="not-italic font-bold tracking-widest uppercase text-sm">— Triết lý KIZUNA</cite>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-slate-900 text-slate-400 py-16 px-6 md:px-20">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="col-span-1 md:col-span-1">
+            <div class="flex items-center gap-3 text-white mb-6">
+                <span class="material-symbols-outlined text-primary text-2xl">auto_awesome</span>
+                <span class="text-xl font-bold tracking-tight">KIZUNA</span>
+            </div>
+            <p class="text-sm leading-relaxed">Vẻ đẹp của sự tối giản và tinh hoa Nhật Bản. Kết nối tâm hồn qua từng sợi vải.</p>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Khám phá</h4>
+            <ul class="space-y-4 text-sm">
+                <li><a class="hover:text-primary transition-colors" href="@Url.Action("Index", "Home")">Sản phẩm mới</a></li> <!-- Giả sử -->
+                <li><a class="hover:text-primary transition-colors" href="#">Bộ sè</a></li>
+                <li><a class="hover:text-primary transition-colors" href="#">Dòng Essentials</a></li>
+                <li><a class="hover:text-primary transition-colors" href="#">Phụ kiện</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Hỗ trợ</h4>
+            <ul class="space-y-4 text-sm">
+                <li><a class="hover:text-primary transition-colors" href="@Url.Action("ReturnPolicy", "Home")">Chính sách đổi trả</a></li>
+                <li><a class="hover:text-primary transition-colors" href="@Url.Action("SizeGuide", "Home")">Hướng dẫn chọn size</a></li>
+                <li><a class="hover:text-primary transition-colors" href="@Url.Action("ShippingPolicy", "Home")">Vận chuyển</a></li>
+                <li><a class="hover:text-primary transition-colors" href="#">Câu hỏi thường gặp</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Bản tin</h4>
+            <p class="text-sm mb-4">Đăng ký để nhận thông tin về bộ sưu tập mới nhất.</p>
+            <div class="flex">
+                <input class="bg-slate-800 border-none rounded-l-lg px-4 py-2 text-sm w-full focus:ring-1 focus:ring-primary" placeholder="Email của bạn" type="email" />
+                <button class="bg-primary text-white px-4 py-2 rounded-r-lg hover:bg-red-700 transition-colors">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-6xl mx-auto border-t border-slate-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+        <p>© 2024 KIZUNA Minimalist Clothing. All rights reserved.</p>
+        <div class="flex gap-6">
+            <a class="hover:text-white" href="#">Facebook</a>
+            <a class="hover:text-white" href="#">Instagram</a>
+            <a class="hover:text-white" href="#">Pinterest</a>
+        </div>
+    </div>
+</footer>

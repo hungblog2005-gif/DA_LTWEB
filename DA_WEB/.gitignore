@@ -1,0 +1,22 @@
+﻿# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build
+bin/
+obj/
+
+# ASP.NET
+appsettings.json
+appsettings.*.json
+
+# Node (nếu có React)
+node_modules/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

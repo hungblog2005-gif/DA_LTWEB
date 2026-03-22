@@ -1,0 +1,169 @@
+﻿@model DA_WEB.Models.Product
+@{
+    ViewData["Title"] = "Edit Product";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-heading">
+    <div class="page-eyebrow">Products</div>
+    <h1 class="page-title">Edit <em>Product</em></h1>
+    <p class="page-subtitle">Update the product details below.</p>
+</div>
+
+<form asp-area="Admin" asp-controller="Product" asp-action="Edit"
+      asp-route-id="@Model.Id"
+      method="post" enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="CreatedAt" />
+    <input type="hidden" asp-for="ImageUrl" />
+
+    <div class="form-grid">
+
+        <!-- LEFT COLUMN -->
+        <div class="form-col-main">
+
+            <!-- Basic Info -->
+            <div class="form-card">
+                <div class="form-card-header">Basic Information</div>
+                <div class="form-card-body">
+
+                    <div asp-validation-summary="ModelOnly" class="validation-summary-admin"></div>
+
+                    <div class="field-group">
+                        <label asp-for="Name" class="field-label">Product Name</label>
+                        <input asp-for="Name" class="field-input" placeholder="e.g. White Linen Shirt" />
+                        <span asp-validation-for="Name" class="field-error"></span>
+                    </div>
+
+                    <div class="field-group">
+                        <label asp-for="Description" class="field-label">Description</label>
+                        <textarea asp-for="Description" class="field-input field-textarea"
+                                  rows="5"
+                                  placeholder="Describe materials, fit, and care instructions..."></textarea>
+                        <span asp-validation-for="Description" class="field-error"></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Pricing & Stock -->
+            <div class="form-card">
+                <div class="form-card-header">Pricing & Inventory</div>
+                <div class="form-card-body">
+
+                    <div class="field-row-2">
+                        <div class="field-group">
+                            <label asp-for="Price" class="field-label">Price (₫)</label>
+                            <input asp-for="Price" type="number" class="field-input" placeholder="0" />
+                            <span asp-validation-for="Price" class="field-error"></span>
+                        </div>
+                        <div class="field-group">
+                            <label asp-for="SalePrice" class="field-label">
+                                Sale Price (₫)
+                                <span style="font-size:8px;color:var(--muted)">(optional)</span>
+                            </label>
+                            <input asp-for="SalePrice" type="number" class="field-input" placeholder="0" />
+                            <span asp-validation-for="SalePrice" class="field-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="field-row-2">
+                        <div class="field-group">
+                            <label asp-for="Stock" class="field-label">Stock Quantity</label>
+                            <input asp-for="Stock" type="number" class="field-input" placeholder="0" />
+                            <span asp-validation-for="Stock" class="field-error"></span>
+                        </div>
+                        <div class="field-group">
+                            <label asp-for="CategoryId" class="field-label">Category</label>
+                            <select asp-for="CategoryId"
+                                    asp-items="ViewBag.Categories"
+                                    class="field-input field-select">
+                                <option value="">— Select category —</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="field-error"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="form-col-side">
+
+            <!-- Image Upload -->
+            <div class="form-card">
+                <div class="form-card-header">Product Image</div>
+                <div class="form-card-body">
+
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" alt="Current image"
+                             style="width:100%;aspect-ratio:3/4;object-fit:cover;border:1px solid var(--warm-mid);margin-bottom:12px" />
+                        <p style="font-size:10px;color:var(--muted);margin-bottom:12px;letter-spacing:0.05em">
+                            Upload a new image to replace the current one.
+                        </p>
+                    }
+
+                    <label class="upload-zone" for="imageFile">
+                        <span class="material-symbols-outlined" style="font-size:36px;color:var(--muted)">add_a_photo</span>
+                        <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:8px">
+                            Upload New Image
+                        </span>
+                        <span style="font-size:10px;color:var(--muted);margin-top:4px">PNG, JPG — max 5MB</span>
+                        <input type="file" id="imageFile" name="imageFile"
+                               accept="image/*" style="display:none"
+                               onchange="previewImage(this)" />
+                    </label>
+
+                    <img id="imagePreview" src="#" alt="Preview"
+                         style="display:none;width:100%;margin-top:12px;aspect-ratio:3/4;object-fit:cover;border:1px solid var(--warm-mid)" />
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="form-card">
+                <div class="form-card-header">Status</div>
+                <div class="form-card-body">
+                    <label class="toggle-label">
+                        <input asp-for="IsActive" type="checkbox" class="toggle-checkbox" />
+                        <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);margin-left:8px">
+                            Active — visible in store
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div style="display:flex;flex-direction:column;gap:10px">
+                <button type="submit" class="btn-primary-admin" style="justify-content:center">
+                    <span class="material-symbols-outlined" style="font-size:16px">save</span>
+                    Save Changes
+                </button>
+                <a asp-area="Admin" asp-controller="Product" asp-action="Index"
+                   class="btn-secondary-admin">Cancel</a>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

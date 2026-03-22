@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    
+    <!-- Tailwind CSS CDN với plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Google Fonts: Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <!-- Cấu hình Tailwind -->
+    <script id="tailwind-config">
+        tailwind.config = {
+        darkMode: "class", // Kích hoạt chế độ dark mode dựa trên class
+        theme: {
+        extend: {
+        colors: {
+        "primary": "#bd002c",
+        "background-light": "#f8f5f6",
+        "background-dark": "#230f14",
+        },
+        fontFamily: {
+        "display": ["Inter"]
+        },
+        borderRadius: {
+        "DEFAULT": "0.125rem",
+        "lg": "0.25rem",
+        "xl": "0.5rem",
+        "full": "0.75rem"
+        },
+        },
+        },
+        }
+    </script>
+
+    <!-- CSS nội tuyến -->
+    <style>
+        body {
+        font-family: 'Inter', sans-serif;
+        }
+        /* Ẩn thanh cuộn cho các phần tử có class này */
+        .no-scrollbar::-webkit-scrollbar {
+        display: none;
+        }
+
+        .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        }
+    </style>
+    
+    <title>Câu hỏi thường gặp - Wabi-sabi</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+    <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+            <!-- Top Navigation Bar -->
+            <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-20 py-4 bg-white dark:bg-background-dark sticky top-0 z-50">
+                <div class="flex items-center gap-8">
+                    <div class="flex items-center gap-3 text-slate-900 dark:text-white">
+                        <div class="size-6 text-primary">
+                            <span class="material-symbols-outlined text-3xl">filter_vintage</span>
+                        </div>
+                        <h2 class="text-xl font-bold leading-tight tracking-tight uppercase">Wabi-sabi</h2>
+                    </div>
+                    <div class="hidden md:flex items-center gap-8">
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="/Home">Cửa hàng</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="/Shop">Sưu tập</a>
+                        <a class="text-sm font-bold text-primary border-b-2 border-primary" href="@Url.Action("Contact", "Home")>Câu hỏi</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="@Url.Action("Contact", "Home")>Liên hệ</a>
+                    </div>
+                </div>
+                <div class="flex flex-1 justify-end gap-4 lg:gap-6">
+                   
+                            
+                    </div>
+                </div>
+            </header>
+            
+            <main class="flex-1 max-w-[1200px] mx-auto w-full px-6 lg:px-20 py-10">
+                <!-- Hero Section -->
+                <div class="mb-12">
+                    <div class="relative w-full h-[320px] rounded-xl overflow-hidden mb-8">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+                        <img alt="Natural linen fabric texture close up" class="w-full h-full object-cover" data-alt="Close up of high quality natural linen fabric texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9w1EK9OiPTEmdZxGVmzQsYP5P8UPw_zOKGBsrzsyGPN4Xq7xXQCjblkMcGyLIIjnlT4kwdOQ8gLIU6cX0581C1e5PTO_Lcqlzl7BivLSB48sQGkeYWPJh2iRJ-XFMUhOpyQrPUoJW0lWO_O-_hoINdPAEY1-6Igrv_giCjMhpzNLwcqVix7_-7yupHzWGeRRzvtgVGUG8PufOav8lCjhHalaig-aLuM0wmb6EtLLF_dN4rC9257Cb9MGXhB6ju36pz0KTwi_4dTU" />
+                        <div class="absolute bottom-0 left-0 p-8 z-20">
+                            <h1 class="text-white text-4xl lg:text-5xl font-bold leading-tight mb-2">Câu hỏi thường gặp</h1>
+                            <p class="text-slate-200 text-lg">Chúng tôi ở đây để hỗ trợ bạn</p>
+                        </div>
+                    </div>
+                    <!-- Category Tabs -->
+                    <div class="flex border-b border-slate-200 dark:border-slate-800 overflow-x-auto no-scrollbar gap-8 mb-8">
+                        <a class="flex flex-col items-center justify-center border-b-2 border-primary text-primary pb-4 pt-2 shrink-0" href="#">
+                            <span class="text-sm font-bold tracking-wide">Đặt hàng</span>
+                        </a>
+                      
+                    </div>
+                </div>
+                
+                <!-- FAQ Content -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <div class="lg:col-span-2 flex flex-col gap-1">
+                        <details class="group border-b border-slate-200 dark:border-slate-800 py-5" open="">
+                            <summary class="flex cursor-pointer items-center justify-between list-none">
+                                <span class="text-lg font-semibold text-slate-900 dark:text-white group-open:text-primary transition-colors">Làm cách nào để theo dõi đơn hàng của tôi?</span>
+                                <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform group-open:text-primary">expand_more</span>
+                            </summary>
+                            <div class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
+                                Sau khi đơn hàng của bạn được xác nhận, một email có mã vận đơn sẽ được gửi đến hòm thư của bạn. Bạn có thể sử dụng mã này trên trang web của đối tác vận chuyển hoặc đăng nhập vào tài khoản Wabi-sabi để cập nhật trạng thái trực tiếp.
+                            </div>
+                        </details>
+                        <details class="group border-b border-slate-200 dark:border-slate-800 py-5">
+                            <summary class="flex cursor-pointer items-center justify-between list-none">
+                                <span class="text-lg font-semibold text-slate-900 dark:text-white group-open:text-primary transition-colors">Thời gian giao hàng tiêu chuẩn là bao lâu?</span>
+                                <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform group-open:text-primary">expand_more</span>
+                            </summary>
+                            <div class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
+                                Đối với khu vực nội thành, thời gian giao hàng thường từ 1-3 ngày làm việc. Các tỉnh thành khác có thể mất từ 3-5 ngày. Chúng tôi luôn cố gắng tối ưu quy trình để sản phẩm tinh tế từ Wabi-sabi đến tay bạn nhanh nhất có thể.
+                            </div>
+                        </details>
+                        <details class="group border-b border-slate-200 dark:border-slate-800 py-5">
+                            <summary class="flex cursor-pointer items-center justify-between list-none">
+                                <span class="text-lg font-semibold text-slate-900 dark:text-white group-open:text-primary transition-colors">Chính sách đổi trả của Wabi-sabi như thế nào?</span>
+                                <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform group-open:text-primary">expand_more</span>
+                            </summary>
+                            <div class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
+                                Chúng tôi chấp nhận đổi trả trong vòng 7 ngày kể từ ngày nhận hàng cho các sản phẩm chưa qua sử dụng, còn nguyên tem mác và hóa đơn. Vui lòng liên hệ bộ phận CSKH để được hướng dẫn chi tiết về quy trình hoàn trả.
+                            </div>
+                        </details>
+                        <details class="group border-b border-slate-200 dark:border-slate-800 py-5">
+                            <summary class="flex cursor-pointer items-center justify-between list-none">
+                                <span class="text-lg font-semibold text-slate-900 dark:text-white group-open:text-primary transition-colors">Cách bảo quản trang phục lanh Wabi-sabi?</span>
+                                <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform group-open:text-primary">expand_more</span>
+                            </summary>
+                            <div class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
+                                <p class="mb-3">Để duy trì vẻ đẹp tự nhiên và độ bền của vải lanh cao cấp, chúng tôi khuyên bạn:</p>
+                                <ul class="list-disc pl-5 space-y-2">
+                                    <li>Giặt tay nhẹ nhàng với nước mát.</li>
+                                    <li>Sử dụng xà phòng trung tính, tránh chất tẩy mạnh.</li>
+                                    <li>Phơi trong bóng râm, tránh ánh nắng trực tiếp gay gắt.</li>
+                                    <li>Ủi khi vải còn hơi ẩm hoặc sử dụng bàn ủi hơi nước.</li>
+                                </ul>
+                            </div>
+                        </details>
+                        <details class="group border-b border-slate-200 dark:border-slate-800 py-5">
+                            <summary class="flex cursor-pointer items-center justify-between list-none">
+                                <span class="text-lg font-semibold text-slate-900 dark:text-white group-open:text-primary transition-colors">Tôi có thể thay đổi địa chỉ nhận hàng không?</span>
+                                <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform group-open:text-primary">expand_more</span>
+                            </summary>
+                            <div class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
+                                Bạn có thể thay đổi địa chỉ nếu đơn hàng chưa được bàn giao cho đơn vị vận chuyển. Vui lòng nhắn tin trực tiếp hoặc gọi hotline ngay khi phát hiện sai sót để được hỗ trợ kịp thời.
+                            </div>
+                        </details>
+                    </div>
+                    
+                    <!-- Sidebar Support -->
+                    <div class="lg:sticky lg:top-24 h-fit">
+                        <div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                            <h3 class="text-xl font-bold mb-4">Cần hỗ trợ thêm?</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Đội ngũ chăm sóc khách hàng của chúng tôi luôn sẵn sàng lắng nghe và giải đáp mọi thắc mắc của bạn.</p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 group cursor-pointer">
+                                    <div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                        <span class="material-symbols-outlined text-xl">mail</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-400 uppercase font-semibold">Email</p>
+                                        <p class="text-sm font-medium">support@wabi-sabi.vn</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4 group cursor-pointer">
+                                    <div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                        <span class="material-symbols-outlined text-xl">call</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-400 uppercase font-semibold">Hotline</p>
+                                        <p class="text-sm font-medium">1900 6789</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4 group cursor-pointer">
+                                    <div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                        <span class="material-symbols-outlined text-xl">chat_bubble</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-400 uppercase font-semibold">Zalo / Message</p>
+                                        <p class="text-sm font-medium">Hỗ trợ 24/7</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="w-full bg-primary text-white font-bold py-3 mt-8 rounded-lg hover:bg-red-700 transition-colors uppercase tracking-wider text-sm">
+                                Gửi yêu cầu hỗ trợ
+                            </button>
+                        </div>
+                        
+                        <!-- Secondary banner -->
+                        <div class="mt-6 rounded-xl overflow-hidden relative group">
+                            <img alt="Zen style wooden interior" class="w-full aspect-square object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Minimalist Zen interior design with wooden elements" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8m0PxnOQp-6N2zhfX0u8fHpUhTsPkaFhi4wJYExN8OOXP1w-PX8_PWQb1L1Bq0lq5KNA_3JHh1q0JMnRnqOW2nXrDbITM4-Wej0L3xoduuiNUtwJce8xrz746nLDV5-zGKQv2aBY_rLcpv8v9vkAuAeb9wn1YTf07zxKs1ZE41J8V8LIRY9zS1JS8YN7Ktmd7a-n-mO0raho1gQxiOeE65cIFaOSIhmLiQCKgzqTwwi7-afc7vCo7gWY-L6x4__ITa2bbTNzLZZw" />
+                            <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-all"></div>
+                            <div class="absolute bottom-4 left-4 right-4">
+                                <p class="text-white font-bold text-lg drop-shadow-md">Tôn vinh vẻ đẹp thuần khiết</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <!-- Footer -->
+            <footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-12 px-6 lg:px-20 mt-12">
+                <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+                    <div class="col-span-1 md:col-span-1">
+                        <div class="flex items-center gap-3 text-slate-900 dark:text-white mb-6">
+                            <div class="size-6 text-primary">
+                                <span class="material-symbols-outlined text-2xl">filter_vintage</span>
+                            </div>
+                            <h2 class="text-lg font-bold leading-tight tracking-tight uppercase">Wabi-sabi</h2>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">Vẻ đẹp từ sự không hoàn hảo và thuận theo tự nhiên.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-6 text-sm uppercase tracking-widest">Khám phá</h4>
+                        <ul class="space-y-4 text-sm text-slate-500">
+                            <li><a class="hover:text-primary transition-colors" href="/Shop">Bộ sưu tập mới</a></li>
+                                <li><a class="hover:text-primary transition-colors" href="@Url.Action("About", "Home")">Câu chuyện thương hiệu</a></li>
+                                <li><a class="hover:text-primary transition-colors" href="@Url.Action("About", "Home")">Bền vững</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-6 text-sm uppercase tracking-widest">Hỗ trợ</h4>
+                        <ul class="space-y-4 text-sm text-slate-500">
+                            <li><a class="hover:text-primary transition-colors" href="@Url.Action("ShippingPolicy", "Home")">Vận chuyển</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="@Url.Action("ReturnPolicy", "Home")">Hoàn trả</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="@Url.Action("PrivacyPolicy", "Home")>Bảo mật</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-6 text-sm uppercase tracking-widest">Đăng ký nhận tin</h4>
+                        <div class="flex gap-2">
+                            <input class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2 text-sm w-full focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="Email của bạn" type="email" />
+                            <button class="bg-primary text-white p-2 rounded-lg hover:bg-red-700 transition-colors">
+                                <span class="material-symbols-outlined">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-[1200px] mx-auto pt-12 mt-12 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p class="text-xs text-slate-400">© 2024 Wabi-sabi Vietnam. All rights reserved.</p>
+                    <div class="flex gap-6">
+                        <a class="text-slate-400 hover:text-primary transition-colors" href="#">
+                            <span class="material-symbols-outlined text-xl">language</span>
+                        </a>
+                        <a class="text-slate-400 hover:text-primary transition-colors" href="#">
+                            <span class="material-symbols-outlined text-xl">camera</span>
+                        </a>
+                        <a class="text-slate-400 hover:text-primary transition-colors" href="#">
+                            <span class="material-symbols-outlined text-xl">share</span>
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

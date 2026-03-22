@@ -1,0 +1,372 @@
+﻿@{
+    ViewData["Title"] = "Kizuna — Thời Trang Tối Giản Nhật Bản";
+    Layout = "~/Views/Shared/_LayoutKizuna.cshtml";
+}
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ======= HEADER ======= -->
+<header id="mainHeader">
+    <a href="/" class="logo">
+        <svg class="logo-mark" viewBox="0 0 48 48" fill="none">
+            <path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="currentColor" />
+        </svg>
+        <span class="logo-text">Kizuna</span>
+    </a>
+    <nav>
+        <a href="/Shop">New Arrivals</a>
+        <a href="/Shop">Collections</a>
+        <a href="@Url.Action("Philosophy", "Home")">Philosophy</a>
+        <a href="@Url.Action("About", "Home")">About</a>
+    </nav>
+    <div class="header-actions">
+        <button class="icon-btn">Search</button>
+        <button class="icon-btn">Bag <span class="cart-count">0</span></button>
+
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <span class="icon-btn">@User.Identity.Name</span>
+
+            @if (User.IsInRole(DA_WEB.Models.SD.Role_Admin))
+            {
+                <a asp-area="Admin"
+                       asp-controller="Dashboard"
+                       asp-action="Index"
+                       class="icon-btn"
+                       style="color: var(--accent-gold)">
+                    Admin
+                </a>
+            }
+
+            <form asp-area="Identity"
+                  asp-page="/Account/Logout"
+                  asp-route-returnUrl="/"
+                  method="post"
+                  style="display:inline">
+                <button type="submit" class="icon-btn">Logout</button>
+            </form>
+        }
+        else
+        {
+            <a asp-area="Identity" asp-page="/Account/Login" class="icon-btn">Sign In</a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="icon-btn">Register</a>
+        }
+    </div>
+</header>
+
+<!-- ======= HERO ======= -->
+<section class="hero">
+    <div class="hero-left">
+        <div class="hero-bg-img"></div>
+        <p class="hero-eyebrow">SS25 Collection</p>
+        <h1 class="hero-title">
+            Sự Giao Thoa<br />
+            Giữa <em>Truyền Thống</em><br />
+            Và Hiện Đại
+        </h1>
+        <p class="hero-subtitle">Khám phá vẻ đẹp tối giản mang đậm hơi thở Nhật Bản qua từng đường kim mũi chỉ.</p>
+        <div class="hero-cta-row">
+            <a href="/Shop" class="btn-primary">
+                Khám Phá Ngay
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+            <a href="#" class="btn-ghost">Xem Lookbook</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <div class="hero-right-img"></div>
+        <div class="hero-tag">New</div>
+    </div>
+    <div class="hero-scroll-hint">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+    </div>
+</section>
+
+<!-- ======= MARQUEE ======= -->
+<div class="marquee-wrap">
+    <div class="marquee-track">
+        <span class="marquee-item">
+            <span>Premium Linen</span><span class="marquee-dot"></span>
+            <span>Artisan Crafted</span><span class="marquee-dot"></span>
+            <span>Wabi-Sabi Philosophy</span><span class="marquee-dot"></span>
+            <span>Sustainable Materials</span><span class="marquee-dot"></span>
+            <span>Minimalist Cuts</span><span class="marquee-dot"></span>
+            <span>Japanese Aesthetic</span><span class="marquee-dot"></span>
+        </span>
+        <span class="marquee-item">
+            <span>Premium Linen</span><span class="marquee-dot"></span>
+            <span>Artisan Crafted</span><span class="marquee-dot"></span>
+            <span>Wabi-Sabi Philosophy</span><span class="marquee-dot"></span>
+            <span>Sustainable Materials</span><span class="marquee-dot"></span>
+            <span>Minimalist Cuts</span><span class="marquee-dot"></span>
+            <span>Japanese Aesthetic</span><span class="marquee-dot"></span>
+        </span>
+    </div>
+</div>
+
+<!-- ======= NEW COLLECTION ======= -->
+<section class="section-collection">
+    <div class="section-header reveal">
+        <div>
+            <div class="section-label">Shop the look</div>
+            <h2 class="section-title">
+                New Collection<br />
+                <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:var(--muted);font-size:0.68em">
+                    Spring — Summer 2025
+                </span>
+            </h2>
+        </div>
+        <a href="/Shop" class="view-all">
+            View all
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </a>
+    </div>
+
+    <div class="products-grid">
+
+        <!-- Card 1 -->
+        <a href="/Shop" style="text-decoration:none;color:inherit;display:block">
+            <div class="product-card reveal">
+                <div class="product-img-wrap">
+                    <div class="product-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCmIRinGOVevTLvqBzQS8UOdV_0YSKIjISOO9423acQoBbtnbMXRczS8Dhtq3OUjvIYH-uIBsQZlKYrMwpZw3SuFGHO4gNJOo4Wt8rGijgvS7JvKHxi9EMoprRtuaslcnkyeLBD835UF3Kqak44bSScg_smqkFCylJ64IxV_gmjcgcTmz0GELpPRj2pLVksZoa3fzKtHmPJQ5gtZmDcu9rOUKnJFVEc85AL9gWZPz_osVDjynXzZt7IQzqMHLkBmoJSXtZKPalZMis')"></div>
+                    <div class="product-badge">New</div>
+                    <div class="product-quick-add">+ Quick Add</div>
+                </div>
+                <h3 class="product-name">Linen Haori</h3>
+                <div class="product-meta">
+                    <span class="product-price">1.200.000đ</span>
+                    <div class="product-color-swatches">
+                        <span class="swatch" style="background:#e8ddd0"></span>
+                        <span class="swatch" style="background:#2a2520"></span>
+                        <span class="swatch" style="background:#5a6b5e"></span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="/Shop" style="text-decoration:none;color:inherit;display:block">
+            <div class="product-card reveal reveal-delay-1">
+                <div class="product-img-wrap">
+                    <div class="product-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBbPBSN4g49aH1geRooT10JRHtLRuQ6fy7LRMXiouv5V1ojRVHRXQBf8eq7232RpCvdRquZroSbdNjxz_woN_zTzn_5QeePxeVa5-Xbw_JcUxb79l0ilyqoczhFJz3eDbn07jAveolejgxjbiF_Ld1-V6sA0GUgQJGktuuA5v-ucMujKaaCbfYUnAQlqKuAJVjcNIwvVXtTR7kSXDB7b1v7MljqNEKZ7DUYleSc2q64A8G1uX4ILBOD_FPN-RmYN2KtnknCw1LH_gI')"></div>
+                    <div class="product-quick-add">+ Quick Add</div>
+                </div>
+                <h3 class="product-name">Wide-Leg Trousers</h3>
+                <div class="product-meta">
+                    <span class="product-price">850.000đ</span>
+                    <div class="product-color-swatches">
+                        <span class="swatch" style="background:#2a2520"></span>
+                        <span class="swatch" style="background:#b8a898"></span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="/Shop" style="text-decoration:none;color:inherit;display:block">
+            <div class="product-card reveal reveal-delay-2">
+                <div class="product-img-wrap">
+                    <div class="product-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmYayE3fmmKm_lFTGFKr5aUuSCwJ-fIWttlEZcCTEMWxh5I2fgXvhbqLJNbByVS3bmj4RC9FaCqXUuS8K8tMTVxEi4m-MNl3-IBN0bTZAQlCsJ4g0mVsHf0BD4Ez8w_rN-zabPHR_ZoRp4lYjpz32mvySlxmFua_D02bwaplyTiN64jzO0AGnio6UHfjow_o6txv6M6eaYOWtaDqxJynfRDQl8Q1GdEhPfCAkl8NfDz1G6hmfh_zyFbyJ0kiTohY797RtRCuE_1n4')"></div>
+                    <div class="product-badge">Bestseller</div>
+                    <div class="product-quick-add">+ Quick Add</div>
+                </div>
+                <h3 class="product-name">Minimalist Kimono</h3>
+                <div class="product-meta">
+                    <span class="product-price">2.500.000đ</span>
+                    <div class="product-color-swatches">
+                        <span class="swatch" style="background:#1a1410"></span>
+                        <span class="swatch" style="background:#8a7b6e"></span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 4 -->
+        <a href="/Shop" style="text-decoration:none;color:inherit;display:block">
+            <div class="product-card reveal reveal-delay-3">
+                <div class="product-img-wrap">
+                    <div class="product-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAgunskY3fOKwJhx8tH_DzzjM812jbA0-9r-0yVZD8AkQMtpRid8rO27BfQT-Kbeia_4piwp5bko-KW2QJQSvPIFaakRXtp5Cw89kjmk0jCesUjlLvg7MYgeKRWTfN5P5nJuZcWhMst05fFKXebZRY7wPC-UubEjFAPlUdUowWI7W6zzQ_JIlPHWSVrnxBPmr8t4vrmX05o6S3JzGNZnTsvSx-ih-YxNo6F9Op1XUIAULFxwb_1wBKd9qqU6nn3OjJiQ6XuZ7WljcA')"></div>
+                    <div class="product-quick-add">+ Quick Add</div>
+                </div>
+                <h3 class="product-name">Indigo Work Shirt</h3>
+                <div class="product-meta">
+                    <span class="product-price">1.100.000đ</span>
+                    <div class="product-color-swatches">
+                        <span class="swatch" style="background:#2d4a6e"></span>
+                        <span class="swatch" style="background:#1a1410"></span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- ======= PHILOSOPHY ======= -->
+<section class="section-philosophy">
+    <div class="philosophy-img">
+        <div class="philosophy-img-inner"></div>
+        <div class="philosophy-number">侘</div>
+    </div>
+    <div class="philosophy-content reveal">
+        <div class="section-label" style="color:var(--accent-gold)">
+            <span style="display:block;width:24px;height:1px;background:var(--accent-gold)"></span>
+            Our Philosophy
+        </div>
+        <h2 class="philosophy-title" style="margin-top:16px">
+            Triết Lý<br /><em>Wabi-sabi</em>
+        </h2>
+        <p class="philosophy-text">
+            Wabi-sabi là nghệ thuật tìm kiếm vẻ đẹp trong sự không hoàn hảo và sự giản đơn thuần khiết.
+            Tại Kizuna, mỗi sản phẩm được tạo ra không chỉ để mặc, mà là một sự tôn vinh đối với sự vô thường.
+        </p>
+        <div class="pillar-divider"></div>
+        <div class="philosophy-pillars">
+            <div>
+                <div class="pillar-title">Sự Tĩnh Lặng</div>
+                <div class="pillar-text">Thiết kế mang lại cảm giác bình yên và tự do cho người mặc.</div>
+            </div>
+            <div>
+                <div class="pillar-title">Sự Bền Vững</div>
+                <div class="pillar-text">Chất lượng trường tồn qua nhiều mùa mốt và thời gian.</div>
+            </div>
+            <div>
+                <div class="pillar-title">Thủ Công</div>
+                <div class="pillar-text">Kỹ thuật truyền thống kết hợp quy trình sản xuất hiện đại.</div>
+            </div>
+            <div>
+                <div class="pillar-title">Tự Nhiên</div>
+                <div class="pillar-text">Linen hữu cơ, cotton tự nhiên và lụa tơ tằm thuần chất.</div>
+            </div>
+        </div>
+        <a href="/Shop" class="btn-primary" style="align-self:flex-start">
+            Khám Phá Thêm
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </a>
+    </div>
+</section>
+
+<!-- ======= FEATURED ======= -->
+<section class="section-featured">
+    <div style="text-align:center;margin-bottom:64px" class="reveal">
+        <div class="section-label" style="justify-content:center">Featured Selection</div>
+        <h2 class="section-title" style="margin-top:12px">Được Yêu Thích Nhất</h2>
+    </div>
+    <div class="featured-grid">
+        <a href="/Shop" style="text-decoration:none;display:block">
+            <div class="featured-card reveal">
+                <div class="featured-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuARVgMhyzoI6Smj0oPQvb5EahAIXB_38_56mSOVnghtL235ybJGu_-wqfE09oiqyhoOFeWEJz4GpYWw2gKgr1SzQHi7tZrpfel_S8x1Mz6okOoJCE8DwfKr8JwVSVxj4mcGOb1wbSnhY4vV-Y61xEUc6d3N2_2iekbWWWEY1HQC8UzZMW41fhf-DT0a6vsYnjkULMpji1sl-X6_JYeJP4Du889tsNIxVeABXxevRU_Iz3f-f41XQqxeCuIg6j-yRVai0_bxxnL1e9Y')"></div>
+                <div class="featured-overlay">
+                    <div class="featured-label">Chất Liệu</div>
+                    <div class="featured-name">Premium Linen</div>
+                    <div class="featured-desc">Thoáng mát, thấm hút cho khí hậu nhiệt đới Việt Nam.</div>
+                </div>
+            </div>
+        </a>
+        <a href="/Shop" style="text-decoration:none;display:block;position:relative">
+            <div class="featured-card reveal reveal-delay-1">
+                <div class="featured-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAHa0dGbtnLOGcpLrHULSnKJd8dkRyRY9_ern0WXhaREb8DaFpr-hDNwLKvamyY6Ur2VyvS0YTj7OZzC4bkpjBL3M06s5PSAm0Jaup9Vk4PuhKQucPRv99jA3mF3nFUcgPMNVV25bd6MquffqY6TrMmJpjFmOBwmfgKpGyNov2nnIv2RbZbyA7NNSdr_vAwwW9LR4xO5TZUQuH-IkcrVu0e1fpR-2w_aElSGsrpfQVF9ubJne0SPbJ-pobZhU-ho6dnMr0YDxGHk9o')"></div>
+                <div class="featured-center-badge">Editor's Pick</div>
+                <div class="featured-overlay">
+                    <div class="featured-label">Thiết Kế</div>
+                    <div class="featured-name">Minimalist Cuts</div>
+                    <div class="featured-desc">Đường cắt tinh xảo tạo phom dáng hiện đại và phóng khoáng.</div>
+                </div>
+            </div>
+        </a>
+        <a href="/Shop" style="text-decoration:none;display:block">
+            <div class="featured-card reveal reveal-delay-2">
+                <div class="featured-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBFftwvdpDaHW08YhKcJ2uFrLUrkWNppyhBP7WKvaeUWl5iOxOtnQ9ZHEMouyygxTe_CvtObIn0IRm6OnT-L0VkfsG6ohyoDjC8tfx3vOxQezKtdYXmBHCmps-QozYTnYN5hN95AG1ap56Eyrc0Y3ozjWM3G0mI3M0aQfCy5ynONw43GjIN5A_7gFsr0IAOaBRijVBNAFpqR5rrzfjfyVYTepGv8CKRwLUfq_51Ldu5np80l53tQAuEBMNS_lMy3pVZJizigaQ')"></div>
+                <div class="featured-overlay">
+                    <div class="featured-label">Thủ Công</div>
+                    <div class="featured-name">Artisan Crafted</div>
+                    <div class="featured-desc">Kỹ thuật truyền thống kết hợp quy trình hiện đại.</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- ======= NEWSLETTER ======= -->
+<section class="section-newsletter">
+    <div class="newsletter-bg"></div>
+    <div class="newsletter-content reveal">
+        <div class="newsletter-label">Stay Connected</div>
+        <h2 class="newsletter-title">Kết Nối<br />Với <em>Chúng Tôi</em></h2>
+        <p class="newsletter-subtitle">
+            Nhận thông tin về bộ sưu tập mới và các ưu đãi đặc quyền sớm nhất.<br />
+            Chúng tôi không gửi spam — chỉ những điều thực sự quan trọng.
+        </p>
+        <div class="newsletter-form">
+            <input class="newsletter-input" type="email" placeholder="Email của bạn" />
+            <button href="/Account/Loginn" " class="newsletter-btn">Đăng Ký</button>
+        </div>
+    </div>
+</section>
+
+<!-- ======= FOOTER ======= -->
+<footer>
+    <div class="footer-top">
+        <div>
+            <div class="footer-brand-logo">
+                <svg width="18" height="18" viewBox="0 0 48 48" fill="none">
+                    <path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="#bd002c" />
+                </svg>
+                Kizuna
+            </div>
+            <p class="footer-brand-desc">
+                Thời trang tối giản lấy cảm hứng từ tinh thần Nhật Bản.
+                Mang lại sự tĩnh lặng và tự do trong từng trang phục.
+            </p>
+            <div class="footer-socials">
+                <a href="@Url.Action("Contact", "Home")" class="footer-social">IG</a>
+                <a href="@Url.Action("Contact", "Home")" class="footer-social">FB</a>
+                <a href="@Url.Action("Contact", "Home")" class="footer-social">TT</a>
+            </div>
+        </div>
+        <div>
+            <div class="footer-col-title">Mua Sắm</div>
+            <ul class="footer-links">
+                <li><a href="/Shop">Bộ sưu tập mới</a></li>
+                <li><a href="/Shop">Áo Haori &amp; Kimono</a></li>
+                <li><a href="/Shop">Quần Wide-leg</a></li>
+                <li><a href="/Shop">Phụ kiện</a></li>
+                <li><a href="/Shop">Sale</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="footer-col-title">Hỗ Trợ</div>
+            <ul class="footer-links">
+                <li><a href="@Url.Action("SizeGuide", "Home")">Hướng dẫn chọn size</a></li>
+                <li><a href="@Url.Action("ShippingPolicy", "Home")">Chính sách vận chuyển</a></li>
+                <li><a href="@Url.Action("ReturnPolicy", "Home")">Chính sách đổi trả</a></li>
+                <li><a href="@Url.Action("Faq", "Home")">Câu hỏi thường gặp</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="footer-col-title">Liên Hệ</div>
+            <ul class="footer-links">
+                <li><a href="@Url.Action("Contact", "Home")">123 Đường Tố Hữu, Q.1</a></li>
+                <li><a href="@Url.Action("Contact", "Home")">TP. Hồ Chí Minh</a></li>
+                <li><a href="@Url.Action("Contact", "Home")">+84 123 456 789</a></li>
+                <li><a href="@Url.Action("Contact", "Home")">hello@kizunaclothing.vn</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Kizuna Clothing. All rights reserved.</span>
+        <div class="footer-legal">
+            <a href="@Url.Action("TermsOfService", "Home")">Điều khoản dịch vụ</a>
+            <a href="@Url.Action("PrivacyPolicy", "Home")">Chính sách bảo mật</a>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — Kizuna Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Josefin+Sans:wght@200;300;400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <div class="admin-shell">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
+                    <path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="#bd002c" />
+                </svg>
+                <span class="brand-text">Kizuna</span>
+                <span class="brand-tag">Admin</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Main</div>
+
+                <a href="/Admin/Dashboard"
+                       class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="/Admin/Product"
+                       class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Product" ? "active" : "")">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                    <span>Products</span>
+                </a>
+
+                <a href="/Admin/Order"
+                       class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Order" ? "active" : "")">
+                    <span class="material-symbols-outlined">shopping_bag</span>
+                    <span>Orders</span>
+                </a>
+
+                <a href="/Admin/Customer"
+                       class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Customer" ? "active" : "")">
+                    <span class="material-symbols-outlined">group</span>
+                    <span>Customers</span>
+                </a>
+
+                <div class="nav-section-label" style="margin-top:16px">System</div>
+
+                <a href="/Admin/Analytics"
+                       class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Analytics" ? "active" : "")">
+                    <span class="material-symbols-outlined">analytics</span>
+                    <span>Analytics</span>
+                </a>
+
+                <a href="/Admin/Settings"
+                       class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Settings" ? "active" : "")">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="/" class="nav-item">
+                    <span class="material-symbols-outlined">storefront</span>
+                    <span>View Store</span>
+                </a>
+                <form action="/Identity/Account/Logout" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="returnUrl" value="/" />
+                    <button type="submit" class="nav-item nav-logout">
+                        <span class="material-symbols-outlined">logout</span>
+                        <span>Sign Out</span>
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <div class="main-wrap">
+            <header class="topbar">
+                <div class="topbar-search">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input type="text" placeholder="Search orders, products..." class="search-input" />
+                </div>
+                <div class="topbar-right">
+                    <button class="icon-btn-admin">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="notif-dot"></span>
+                    </button>
+                    <div class="admin-user">
+                        <div class="admin-user-info">
+                            <span class="admin-name">@User.Identity?.Name</span>
+                            <span class="admin-role">Administrator</span>
+                        </div>
+                        <div class="admin-avatar">
+                            <span class="material-symbols-outlined" style="font-size:20px">account_circle</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="page-content">
+                @RenderBody()
+            </main>
+
+            <footer class="admin-footer">
+                <span>© 2025 Kizuna Clothing — Internal Admin System</span>
+                <div style="display:flex;gap:24px">
+                    <a href="#">Help</a>
+                    <a href="#">Privacy</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

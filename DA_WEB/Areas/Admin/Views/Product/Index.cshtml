@@ -1,0 +1,137 @@
+﻿@model IEnumerable<DA_WEB.Models.Product>
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert-success">
+        <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle">check_circle</span>
+        @TempData["Success"]
+    </div>
+}
+
+<div class="page-heading" style="display:flex;justify-content:space-between;align-items:flex-end">
+    <div>
+        <div class="page-eyebrow">Admin — Products</div>
+        <h1 class="page-title">Product <em>Catalogue</em></h1>
+        <p class="page-subtitle">@Model.Count() products total</p>
+    </div>
+
+    <!-- FIX CREATE -->
+    <a href="/Admin/Product/Create" class="btn-primary-admin">
+        <span class="material-symbols-outlined" style="font-size:16px">add</span>
+        Add Product
+    </a>
+</div>
+
+<div class="card" style="margin-top:0">
+    <div class="card-header">
+        <span class="card-title">All Products</span>
+        <div style="display:flex;gap:12px;align-items:center">
+            <input type="text" id="searchInput" placeholder="Search products..."
+                   class="search-input" style="width:220px"
+                   onkeyup="filterTable()" />
+        </div>
+    </div>
+
+    <table class="admin-table" id="productTable">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(p.ImageUrl))
+                        {
+                            <div style="width:48px;height:48px;background-image:url('@p.ImageUrl');background-size:cover;background-position:center;border:1px solid var(--warm-mid)"></div>
+                        }
+                        else
+                        {
+                            <div style="width:48px;height:48px;background:var(--paper);border:1px solid var(--warm-mid);display:flex;align-items:center;justify-content:center">
+                                <span class="material-symbols-outlined" style="color:var(--muted);font-size:20px">image</span>
+                            </div>
+                        }
+                    </td>
+
+                    <td>
+                        <div class="td-bold">@p.Name</div>
+                        <div class="td-muted" style="font-size:10px;margin-top:2px">
+                            @(p.Description?.Length > 40 ? p.Description[..40] + "..." : p.Description)
+                        </div>
+                    </td>
+
+                    <td class="td-muted">@(p.Category?.Name ?? "—")</td>
+
+                    <td>
+                        <div class="td-bold">@p.Price.ToString("N0")₫</div>
+                        @if (p.SalePrice.HasValue)
+                        {
+                            <div style="font-size:10px;color:var(--primary)">
+                                Sale: @p.SalePrice.Value.ToString("N0")₫
+                            </div>
+                        }
+                    </td>
+
+                    <td>
+                        <span class="@(p.Stock < 10 ? "badge badge-shipping" : "badge badge-delivered")">
+                            @p.Stock
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge @(p.IsActive ? "badge-delivered" : "badge-pending")">
+                            @(p.IsActive ? "Active" : "Inactive")
+                        </span>
+                    </td>
+
+                    <td>
+                        <div style="display:flex;gap:8px">
+
+                            <!-- FIX EDIT -->
+                            <a href="/Admin/Product/Edit/@p.Id" class="action-btn action-edit">
+                                <span class="material-symbols-outlined" style="font-size:16px">edit</span>
+                            </a>
+
+                            <!-- FIX DELETE -->
+                            <form action="/Admin/Product/Delete/@p.Id" method="post"
+                                  onsubmit="return confirm('Delete @p.Name?')">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="action-btn action-delete">
+                                    <span class="material-symbols-outlined" style="font-size:16px">delete</span>
+                                </button>
+                            </form>
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        function filterTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#productTable tbody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+    </script>
+}

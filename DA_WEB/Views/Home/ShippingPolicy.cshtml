@@ -1,0 +1,217 @@
+﻿@{
+    ViewData["Title"] = "Chính Sách Vận Chuyển - WabiSabi Style";
+    Layout = "_LayoutTailwind"; // <-- Sử dụng layout mới
+}
+
+<!-- Header / Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 py-4 bg-white dark:bg-background-dark">
+    <div class="flex items-center gap-8">
+        <div class="flex items-center gap-3 text-primary">
+            <div class="size-6">
+                <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z"></path>
+                </svg>
+            </div>
+            <h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight uppercase">WabiSabi Style</h2>
+        </div>
+        <nav class="hidden md:flex items-center gap-9">
+            <a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="@Url.Action("Index", "Home")">Sản phẩm</a> <!-- Giả sử sản phẩm ở controller khác -->
+            <a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Bộ sưu tập</a>
+            <a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Câu chuyện</a>
+        </nav>
+    </div>
+    <div class="flex flex-1 justify-end gap-6">
+        <div class="hidden lg:flex items-center bg-slate-100 dark:bg-slate-800 rounded px-3 py-1.5">
+            <span class="material-symbols-outlined text-slate-500 text-xl">search</span>
+            <input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-slate-400" placeholder="Tìm kiếm trang phục..." type="text" />
+        </div>
+        <div class="flex gap-4">
+            <button class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">shopping_bag</span>
+            </button>
+            <button class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">person</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Breadcrumb & Hero -->
+<main class="flex-1 max-w-[1200px] mx-auto w-full px-6 py-8">
+    <nav class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-8">
+        <a class="hover:text-primary" href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <span class="material-symbols-outlined text-xs">chevron_right</span>
+        <span class="text-slate-900 dark:text-slate-100 font-medium">Chính sách vận chuyển</span>
+    </nav>
+    <div class="relative h-[300px] w-full rounded-xl overflow-hidden mb-12 group">
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
+        <div class="absolute inset-0 bg-cover bg-center" data-alt="Minimalist warehouse with Japanese aesthetic parcels" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDWlev6o5RiHdTaEsxCLbS02Dbg1qb8njSL9TKjqRSwcRZfecr0MJ2oJj83wEKfYwYdSP1HjM3X2CnnR1jwSHmnY3HRCaJVF5hnVpVE8lKn93iT2iP7RC1mPZbw5BAL03l_tJWAC1S_pmWiVtH2qDSuyJBOk9x0lCZNpVjxlbCvPSl8B5PbbaCP_qkJ73s680VJomU6iikmsLIP4PRJX5Q4x-Ru3rPsVuVQSWssiOxrei4qFPpy6Ll9lfMXZHp0VNrrj1smTiibuaE')"></div>
+        <div class="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
+            <h1 class="text-white text-4xl md:text-5xl font-bold mb-4 tracking-tight">VẬN CHUYỂN TẬN TÂM</h1>
+            <div class="h-1 w-20 bg-primary mb-4"></div>
+            <p class="text-slate-100 text-lg max-w-2xl font-light">
+                Mang phong cách tối giản Nhật Bản đến tận ngưỡng cửa nhà bạn với quy trình giao nhận an toàn và chuyên nghiệp.
+            </p>
+        </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <!-- Highlight Cards -->
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-lg border border-slate-100 dark:border-slate-800 text-center shadow-sm">
+            <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined">public</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Toàn Quốc</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Giao hàng đến 63 tỉnh thành trên khắp lãnh thổ Việt Nam, kể cả vùng sâu vùng xa.</p>
+        </div>
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-lg border border-slate-100 dark:border-slate-800 text-center shadow-sm">
+            <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined">schedule</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">2 - 4 Ngày</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Thời gian nhận hàng dự kiến nhanh chóng, đảm bảo trang phục luôn phẳng phiu.</p>
+        </div>
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-lg border border-slate-100 dark:border-slate-800 text-center shadow-sm">
+            <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined">local_shipping</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Đối Tác Uy Tín</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Hợp tác cùng GHTK, Viettel Post và VNPost để bảo đảm an toàn kiện hàng.</p>
+        </div>
+    </div>
+
+    <!-- Detailed Policy Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div class="space-y-10">
+            <section>
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-primary font-bold text-xl">01.</span>
+                    <h2 class="text-2xl font-bold tracking-tight uppercase">Phí vận chuyển</h2>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded overflow-hidden">
+                    <div class="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                        <span class="text-slate-600 dark:text-slate-400">Đơn hàng dưới 1.000.000đ</span>
+                        <span class="font-bold">30.000đ</span>
+                    </div>
+                    <div class="p-4 bg-primary/5 flex justify-between items-center">
+                        <span class="text-slate-900 dark:text-slate-100 font-medium">Đơn hàng từ 1.000.000đ trở lên</span>
+                        <span class="text-primary font-bold">MIỄN PHÍ</span>
+                    </div>
+                </div>
+                <p class="mt-4 text-sm text-slate-500 italic">* Áp dụng cho mọi khu vực tại Việt Nam.</p>
+            </section>
+            <section>
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-primary font-bold text-xl">02.</span>
+                    <h2 class="text-2xl font-bold tracking-tight uppercase">Quy trình theo dõi</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full border-2 border-primary flex items-center justify-center text-primary font-bold text-xs">1</div>
+                            <div class="w-0.5 h-full bg-slate-200 dark:bg-slate-700 my-1"></div>
+                        </div>
+                        <div class="pb-6">
+                            <h4 class="font-bold text-slate-900 dark:text-slate-100">Xác nhận đơn hàng</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Email xác nhận sẽ được gửi ngay sau khi bạn đặt hàng thành công.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full border-2 border-primary flex items-center justify-center text-primary font-bold text-xs">2</div>
+                            <div class="w-0.5 h-full bg-slate-200 dark:bg-slate-700 my-1"></div>
+                        </div>
+                        <div class="pb-6">
+                            <h4 class="font-bold text-slate-900 dark:text-slate-100">Gửi mã vận đơn</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Khi kiện hàng rời kho, bạn sẽ nhận được mã Tracking qua SMS/Email.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full border-2 border-primary flex items-center justify-center text-primary font-bold text-xs">3</div>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-slate-100">Theo dõi trực tuyến</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Tra cứu hành trình đơn hàng trực tiếp trên website của đối tác vận chuyển.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="bg-slate-900 text-white p-10 rounded-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-bl-full"></div>
+            <h2 class="text-2xl font-bold mb-6 tracking-tight uppercase border-b border-slate-700 pb-4">Lưu ý quan trọng</h2>
+            <ul class="space-y-6">
+                <li class="flex gap-4">
+                    <span class="material-symbols-outlined text-primary">info</span>
+                    <p class="text-slate-300 text-sm leading-relaxed">Thời gian giao hàng không bao gồm các ngày nghỉ Lễ, Tết theo quy định của Nhà nước.</p>
+                </li>
+                <li class="flex gap-4">
+                    <span class="material-symbols-outlined text-primary">package_2</span>
+                    <p class="text-slate-300 text-sm leading-relaxed">Kiện hàng được đóng gói tỉ mỉ theo tiêu chuẩn WabiSabi để tránh va đập và ẩm mốc trong quá trình vận chuyển.</p>
+                </li>
+                <li class="flex gap-4">
+                    <span class="material-symbols-outlined text-primary">call</span>
+                    <p class="text-slate-300 text-sm leading-relaxed">Trong trường hợp gặp sự cố khách quan (thiên tai, dịch bệnh), chúng tôi sẽ thông báo ngay lập tức để bạn yên tâm.</p>
+                </li>
+            </ul>
+            <div class="mt-12 p-6 bg-slate-800 rounded border border-slate-700">
+                <h4 class="font-bold mb-2">Cần hỗ trợ?</h4>
+                <p class="text-slate-400 text-sm mb-4">Đội ngũ chăm sóc khách hàng của chúng tôi luôn sẵn sàng hỗ trợ bạn.</p>
+                <div class="flex flex-col gap-2">
+                    <a class="text-primary font-bold text-lg hover:underline" href="tel:19001234">1900 1234</a>
+                    <a class="text-slate-300 text-sm hover:text-white transition-colors underline" href="mailto:support@wabisabi.vn">support@wabisabi.vn</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-12 px-6 md:px-20">
+    <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="col-span-1 md:col-span-1">
+            <div class="flex items-center gap-3 text-primary mb-6">
+                <div class="size-5">
+                    <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-slate-900 dark:text-white text-lg font-bold tracking-tight">WABISABI</h2>
+            </div>
+            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                Mang tinh hoa tối giản Nhật Bản vào từng sợi vải. Vẻ đẹp nằm ở sự không hoàn hảo và giản đơn.
+            </p>
+        </div>
+        <div>
+            <h4 class="font-bold mb-6 uppercase text-sm tracking-widest">Khám phá</h4>
+            <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
+                <li><a class="hover:text-primary" href="@Url.Action("Index", "Home")">Sản phẩm mới</a></li> <!-- Giả sử -->
+                <li><a class="hover:text-primary" href="#">Bán chạy nhất</a></li>
+                <li><a class="hover:text-primary" href="#">Bộ sưu tập Xuân-Hè</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold mb-6 uppercase text-sm tracking-widest">Chính sách</h4>
+            <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
+                <!-- Chỉnh sửa link này -->
+                <li><a class="text-primary font-medium" href="@Url.Action("ShippingPolicy", "Home")">Chính sách vận chuyển</a></li>
+                <li><a class="hover:text-primary" href="@Url.Action("ReturnPolicy", "Home")">Chính sách đổi trả</a></li>
+                <li><a class="hover:text-primary" href="@Url.Action("PrivacyPolicy", "Home")">Bảo mật thông tin</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold mb-6 uppercase text-sm tracking-widest">Đăng ký bản tin</h4>
+            <div class="flex">
+                <input class="bg-slate-100 dark:bg-slate-800 border-none text-sm w-full px-4 py-2 focus:ring-1 focus:ring-primary rounded-l" placeholder="Email của bạn" type="email" />
+                <button class="bg-primary text-white px-4 py-2 rounded-r">
+                    <span class="material-symbols-outlined text-sm">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-[1200px] mx-auto mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 text-center text-xs text-slate-400">
+        © 2024 WabiSabi Style. Designed with Zen Spirit. All Rights Reserved.
+    </div>
+</footer>

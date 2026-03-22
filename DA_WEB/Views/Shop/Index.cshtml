@@ -1,0 +1,454 @@
+﻿@model IEnumerable<DA_WEB.Models.Product>
+@{
+    ViewData["Title"] = "All Products";
+    Layout = "~/Views/Shared/_LayoutKizuna.cshtml";
+}
+
+@section Styles {
+<style>
+    /* CSS từ file bạn cung cấp */
+    .shop-hero {
+        background: var(--ink);
+        padding: 80px 48px 64px;
+        position: relative;
+        overflow: hidden;
+    }
+    .shop-hero::before {
+        content: 'SHOP';
+        position: absolute;
+        right: -20px; top: -20px;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 200px; font-weight: 300;
+        color: rgba(255,255,255,0.03);
+        line-height: 1; user-select: none;
+        pointer-events: none;
+    }
+    .shop-eyebrow {
+        font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase;
+        color: var(--primary); margin-bottom: 16px;
+        display: flex; align-items: center; gap: 10px;
+    }
+    .shop-eyebrow::before {
+        content: ''; display: block;
+        width: 24px; height: 1px; background: var(--primary);
+    }
+    .shop-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(48px, 6vw, 80px);
+        font-weight: 300; color: white; line-height: 1.05;
+    }
+    .shop-title em { font-style: italic; color: var(--accent-gold); }
+    .shop-desc {
+        font-size: 12px; font-weight: 300; letter-spacing: 0.06em;
+        color: rgba(255,255,255,0.45); margin-top: 16px; line-height: 1.9;
+        max-width: 480px;
+    }
+
+    /* LAYOUT */
+    .shop-layout {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 0;
+        min-height: 70vh;
+    }
+
+    /* SIDEBAR */
+    .shop-sidebar {
+        background: white;
+        border-right: 1px solid var(--warm-mid);
+        padding: 40px 28px;
+        position: sticky;
+        top: 72px;
+        height: fit-content;
+    }
+    .filter-section { margin-bottom: 36px; }
+    .filter-title {
+        font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
+        color: var(--ink); font-weight: 600;
+        margin-bottom: 16px;
+        display: flex; align-items: center; gap: 8px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--warm-mid);
+    }
+    .filter-title::before {
+        content: ''; display: block;
+        width: 16px; height: 1px; background: var(--primary);
+    }
+    .filter-item {
+        display: flex; align-items: center; gap: 10px;
+        padding: 8px 0; cursor: pointer;
+        font-size: 11px; letter-spacing: 0.05em;
+        color: var(--muted); transition: color 0.2s;
+        text-decoration: none;
+    }
+    .filter-item:hover { color: var(--primary); }
+    .filter-item.active { color: var(--ink); font-weight: 600; }
+    .filter-item input[type="checkbox"] { accent-color: var(--primary); }
+
+    .size-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .size-btn {
+        width: 36px; height: 36px;
+        border: 1px solid var(--warm-mid);
+        background: none; cursor: pointer;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 10px; letter-spacing: 0.1em;
+        color: var(--muted);
+        transition: all 0.2s;
+    }
+    .size-btn:hover, .size-btn.active {
+        border-color: var(--primary);
+        background: var(--primary);
+        color: white;
+    }
+
+    .price-range { width: 100%; accent-color: var(--primary); cursor: pointer; }
+
+    .btn-filter {
+        width: 100%; padding: 12px;
+        background: var(--ink); color: white;
+        border: none; cursor: pointer;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+        transition: background 0.2s;
+        margin-top: 8px;
+        clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+    }
+    .btn-filter:hover { background: var(--primary); }
+
+    /* PRODUCT GRID */
+    .shop-main { padding: 32px 40px; background: var(--paper); }
+
+    .shop-toolbar {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 32px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--warm-mid);
+    }
+    .product-count {
+        font-size: 11px; letter-spacing: 0.05em; color: var(--muted);
+    }
+    .product-count strong { color: var(--ink); }
+
+    .sort-select {
+        border: 1px solid var(--warm-mid);
+        background: white;
+        padding: 8px 14px;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 10px; letter-spacing: 0.1em;
+        color: var(--ink); outline: none;
+        cursor: pointer;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+    }
+
+    .product-card {
+        background: white;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .product-img-wrap {
+        position: relative;
+        aspect-ratio: 3/4;
+        overflow: hidden;
+        background: var(--warm-mid);
+        margin-bottom: 16px;
+    }
+
+    .product-img {
+        width: 100%; height: 100%;
+        background-size: cover; background-position: center top;
+        transition: transform 0.7s cubic-bezier(.16,1,.3,1);
+        filter: grayscale(20%);
+    }
+    .product-card:hover .product-img {
+        transform: scale(1.06);
+        filter: grayscale(0%);
+    }
+
+    .product-badge {
+        position: absolute; top: 14px; left: 14px;
+        background: var(--primary); color: white;
+        font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase;
+        padding: 4px 10px;
+    }
+    .product-badge-black {
+        background: var(--ink);
+    }
+
+    .product-actions {
+        position: absolute; inset: 0;
+        background: rgba(26,20,16,0.2);
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        opacity: 0; transition: opacity 0.3s;
+    }
+    .product-card:hover .product-actions { opacity: 1; }
+
+    .action-btn {
+        width: 44px; height: 44px;
+        background: white; border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 18px;
+        transform: translateY(8px);
+        transition: transform 0.3s, background 0.2s;
+        color: var(--ink);
+    }
+    .action-btn:nth-child(2) { transition-delay: 0.05s; }
+    .product-card:hover .action-btn { transform: translateY(0); }
+    .action-btn:hover { background: var(--primary); color: white; }
+    .action-btn .material-symbols-outlined { font-size: 18px; }
+
+    .product-cat {
+        font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+        color: var(--muted); margin-bottom: 6px;
+    }
+    .product-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 20px; font-weight: 400; color: var(--ink);
+        margin-bottom: 8px; line-height: 1.2;
+        transition: color 0.2s;
+    }
+    .product-card:hover .product-name { color: var(--primary); }
+
+    .product-price-row { display: flex; align-items: center; gap: 10px; }
+    .product-price {
+        font-size: 13px; font-weight: 400; color: var(--ink); letter-spacing: 0.05em;
+    }
+    .product-price-sale {
+        font-size: 13px; color: var(--primary); letter-spacing: 0.05em;
+    }
+    .product-price-original {
+        font-size: 11px; color: var(--muted);
+        text-decoration: line-through;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+        text-align: center; padding: 80px 40px;
+        grid-column: 1 / -1;
+    }
+    .empty-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 36px; font-weight: 300; color: var(--ink); margin-bottom: 12px;
+    }
+    .empty-desc { font-size: 12px; color: var(--muted); letter-spacing: 0.05em; }
+
+    /* PAGINATION */
+    .pagination {
+        display: flex; justify-content: center; align-items: center;
+        gap: 6px; margin-top: 48px;
+    }
+    .page-btn {
+        width: 38px; height: 38px;
+        border: 1px solid var(--warm-mid);
+        background: white; cursor: pointer;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 11px; letter-spacing: 0.05em; color: var(--muted);
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.2s; text-decoration: none;
+    }
+    .page-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .page-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+    .page-btn .material-symbols-outlined { font-size: 16px; }
+
+    /* REVEAL ANIMATION */
+    .product-card {
+        opacity: 0; transform: translateY(20px);
+        animation: cardReveal 0.5s ease forwards;
+    }
+    .product-card:nth-child(1) { animation-delay: 0.05s; }
+    .product-card:nth-child(2) { animation-delay: 0.10s; }
+    .product-card:nth-child(3) { animation-delay: 0.15s; }
+    .product-card:nth-child(4) { animation-delay: 0.20s; }
+    .product-card:nth-child(5) { animation-delay: 0.25s; }
+    .product-card:nth-child(6) { animation-delay: 0.30s; }
+    .product-card:nth-child(7) { animation-delay: 0.35s; }
+    .product-card:nth-child(8) { animation-delay: 0.40s; }
+    .product-card:nth-child(9) { animation-delay: 0.45s; }
+
+    @@keyframes cardReveal {
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+}
+
+<!-- HERO -->
+<div class="shop-hero">
+    <div class="shop-eyebrow">Kizuna Clothing</div>
+    <h1 class="shop-title">All <em>Products</em></h1>
+    <p class="shop-desc">
+        The perfect blend of traditional craftsmanship and contemporary minimalist style.
+        Discover quiet elegance in every stitch.
+    </p>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="background:white;padding:14px 48px;border-bottom:1px solid var(--warm-mid);display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)">
+    <a href="/" style="color:var(--muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--muted)'">Home</a>
+    <span>›</span>
+    <span style="color:var(--ink)">Shop</span>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="shop-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="shop-sidebar">
+
+        <div class="filter-section">
+            <div class="filter-title">Category</div>
+            <a href="/Shop" class="filter-item @(ViewBag.SelectedCategory == null ? "active" : "")">
+                All Products
+            </a>
+            @if (ViewBag.Categories != null)
+            {
+                foreach (var cat in (IEnumerable<DA_WEB.Models.Category>)ViewBag.Categories)
+                {
+                    <a href="/Shop?categoryId=@cat.Id"
+                       class="filter-item @(ViewBag.SelectedCategory?.ToString() == cat.Id.ToString() ? "active" : "")">
+                        @cat.Name
+                    </a>
+                }
+            }
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-title">Size</div>
+            <div class="size-grid">
+                <button class="size-btn">S</button>
+                <button class="size-btn active">M</button>
+                <button class="size-btn">L</button>
+                <button class="size-btn">XL</button>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-title">Price Range</div>
+            <input type="range" class="price-range" min="0" max="5000000" step="100000" value="5000000"
+                   oninput="document.getElementById('priceVal').textContent = Number(this.value).toLocaleString('vi-VN') + '₫'" />
+            <div style="display:flex;justify-content:space-between;font-size:9px;letter-spacing:0.1em;color:var(--muted);margin-top:6px">
+                <span>0₫</span>
+                <span id="priceVal">5,000,000₫</span>
+            </div>
+        </div>
+
+        <button class="btn-filter">Apply Filters</button>
+
+    </aside>
+
+    <!-- PRODUCT GRID -->
+    <div class="shop-main">
+
+        <div class="shop-toolbar">
+            <p class="product-count">
+                Showing <strong>@Model.Count()</strong> products
+            </p>
+            <select class="sort-select">
+                <option>Newest</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Most Popular</option>
+            </select>
+        </div>
+
+        <div class="products-grid">
+            @if (!Model.Any())
+            {
+                <div class="empty-state">
+                    <div class="empty-title">No products yet</div>
+                    <p class="empty-desc">Check back soon for new arrivals.</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var product in Model)
+                {
+                    <div class="product-card">
+                        <a href="/Shop/Detail/@product.Id" style="text-decoration:none;color:inherit">
+                            <div class="product-img-wrap">
+                                @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                {
+                                    <div class="product-img"
+                                         style="background-image:url('@product.ImageUrl')"></div>
+                                }
+                                else
+                                {
+                                    <div class="product-img"
+                                         style="background:var(--warm-mid);display:flex;align-items:center;justify-content:center">
+                                        <span class="material-symbols-outlined" style="font-size:48px;color:var(--muted)">image</span>
+                                    </div>
+                                }
+
+                                @if (product.SalePrice.HasValue)
+                                {
+                                    <div class="product-badge">Sale</div>
+                                }
+                                else if ((DateTime.Now - product.CreatedAt).TotalDays < 14)
+                                {
+                                    <div class="product-badge">New</div>
+                                }
+
+                                <div class="product-actions">
+                                    <button class="action-btn" title="Quick view">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                    </button>
+                                    <!-- FORM CHO NÚT ADD TO CART -->
+                                    <form asp-controller="Cart" asp-action="Add" method="post" style="display:inline;" title="Add to cart">
+                                        <input type="hidden" name="productId" value="@product.Id" />
+                                        <input type="hidden" name="quantity" value="1" />
+                                        <button type="submit" class="action-btn">
+                                            <span class="material-symbols-outlined">add_shopping_cart</span>
+                                        </button>
+                                    </form>
+                                    <!-- HẾT FORM -->
+                                </div>
+                            </div>
+
+                            @if (product.Category != null)
+                            {
+                                <div class="product-cat">@product.Category.Name</div>
+                            }
+                            <div class="product-name">@product.Name</div>
+                            <div class="product-price-row">
+                                @if (product.SalePrice.HasValue)
+                                {
+                                    <span class="product-price-sale">@product.SalePrice.Value.ToString("N0")₫</span>
+                                    <span class="product-price-original">@product.Price.ToString("N0")₫</span>
+                                }
+                                else
+                                {
+                                    <span class="product-price">@product.Price.ToString("N0")₫</span>
+                                }
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- PAGINATION -->
+        @if (Model.Any())
+        {
+            <div class="pagination">
+                <a href="#" class="page-btn">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </a>
+                <a href="#" class="page-btn active">1</a>
+                <a href="#" class="page-btn">2</a>
+                <a href="#" class="page-btn">3</a>
+                <span style="color:var(--muted);font-size:12px">...</span>
+                <a href="#" class="page-btn">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>
+
+<!-- MATERIAL ICONS -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />

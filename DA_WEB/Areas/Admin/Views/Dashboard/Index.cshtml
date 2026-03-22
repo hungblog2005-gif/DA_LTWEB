@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- PAGE HEADING -->
+<div class="page-heading">
+    <div class="page-eyebrow">Admin Panel</div>
+    <h1 class="page-title">System <em>Overview</em></h1>
+    <p class="page-subtitle">Welcome back. Here's what's happening with Kizuna today.</p>
+</div>
+
+<!-- STAT CARDS -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-label">Total Revenue</span>
+            <span class="material-symbols-outlined stat-icon">payments</span>
+        </div>
+        <div class="stat-value">245,000,000₫</div>
+        <div class="stat-trend trend-up">
+            <span class="material-symbols-outlined">trending_up</span>
+            12.5% vs last month
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-label">New Orders</span>
+            <span class="material-symbols-outlined stat-icon">shopping_bag</span>
+        </div>
+        <div class="stat-value">128</div>
+        <div class="stat-trend trend-down">
+            <span class="material-symbols-outlined">trending_down</span>
+            2.4% vs last month
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-label">New Customers</span>
+            <span class="material-symbols-outlined stat-icon">person_add</span>
+        </div>
+        <div class="stat-value">1,420</div>
+        <div class="stat-trend trend-up">
+            <span class="material-symbols-outlined">trending_up</span>
+            5.8% vs last month
+        </div>
+    </div>
+</div>
+
+<!-- CONTENT GRID -->
+<div class="content-grid">
+
+    <!-- RECENT ORDERS -->
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Recent Orders</span>
+            <a href="#" class="card-link">View all</a>
+        </div>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-bold">#KZ-9921</td>
+                    <td>Pham Minh Anh</td>
+                    <td class="td-muted">14:20, 24/05/2025</td>
+                    <td class="td-bold">1,250,000₫</td>
+                    <td><span class="badge badge-pending">Pending</span></td>
+                </tr>
+                <tr>
+                    <td class="td-bold">#KZ-9919</td>
+                    <td>Le Quoc Khanh</td>
+                    <td class="td-muted">12:15, 24/05/2025</td>
+                    <td class="td-bold">3,400,000₫</td>
+                    <td><span class="badge badge-shipping">Shipping</span></td>
+                </tr>
+                <tr>
+                    <td class="td-bold">#KZ-9918</td>
+                    <td>Tran Thu Thao</td>
+                    <td class="td-muted">10:05, 24/05/2025</td>
+                    <td class="td-bold">890,000₫</td>
+                    <td><span class="badge badge-delivered">Delivered</span></td>
+                </tr>
+                <tr>
+                    <td class="td-bold">#KZ-9915</td>
+                    <td>Nguyen Van Nam</td>
+                    <td class="td-muted">09:40, 24/05/2025</td>
+                    <td class="td-bold">2,100,000₫</td>
+                    <td><span class="badge badge-delivered">Delivered</span></td>
+                </tr>
+                <tr>
+                    <td class="td-bold">#KZ-9912</td>
+                    <td>Hoang Bao Chau</td>
+                    <td class="td-muted">08:30, 24/05/2025</td>
+                    <td class="td-bold">1,750,000₫</td>
+                    <td><span class="badge badge-shipping">Shipping</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- TOP PRODUCTS -->
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Top Products</span>
+        </div>
+        <div class="product-list">
+            <div class="product-item">
+                <div class="product-thumb" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCU9rTDTy_9y00UXmc8drvZ_2hWxyPM9y34jHrZwFge9P68Qga6zNSHak00mnz0NggZYsrakFi8AKObfTjZKH_dD4qkmUv9dMN001bQHEW8Sj1getUsiDFXJBuoj0SyLfwiQI_KYgbDntUfqsV9bKrQxO2a8LwjjUmO5SxzcfS05lrSKC_J6QKUpw2ezDfgkikB5a3uojVpaRrZa1cH0BcuHOAe-2wvZqIMLwfWUyu9gXvuaDi-A4oYb-7_3lOw6Uiw4cCpBp3T06k')"></div>
+                <div class="product-info">
+                    <div class="product-name">White Linen Shirt</div>
+                    <div class="product-cat">Menswear</div>
+                </div>
+                <div class="product-stats">
+                    <div class="product-orders">42 orders</div>
+                    <div class="product-growth-up">+12%</div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-thumb" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJL1EPHZgAUHgxod2WtcbX5b1UfffJIr--CYc2jDlnbWBSOgyr8HQFSs2j2J1wcRT23tmUY-o-NkYVzRAq2THvXC8g-u5TGw13Pu-2hltq9vEQAugKDfze7Hk4IxI3iPQNHQ5jTxSZJ7oCFEG88K9AUMKAaxcOXAWDCvsDH7_tzk5k8DiEF3XNFa1To2bvzOyJ14AJkZqxUEt8xT64rd_ozMPiK4nCMcw01aygJKHTa7wx2YvJ_tAKRHYZF6ZvZV8D6dG-7WxEzoU')"></div>
+                <div class="product-info">
+                    <div class="product-name">Oversized Black T-shirt</div>
+                    <div class="product-cat">Unisex</div>
+                </div>
+                <div class="product-stats">
+                    <div class="product-orders">38 orders</div>
+                    <div class="product-growth-up">+8%</div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-thumb" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuALehovlPWDab_prwggaR9g7cL4GekeuyYvZZ7iMMT0xClKI8J_fQOF2G2XlSuDwVPhcZUunNVdA5TnAQt85nIqh1ZDJQer_VQ8Tc6fEXIHFVRAMYLYDPWSS8DgQAYYeyefkrdcKUABVx5-qCluGmY3puUNVI9zp7iK8rNA9CHutHFiavr7l03Af5zi9i1Yt82OirVFlwHnIcJ2yiCx_gJa2YpPSQGCUtFWrw23yTO4pOQVcWWuaLJ7N5ZlTrJVJxxpGlsm5zppDBM')"></div>
+                <div class="product-info">
+                    <div class="product-name">Raw Denim Indigo</div>
+                    <div class="product-cat">Menswear</div>
+                </div>
+                <div class="product-stats">
+                    <div class="product-orders">31 orders</div>
+                    <div class="product-growth-down">-3%</div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-thumb" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBPCAeOBRexe_P7fqidOgpFDyskfH_pHLXctSOeZQhCaMlG6idhf0g4nLVrnNk3NAXFWn3T8zG84y9zuqKKBHy115-I0HYBIhIjO3L4t5cg5_mc_6JoJfiHGW9WXs4y4JJAVQFAlyuau1gzk3_pvOyX5pyfaJbk1F8fnbLpRDshQ7EN6C0Kqriwn9xcttccPjmM6erwY5lVLzY23ZcX9oQACytPzkmFbl6rpHBTVFmBk45yBzaOrhLsajSWihLQnE-BjdphTigLEA')"></div>
+                <div class="product-info">
+                    <div class="product-name">Beige Wool Sweater</div>
+                    <div class="product-cat">Womenswear</div>
+                </div>
+                <div class="product-stats">
+                    <div class="product-orders">25 orders</div>
+                    <div class="product-growth-up">+15%</div>
+                </div>
+            </div>
+        </div>
+        <button class="btn-report">View Full Report</button>
+    </div>
+
+</div>

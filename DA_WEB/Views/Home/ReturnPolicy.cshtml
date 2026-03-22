@@ -1,0 +1,199 @@
+﻿@{
+    ViewData["Title"] = "Chính Sách Đổi Trả & Hoàn Tiền - Kizuna";
+    Layout = "_LayoutTailwind"; // <-- Sử dụng layout mới
+}
+
+<!-- Header/Navigation -->
+<header class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 px-6 md:px-20 py-4 sticky top-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md z-50">
+    <div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+        <div class="text-primary">
+            <span class="material-symbols-outlined text-3xl">filter_vintage</span>
+        </div>
+        <h2 class="text-xl font-black leading-tight tracking-tighter uppercase">KIZUNA</h2>
+    </div>
+    <div class="hidden md:flex flex-1 justify-center gap-10">
+        <a class="text-sm font-medium hover:text-primary transition-colors" href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <a class="text-sm font-medium hover:text-primary transition-colors" href="@Url.Action("Index", "Shop")">Sản phẩm</a> <!-- Giả sử bạn có controller Shop -->
+        <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Bộ sưu tập</a>
+    </div>
+    <div class="flex gap-4">
+        <button class="flex items-center justify-center rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 transition-colors">
+            <span class="material-symbols-outlined text-xl">person</span>
+        </button>
+        <button class="flex items-center justify-center rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 transition-colors">
+            <span class="material-symbols-outlined text-xl">shopping_bag</span>
+        </button>
+    </div>
+</header>
+
+<main class="flex-1 max-w-4xl mx-auto w-full px-6 py-12 md:py-20">
+    <!-- Hero Section -->
+    <section class="mb-16">
+        <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Chính sách Đổi trả &amp; Hoàn tiền</h1>
+        <div class="h-1 w-20 bg-primary mb-6"></div>
+        <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed max-w-2xl">
+            Tại KIZUNA, chúng tôi trân trọng sự tin tưởng của bạn. Nếu sản phẩm không làm bạn hài lòng, chúng tôi sẵn sàng hỗ trợ đổi trả theo quy trình tối giản nhất.
+        </p>
+    </section>
+
+    <!-- Section 1: Return Conditions -->
+    <section class="mb-20">
+        <div class="flex items-center gap-3 mb-8">
+            <span class="material-symbols-outlined text-primary text-3xl">verified</span>
+            <h2 class="text-2xl font-bold tracking-tight uppercase">1. Điều kiện đổi trả</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex items-start gap-4 p-5 border border-slate-100 dark:border-slate-800 rounded-lg bg-slate-50/50 dark:bg-slate-900/50">
+                <span class="material-symbols-outlined text-primary">sell</span>
+                <div>
+                    <p class="font-bold mb-1">Nguyên tem mác</p>
+                    <p class="text-sm text-slate-500">Sản phẩm chưa qua sử dụng, chưa giặt ủi và còn nguyên nhãn mác KIZUNA.</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-4 p-5 border border-slate-100 dark:border-slate-800 rounded-lg bg-slate-50/50 dark:bg-slate-900/50">
+                <span class="material-symbols-outlined text-primary">calendar_today</span>
+                <div>
+                    <p class="font-bold mb-1">Thời hạn 7 ngày</p>
+                    <p class="text-sm text-slate-500">Yêu cầu đổi trả cần được thực hiện trong vòng 7 ngày kể từ khi nhận hàng.</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-4 p-5 border border-slate-100 dark:border-slate-800 rounded-lg bg-slate-50/50 dark:bg-slate-900/50">
+                <span class="material-symbols-outlined text-primary">receipt_long</span>
+                <div>
+                    <p class="font-bold mb-1">Hóa đơn mua hàng</p>
+                    <p class="text-sm text-slate-500">Vui lòng đính kèm hóa đơn hoặc mã đơn hàng điện tử khi yêu cầu đổi trả.</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-4 p-5 border border-slate-100 dark:border-slate-800 rounded-lg bg-slate-50/50 dark:bg-slate-900/50">
+                <span class="material-symbols-outlined text-primary">check_circle</span>
+                <div>
+                    <p class="font-bold mb-1">Lỗi sản xuất</p>
+                    <p class="text-sm text-slate-500">Chúng tôi chấp nhận đổi trả 100% chi phí nếu sản phẩm có lỗi từ nhà sản xuất.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Return Process (Steps) -->
+    <section class="mb-20">
+        <div class="flex items-center gap-3 mb-10">
+            <span class="material-symbols-outlined text-primary text-3xl">potted_plant</span>
+            <h2 class="text-2xl font-bold tracking-tight uppercase">2. Quy trình thực hiện</h2>
+        </div>
+        <div class="relative">
+            <div class="absolute left-6 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-700 hidden md:block"></div>
+            <div class="space-y-12">
+                <div class="flex flex-col md:flex-row gap-6 items-start relative">
+                    <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shrink-0 z-10 font-bold">1</div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Đăng ký yêu cầu</h3>
+                        <p class="text-slate-600 dark:text-slate-400 với chúng tôi qua Hotline hoặc nhắn tin trực tiếp trên Fanpage kèm theo hình ảnh sản phẩm cần đổi trả.</p>
+                            </div>
+                            </div>
+                            <div class="flex flex-col md:flex-row gap-6 items-start relative">
+                            <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shrink-0 z-10 font-bold">2</div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-2">Đóng gói &amp; Gửi hàng</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Đóng gói sản phẩm cẩn thận (nên sử dụng hộp ban đầu của KIZUNA) và gửi về địa chỉ kho trung tâm của chúng tôi.</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-6 items-start relative">
+                            <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shrink-0 z-10 font-bold">3</div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-2">Kiểm tra sản phẩm</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Đội ngũ kiểm định sẽ xác nhận tình trạng sản phẩm trong vòng 24h làm việc kể từ khi nhận được kiện hàng.</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-6 items-start relative">
+                            <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shrink-0 z-10 font-bold">4</div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-2">Hoàn tất</h3>
+                                <p class="text-slate-600 dark:text-slate-400">KIZUNA sẽ tiến hành gửi sản phẩm mới hoặc thực hiện thủ tục hoàn tiền theo yêu cầu của quý khách.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Refund Method -->
+            <section class="mb-20 bg-primary/5 p-8 rounded-xl border border-primary/10">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="material-symbols-outlined text-primary text-3xl">account_balance_wallet</span>
+                    <h2 class="text-2xl font-bold tracking-tight uppercase">3. Phương thức hoàn tiền</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-slate-800 dark:text-slate-200 font-medium mb-4 italic">KIZUNA cung cấp hai lựa chọn hoàn tiền linh hoạt:</p>
+                        <ul class="space-y-4">
+                            <li class="flex gap-3">
+                                <span class="material-symbols-outlined text-primary text-sm mt-1">arrow_forward</span>
+                                <span><strong>Chuyển khoản ngân hàng:</strong> Thực hiện trong vòng 3-5 ngày làm việc.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="material-symbols-outlined text-primary text-sm mt-1">arrow_forward</span>
+                                <span><strong>Kizuna Credit:</strong> Cộng điểm trực tiếp vào tài khoản mua hàng để sử dụng cho lần sau (Xử lý ngay lập tức).</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white dark:bg-background-dark p-6 border border-slate-100 dark:border-slate-800 rounded">
+                        <p class="text-xs uppercase tracking-widest text-slate-400 mb-2">Lưu ý phí vận chuyển</p>
+                        <p class="text-sm leading-relaxed">Phí vận chuyển sẽ được hoàn lại nếu lỗi thuộc về KIZUNA. Các trường hợp đổi trả do thay đổi ý định cá nhân, khách hàng vui lòng thanh toán phí vận chuyển 2 chiều.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Exceptions -->
+            <section class="mb-20">
+                <div class="flex items-center gap-3 mb-8">
+                    <span class="material-symbols-outlined text-primary text-3xl">warning</span>
+                    <h2 class="text-2xl font-bold tracking-tight uppercase">4. Trường hợp ngoại lệ</h2>
+                </div>
+                <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="p-4 border-l-4 border-primary bg-slate-50 dark:bg-slate-900/50">
+                            <p class="font-bold mb-2">Hàng giảm giá</p>
+                            <p class="text-sm text-slate-500">Các sản phẩm trong chương trình "Cuối mùa" hoặc giảm giá trên 50% không áp dụng đổi trả.</p>
+                        </div>
+                        <div class="p-4 border-l-4 border-primary bg-slate-50 dark:bg-slate-900/50">
+                            <p class="font-bold mb-2">Đồ lót &amp; Phụ kiện</p>
+                            <p class="text-sm text-slate-500">Vì lý do vệ sinh, KIZUNA không chấp nhận đổi trả các mặt hàng đồ lót, tất và bông tai.</p>
+                        </div>
+                        <div class="p-4 border-l-4 border-primary bg-slate-50 dark:bg-slate-900/50">
+                            <p class="font-bold mb-2">Hư hỏng do sử dụng</p>
+                            <p class="text-sm text-slate-500">Sản phẩm bị rách, sờn hoặc hư hỏng do bảo quản không đúng cách sau khi nhận hàng.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer Contact -->
+            <section class="text-center py-12 border-t border-slate-100 dark:border-slate-800">
+                <h3 class="text-xl font-bold mb-4">Cần thêm hỗ trợ?</h3>
+                <p class="text-slate-500 mb-8">Chúng tôi luôn ở đây để giúp bạn có trải nghiệm tốt nhất.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="bg-primary text-white px-8 py-3 rounded font-bold hover:bg-primary/90 transition-all uppercase tracking-wider text-sm flex items-center gap-2" href>
+                        <span class="material-symbols-outlined text-base">mail</span>
+                        Liên hệ qua Email
+                    </button>
+                    <button class="border border-slate-900 dark:border-slate-100 px-8 py-3 rounded font-bold hover:bg-slate-900 hover:text-white dark:hover:bg-slate-100 dark:hover:text-slate-900 transition-all uppercase tracking-wider text-sm flex items-center gap-2">
+                        <span class="material-symbols-outlined text-base">chat</span>
+                        Chat với nhân viên
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Simple Footer -->
+        <footer class="bg-slate-50 dark:bg-slate-900/30 px-6 py-10">
+            <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2 opacity-50">
+                    <span class="material-symbols-outlined text-xl">filter_vintage</span>
+                    <span class="font-bold text-sm uppercase">KIZUNA Minimalist</span>
+                </div>
+                <p class="text-xs text-slate-400">© 2024 KIZUNA Studio. All rights reserved. Thiết kế theo phong cách tối giản Nhật Bản.</p>
+                <div class="flex gap-6 text-slate-400">
+                    <a class="hover:text-primary transition-colors text-xs font-medium" href="@Url.Action("PrivacyPolicy", "Home")">Chính sách bảo mật</a>
+                    <a class="hover:text-primary transition-colors text-xs font-medium" href="@Url.Action("TermsOfService", "Home")">Điều khoản dịch vụ</a>
+                </div>
+            </div>
+        </footer>

@@ -1,0 +1,139 @@
+﻿@{
+    ViewData["Title"] = "Điều Khoản Dịch Vụ - Kizuna";
+    Layout = "_LayoutTailwind"; // <-- Sử dụng layout mới
+}
+
+<!-- Chỉ giữ phần <main> và <footer> từ HTML gốc -->
+<main class="flex flex-1 justify-center py-12 px-6">
+    <div class="layout-content-container flex flex-col max-w-[800px] flex-1">
+        <!-- Header Section -->
+        <div class="flex flex-col gap-4 mb-10">
+            <h1 class="text-slate-900 text-4xl md:text-5xl font-black leading-tight tracking-tight">Điều khoản Dịch vụ</h1>
+            <div class="flex items-center gap-2">
+                <span class="h-px w-8 bg-primary"></span>
+                <p class="text-slate-500 text-sm font-medium uppercase tracking-wider">Cập nhật lần cuối: 24 tháng 5, 2024</p>
+            </div>
+        </div>
+        <p class="text-slate-700 text-lg leading-relaxed mb-8 border-l-4 border-primary pl--2">
+            Chào mừng bạn đến với KIZUNA. Bằng cách truy cập và sử dụng trang web của chúng tôi, bạn đồng ý tuân thủ các điều khoản và điều kiện được quy định dưới đây. Vui lòng đọc kỹ trước khi tiến hành giao dịch.
+        </p>
+
+        <!-- Accordion Sections -->
+        <div class="flex flex-col border-t border-slate-100">
+            <details class="group border-b border-slate-100 py-4" open="">
+                <summary class="flex cursor-pointer items-center justify-between gap-6 py-3 list-none">
+                    <span class="flex items-center gap-4">
+                        <span class="text-primary font-bold text-lg">01.</span>
+                        <p class="text-slate-900 text-base font-bold uppercase tracking-wide">Giới thiệu</p>
+                    </span>
+                    <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <div class="pl-12 pb-4">
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        KIZUNA là thương hiệu thời trang tối giản lấy cảm hứng từ tinh thần Nhật Bản. Chúng tôi cam kết mang đến những sản phẩm chất lượng cao với triết lý thiết kế bền vững. Các điều khoản này điều chỉnh việc sử dụng dịch vụ, truy cập nội dung và mọi giao dịch thương mại được thực hiện trên nền tảng trực tuyến của chúng tôi.
+                    </p>
+                </div>
+            </details>
+            <details class="group border-b border-slate-100 py-4">
+                <summary class="flex cursor-pointer items-center justify-between gap-6 py-3 list-none">
+                    <span class="flex items-center gap-4">
+                        <span class="text-primary font-bold text-lg">02.</span>
+                        <p class="text-slate-900 text-base font-bold uppercase tracking-wide">Tài khoản người dùng</p>
+                    </span>
+                    <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <div class="pl-12 pb-4">
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        Khi đăng ký tài khoản, bạn có trách nhiệm bảo mật thông tin đăng nhập của mình. Bạn đồng ý cung cấp thông tin chính xác và cập nhật. KIZUNA có quyền tạm dừng hoặc chấm dứt tài khoản nếu phát hiện bất kỳ hoạt động gian lận hoặc vi phạm chính sách bảo mật nào.
+                    </p>
+                </div>
+            </details>
+            <details class="group border-b border-slate-100 py-4">
+                <summary class="flex cursor-pointer items-center justify-between gap-6 py-3 list-none">
+                    <span class="flex items-center gap-4">
+                        <span class="text-primary font-bold text-lg">03.</span>
+                        <p class="text-slate-900 text-base font-bold uppercase tracking-wide">Sở hữu trí tuệ</p>
+                    </span>
+                    <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <div class="pl-12 pb-4">
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        Tất cả nội dung trên website bao gồm nhưng không giới hạn ở thiết kế, hình ảnh, logo, văn bản và mã nguồn đều thuộc sở hữu của KIZUNA hoặc các đối tác cấp phép. Mọi hành vi sao chép, sử dụng trái phép cho mục đích thương mại mà không có sự đồng ý bằng văn bản đều bị nghiêm cấm.
+                    </p>
+                </div>
+            </details>
+            <details class="group border-b border-slate-100 py-4">
+                <summary class="flex cursor-pointer items-center justify-between gap-6 py-3 list-none">
+                    <span class="flex items-center gap-4">
+                        <span class="text-primary font-bold text-lg">04.</span>
+                        <p class="text-slate-900 text-base font-bold uppercase tracking-wide">Giới hạn trách nhiệm</p>
+                    </span>
+                    <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <div class="pl-12 pb-4">
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        KIZUNA nỗ lực cung cấp thông tin sản phẩm chính xác nhất. Tuy nhiên, chúng tôi không chịu trách nhiệm cho bất kỳ tổn thất gián tiếp nào phát sinh từ việc sử dụng trang web hoặc do lỗi kỹ thuật ngoài tầm kiểm soát. Màu sắc sản phẩm có thể thay đổi nhẹ tùy thuộc vào thiết bị hiển thị của bạn.
+                    </p>
+                </div>
+            </details>
+            <details class="group border-b border-slate-100 py-4">
+                <summary class="flex cursor-pointer items-center justify-between gap-6 py-3 list-none">
+                    <span class="flex items-center gap-4">
+                        <span class="text-primary font-bold text-lg">05.</span>
+                        <p class="text-slate-900 text-base font-bold uppercase tracking-wide">Luật áp dụng</p>
+                    </span>
+                    <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <div class="pl-12 pb-4">
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        Các điều khoản này được điều chỉnh và giải thích theo luật pháp của nước Cộng hòa Xã hội Chủ nghĩa Việt Nam. Mọi tranh chấp phát sinh sẽ được giải quyết tại tòa án có thẩm quyền tại Thành phố Hồ Chí Minh.
+                    </p>
+                </div>
+            </details>
+            <details class="group border-b border-slate-100 py-4">
+                <summary class="flex cursor-pointer items-center justify-between gap-6 py-3 list-none">
+                    <span class="flex items-center gap-4">
+                        <span class="text-primary font-bold text-lg">06.</span>
+                        <p class="text-slate-900 text-base font-bold uppercase tracking-wide">Thay đổi điều khoản</p>
+                    </span>
+                    <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <div class="pl-12 pb-4">
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        KIZUNA có quyền cập nhật, thay đổi hoặc thay thế bất kỳ phần nào của các Điều khoản Dịch vụ này bằng cách đăng tải các cập nhật lên trang web. Việc bạn tiếp tục sử dụng trang web sau khi có các thay đổi đồng nghĩa với việc bạn chấp nhận các thay đổi đó.
+                    </p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Contact Footer -->
+        <div class="mt-16 p-8 bg-slate-50 border border-slate-100 rounded-lg flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+                <h3 class="text-slate-900 text-xl font-bold mb-2">Bạn cần hỗ trợ thêm?</h3>
+                <p class="text-slate-600">Đội ngũ chăm sóc khách hàng của chúng tôi luôn sẵn sàng giải đáp.</p>
+            </div>
+            <a class="bg-primary text-white px-8 py-3 rounded font-bold uppercase tracking-wider text-sm hover:opacity-90 transition-opacity" href="mailto:support@kizuna.vn">
+                Gửi yêu cầu hỗ trợ
+            </a>
+        </div>
+    </div>
+</main>
+
+<!-- Simple="border-t border-slate-100 py-10 px-6 md:px-20">
+<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+    <div class="flex items-center gap-3">
+        <div class="text-primary">
+            <svg class="size-5" fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z"></path>
+            </svg>
+        </div>
+        <span class="font-bold tracking-widest text-slate-900">KIZUNA</span>
+    </div>
+    <div class="flex gap-8">
+        <a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest" href="@Url.Action("PrivacyPolicy", "Home")">Chính sách bảo mật</a>
+        <a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest" href="#">Chính sách hoàn tiền</a>
+        <a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest" href="#">Vận chuyển</a>
+    </div>
+    <p class="text-xs text-slate-400">© 2024 KIZUNA Studio. All rights reserved.</p>
+</div>
+</footer>

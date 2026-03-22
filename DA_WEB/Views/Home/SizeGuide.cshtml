@@ -1,0 +1,208 @@
+﻿@{
+    ViewData["Title"] = "Hướng Dẫn Chọn Size - J-Style Fashion";
+    Layout = "_LayoutTailwind"; // <-- Sử dụng layout mới
+}
+
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3 sticky top-0 z-50">
+    <div class="flex items-center gap-8">
+        <div class="flex items-center gap-4 text-primary">
+            <div class="size-6">
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 42.4379C4 42.4379 14.0962 36.0744 24 41.1692C35.0664 46.8624 44 42.2078 44 42.2078L44 7.01134C44 7.01134 35.068 11.6577 24.0031 5.96913C14.0971 0.876274 4 7.27094 4 7.27094L4 42.4379Z" fill="currentColor"></path>
+                </svg>
+            </div>
+            <h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight uppercase">J-Style</h2>
+        </div>
+        <div class="hidden md:flex items-center gap-9">
+            <a class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="@Url.Action("Index", "Home")">Sản phẩm</a> <!-- Giả sử -->
+            <a class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Bộ sưu tập</a>
+            <a class="text-primary text-sm font-bold" href="@Url.Action("SizeGuide", "Home")">Hướng dẫn</a> <!-- Link đến chính nó -->
+            <a class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Liên hệ</a>
+        </div>
+    </div>
+    <div class="flex flex-1 justify-end gap-4">
+        <label class="hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+            <div class="flex w-full flex-1 items-stretch rounded h-full">
+                <div class="text-slate-400 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l border-r-0">
+                    <span class="material-symbols-outlined text-[20px]">search</span>
+                </div>
+                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-slate-800 placeholder:text-slate-500 px-4 rounded-l-none border-l-0 pl-2 text-sm" placeholder="Tìm kiếm phong cách..." />
+            </div>
+        </label>
+        <div class="flex gap-2">
+            <button class="flex items-center justify-center rounded h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                <span class="material-symbols-outlined">shopping_bag</>
+                </button>
+                <button class="flex items-center justify-center rounded h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                    <span class="material-symbols-outlined">person</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex flex-1 justify-center py-10 px-4">
+        <div class="layout-content-container flex flex-col max-w-[1100px] flex-1">
+            <!-- Breadcrumbs -->
+            <nav class="flex items-center gap-2 mb-8 text-sm">
+                <a class="text-slate-500 hover:text-primary" href="@Url.Action("Index", "Home")">Trang chủ</a>
+                <span class="material-symbols-outlined text-[14px] text-slate-400">chevron_right</span>
+                <span class="text-slate-900 dark:text-slate-100 font-medium">Hướng dẫn chọn size</span>
+            </nav>
+            <!-- Hero Section -->
+            <div class="flex flex-col gap-4 mb-12">
+                <h1 class="text-slate-900 dark:text-white text-5xl font-black leading-tight tracking-tight uppercase border-l-8 border-primary pl-6">Size Guide</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl">
+                    Thiết kế J-Style tập trung vào sự thoải mái và tinh tế theo triết lý tối giản của Nhật Bản.
+                    Sử dụng bảng kích thước dưới đây để tìm bộ trang phục vừa vặn nhất với bạn.
+                </p>
+            </div>
+            <!-- Tabs -->
+            <div class="mb-8">
+                <div class="flex border-b border-slate-200 dark:border-slate-800 gap-10">
+                    <button class="border-b-4 border-primary text-primary pb-4 font-bold text-lg">Bảng size Áo</button>
+                    <button class="border-b-4 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 pb-4 font-medium text-lg">Bảng size Quần</button>
+                </div>
+            </div>
+            <!-- Table Section -->
+            <div class="mb-16">
+                <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 dark:bg-slate-800/50">
+                                <th class="px-6 py-4 text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">Kích cỡ</th>
+                                <th class="px-6 py-4 text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">Vai (cm)</th>
+                                <th class="px-6 py-4 text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">Ngực (cm)</th>
+                                <th class="px-6 py-4 text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">Chiều dài (cm)</th>
+                                <th class="px-6 py-4 text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">Cân nặng gợi ý (kg)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                            <tr>
+                                <td class="px-6 py-4 font-bold text-primary">S</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">44</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">102</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">68</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">50 - 60</td>
+                            </tr>
+                            <tr class="bg-slate-50/50 dark:bg-slate-800/20">
+                                <td class="px-6 py-4 font-bold text-primary">M</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">46</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">106</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">70</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">61 - 70</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-bold text-primary">L</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">48</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">110</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">72</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">71 - 80</td>
+                            </tr>
+                            <tr class="bg-slate-50/50 dark:bg-slate-800/20">
+                                <td class="px-6 py-4 font-bold text-primary">XL</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">50</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">114</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">74</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-300">81 - 90</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- How to Measure Section -->
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-slate-900 dark:text-white flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">straighten</span>
+                    Cách lấy số đo cơ thể
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <div class="bg-primary/10 text-primary w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined">height</span>
+                        </div>
+                        <h3 class="font-bold mb-2">Chiều cao</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Đứng thẳng sát tường từ đỉnh đầu đến gót chân.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <div class="bg-primary/10 text-primary w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined">settings_accessibility</span>
+                        </div>
+                        <h3 class="font-bold mb-2">Vòng ngực</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Đo quanh phần đầy nhất của ngực, giữ thước dây ngang lưng.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <div class="bg-primary/10 text-primary w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined">accessibility</span>
+                        </div>
+                        <h3 class="font-bold mb-2">Vòng eo</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Đo quanh phần hẹp nhất của thắt lưng (thường trên rốn).</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <div class="bg-primary/10 text-primary w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined">boy</span>
+                        </div>
+                        <h3 class="font-bold mb-2">Vòng mông</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Đo quanh phần đầy nhất của mông khi hai chân khép lại.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Form Style Guide Section -->
+            <div class="bg-slate-900 dark:bg-black rounded-2xl p-8 lg:p-12 text-white mb-16 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h2 class="text-3xl font-bold mb-4">Lời khuyên chọn Form dáng</h2>
+                    <p class="text-slate-400 mb-10 max-w-xl">Phong cách J-Style có 2 dòng form dáng chính. Tùy thuộc vào phong cách bạn muốn hướng tới:</p>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="border-l-4 border-primary pl-6 py-2">
+                            <h3 class="text-xl font-bold mb-2">Regular Fit (Cơ bản)</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-4">Vừa vặn với cơ thể, tạo cảm giác gọn gàng và chuyên nghiệp. Thích hợp cho môi trường công sở hoặc dạo phố thanh lịch.</p>
+                            <div class="bg-white/10 px-4 py-2 rounded text-xs inline-block">Mẹo: Chọn đúng size theo bảng kích thước</div>
+                        </div>
+                        <div class="border-l-4 border-primary pl-6 py-2">
+                            <h3 class="text-xl font-bold mb-2">Oversize (Rộng rãi)</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-4">Mang đậm hơi thở Harajuku, thoải mái và phóng khoáng. Phần vai và thân được nới rộng có chủ đích.</p>
+                            <div class="bg-white/10 px-4 py-2 rounded text-xs inline-block">Mẹo: Có thể lùi 1 size nếu muốn mặc vừa hơn</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute right-0 top-0 h-full w-1/3 opacity-20 hidden lg:block">
+                    <img alt="Mẫu trang phục phong cách tối giản" class="h-full w-full object-cover" data-alt="Minimalist fashion model wearing oversize shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBturl1VBtk6w3p5NnuR1QXOf2mG8J-TTR3rpuTRzTxBvfet97PzirYrhW7__uWRK3cFR2Vt7FgY4OEgVX9H7bgGVWAz4Q7k4tUFJSeXrnDjpHlQDTjsMWMQgW-KSVsb7LhzWE4MdXf8Sf5owlEIJhKbveyi-qo4TWtj66nU-IWKdBzCeY1fUZ9F8YVoVPv2EpHdZq8PuURo6ginKNA9mJkhtEJSfXqazBM3bX22pZgu271wpgteHsScGcadv-yYCtTOxCGq9rkZRI" />
+                </div>
+            </div>
+            <!-- Footer Support -->
+            <div class="flex flex-col md:flex-row justify-between items-center bg-primary/5 dark:bg-primary/10 rounded-xl p-8 gap-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-1">Vẫn còn thắc mắc?</h3>
+                    <p class="text-slate-600 dark:text-slate-400">Đừng lo lắng, chúng tôi luôn sẵn sàng hỗ trợ bạn tìm size chính xác nhất qua hotline hoặc chat trực tiếp.</p>
+                </div>
+                <div class="flex gap-4">
+                    <button class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:brightness-110 transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[20px]">chat</span>
+                        Chat với chuyên gia
+                    </button>
+                    <button class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-8 py-3 rounded-lg font-bold hover:bg-slate-50 transition-all">
+                        0123-456-789
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-800 py-10 px-10 bg-white dark:bg-slate-900">
+        <div class="max-w-[1100px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3 text-slate-500">
+                <div class="size-4">
+                    <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 42.4379C4 42.4379 14.0962 36.0744 24 41.1692C35.0664 46.8624 44 42.2078 44 42.2078L44 7.01134C44 7.01134 35.068 11.6577 24.0031 5.96913C14.0971 0.876274 4 7.27094 4 7.27094L4 42.4379Z" fill="currentColor"></path>
+                    </svg>
+                </div>
+                <span class="text-sm">© 2024 J-Style Fashion. Minimalist Japanese aesthetics.</span>
+            </div>
+            <div class="flex gap-6">
+                <a class="text-slate-500 hover:text-primary" href="#"><span class="material-symbols-outlined">social_leaderboard</span></a>
+                <a class="text-slate-500 hover:text-primary" href="#"><span class="material-symbols-outlined">photo_camera</span></a>
+                <a class="text-slate-500 hover:text-primary" href="#"><span class="material-symbols-outlined">mail</span></a>
+            </div>
+        </div>
+    </footer>

@@ -1,0 +1,101 @@
+﻿@model Order
+
+@{
+    ViewData["Title"] = "Thanh toán";
+    Layout = "_LayoutTailwind";
+}
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+        Thông tin thanh toán
+    </h2>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <form asp-action="Confirm" asp-controller="Order" method="post" class="mt-8 space-y-6">
+        @Html.AntiForgeryToken()
+        <div class="shadow sm:rounded-md sm:overflow-hidden">
+            <div class="bg-white dark:bg-slate-900 py-6 px-4 sm:p-6">
+                <div class="grid grid-cols-6 gap-6">
+
+                    <!-- Họ và tên -->
+                    <div class="col-span-6">
+                        <label asp-for="FullName" class="block text-sm font-medium text-gray-700 dark:text-slate-300">
+                            Họ và tên
+                        </label>
+                        <input asp-for="FullName" type="text" required
+                               class="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-slate-800 dark:text-white" />
+                        <span asp-validation-for="FullName" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <!-- Số điện thoại -->
+                    <div class="col-span-6 sm:col-span-3">
+                        <label asp-for="Phone" class="block text-sm font-medium text-gray-700 dark:text-slate-300">
+                            Số điện thoại
+                        </label>
+                        <input asp-for="Phone" type="tel" required
+                               class="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-slate-800 dark:text-white" />
+                        <span asp-validation-for="Phone" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <!-- Địa chỉ -->
+                    <div class="col-span-6">
+                        <label asp-for="Address" class="block text-sm font-medium text-gray-700 dark:text-slate-300">
+                            Địa chỉ nhận hàng
+                        </label>
+                        <textarea asp-for="Address" required rows="3"
+                                  class="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-slate-800 dark:text-white"></textarea>
+                        <span asp-validation-for="Address" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <!-- Email — tự điền từ model, readonly -->
+                    <div class="col-span-6">
+                        <label asp-for="Email" class="block text-sm font-medium text-gray-700 dark:text-slate-300">
+                            Email
+                        </label>
+                        <input asp-for="Email" type="email" readonly
+                               class="mt-1 block w-full border-0 bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-400 rounded-md py-2 px-3 sm:text-sm cursor-not-allowed" />
+                        <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <!-- Hình thức thanh toán -->
+                    <div class="col-span-6">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300">
+                            Hình thức thanh toán
+                        </label>
+                        <select asp-for="PaymentMethod" required
+                                class="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-slate-800 dark:text-white">
+                            <option value="">-- Chọn --</option>
+                            <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+                            <option value="Stripe">Thẻ Visa/MasterCard (Stripe)</option>
+                        </select>
+                        <span asp-validation-for="PaymentMethod" class="text-red-600 text-sm"></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="px-4 py-3 bg-gray-50 dark:bg-slate-800 text-right sm:px-6">
+                <a asp-controller="Cart" asp-action="Index"
+                       class="inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-slate-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    Quay lại giỏ hàng
+                </a>
+                <button type="submit"
+                        class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    Xác nhận đơn hàng
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,344 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Đăng Nhập";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Nhập — Kizuna</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Josefin+Sans:wght@200;300;400;600&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary: #bd002c;
+            --primary-dark: #8a001f;
+            --ink: #1a1410;
+            --paper: #f7f4f0;
+            --warm-mid: #e8e2d9;
+            --muted: #9a9089;
+            --accent-gold: #c9a96e;
+            --white: #ffffff;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 48px;
+            border-bottom: 1px solid var(--warm-mid);
+            background: white;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--ink);
+        }
+
+        .logo-mark { width: 22px; height: 22px; color: var(--primary); }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+        }
+
+        .back-link {
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .panel-img {
+            display: none;
+            width: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @@media (min-width:768px) {
+            .panel-img { display:block; }
+        }
+
+        .panel-img-bg {
+            width:100%;
+            height:100%;
+            background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuC4FWJeA1Jc1i8Ti-ALlKOtDXojgrRcpJgYAAEc2waS2TF9CRhOWTHYiOij8_87YBXkICWt5xfckaMiLGhbpSgfdn791exdAf9pjL2UkniC-ReboZNODi0svrRtv4ut9UA1nQNhF6oD_eLyscCH6ZEJiGgk3zZTuzghl_Jufh71n9606iCScd3CzZUaeXpMdLFMLmK2qKLfUuxBJ_vxOapfwdVQok4SZKv1D36zQuKTxY2QUEuuyroCgJMEjHVsSnnSQNMyAzeoF3U');
+            background-size:cover;
+            background-position:center;
+        }
+
+        .panel-img-overlay {
+            position:absolute;
+            inset:0;
+            background:linear-gradient(to top, rgba(26,20,16,0.75) 0%, rgba(26,20,16,0.1) 60%);
+        }
+
+        .panel-img-text {
+            position:absolute;
+            bottom:48px;
+            left:48px;
+            right:48px;
+            color:white;
+        }
+
+        .panel-eyebrow {
+            font-size:9px;
+            letter-spacing:0.4em;
+            text-transform:uppercase;
+            color:var(--accent-gold);
+            margin-bottom:12px;
+        }
+
+        .panel-title {
+            font-family:'Cormorant Garamond', serif;
+            font-size:36px;
+            font-weight:300;
+        }
+
+        .panel-form {
+            width:100%;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            padding:64px 48px;
+            background:white;
+        }
+
+        @@media (min-width:768px){
+            .panel-form{width:50%;}
+        }
+
+        .form-heading{margin-bottom:40px;}
+
+        .form-label-top{
+            font-size:9px;
+            letter-spacing:0.45em;
+            text-transform:uppercase;
+            color:var(--primary);
+            margin-bottom:12px;
+        }
+
+        .form-title{
+            font-family:'Cormorant Garamond', serif;
+            font-size:48px;
+            font-weight:300;
+        }
+
+        .form-group{margin-bottom:24px;}
+
+        .form-group label{
+            display:block;
+            font-size:9px;
+            letter-spacing:0.3em;
+            text-transform:uppercase;
+            color:var(--muted);
+            margin-bottom:8px;
+        }
+
+        .form-group input{
+            width:100%;
+            padding:14px 16px;
+            border:1px solid var(--warm-mid);
+            background:var(--paper);
+        }
+
+        .field-error{
+            color:var(--primary);
+            font-size:11px;
+            margin-top:6px;
+        }
+
+        .form-row{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:32px;
+        }
+
+        .remember-label{
+            font-size:11px;
+            color:var(--muted);
+        }
+
+        .forgot-link{
+            font-size:10px;
+            color:var(--muted);
+            text-decoration:none;
+        }
+
+        .btn-submit{
+            width:100%;
+            padding:16px;
+            background:var(--primary);
+            color:white;
+            border:none;
+            cursor:pointer;
+            letter-spacing:0.3em;
+            text-transform:uppercase;
+        }
+
+        .form-divider{
+            text-align:center;
+            margin:28px 0;
+            font-size:9px;
+            letter-spacing:0.3em;
+            color:var(--muted);
+        }
+
+        .form-footer{
+            text-align:center;
+            margin-top:28px;
+            font-size:11px;
+            color:var(--muted);
+        }
+
+        footer{
+            background:var(--ink);
+            padding:20px 48px;
+            display:flex;
+            justify-content:space-between;
+        }
+
+        .footer-copy{
+            font-size:9px;
+            color:rgba(255,255,255,0.3);
+        }
+
+        .footer-links a{
+            font-size:9px;
+            color:rgba(255,255,255,0.3);
+            text-decoration:none;
+            margin-left:20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="top-bar">
+    <a href="/" class="logo">
+        <svg class="logo-mark" viewBox="0 0 48 48" fill="none">
+            <path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="currentColor"/>
+        </svg>
+        <span class="logo-text">Kizuna</span>
+    </a>
+
+    <a href="/" class="back-link">← Quay về trang chủ</a>
+</div>
+
+<main>
+
+<div class="panel-img">
+    <div class="panel-img-bg"></div>
+    <div class="panel-img-overlay"></div>
+
+    <div class="panel-img-text">
+        <div class="panel-eyebrow">Bộ sưu tập SS25</div>
+        <h2 class="panel-title">
+            Wabi-Sabi:<br/>
+            Vẻ đẹp của <em>sự không hoàn hảo</em>
+        </h2>
+    </div>
+</div>
+
+<div class="panel-form">
+
+<div class="form-heading">
+<div class="form-label-top">Tài khoản</div>
+<h1 class="form-title">Đăng<br/><em>Nhập</em></h1>
+</div>
+
+<form id="account" method="post">
+
+<div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+<div class="form-group">
+<label asp-for="Input.Email">Email</label>
+<input asp-for="Input.Email"
+type="email"
+placeholder="email@example.com"
+autocomplete="username" />
+<span asp-validation-for="Input.Email" class="field-error"></span>
+</div>
+
+<div class="form-group">
+<label asp-for="Input.Password">Mật khẩu</label>
+<input asp-for="Input.Password"
+type="password"
+placeholder="••••••••"
+autocomplete="current-password" />
+<span asp-validation-for="Input.Password" class="field-error"></span>
+</div>
+
+<div class="form-row">
+<label class="remember-label">
+<input asp-for="Input.RememberMe" type="checkbox" />
+Ghi nhớ đăng nhập
+</label>
+<a asp-page="./ForgotPassword" class="forgot-link">Quên mật khẩu?</a>
+</div>
+
+<button type="submit" class="btn-submit">Đăng Nhập</button>
+
+</form>
+
+<div class="form-divider">hoặc</div>
+
+<div class="form-footer">
+Chưa có tài khoản?
+<a asp-page="./Register">Đăng ký ngay</a>
+</div>
+
+<div class="form-footer" style="margin-top:12px">
+<a asp-page="./ResendEmailConfirmation">Gửi lại email xác nhận</a>
+</div>
+
+</div>
+</main>
+
+<footer>
+<span class="footer-copy">© 2025 Kizuna Clothing</span>
+<div class="footer-links">
+<a href="#">Điều khoản</a>
+<a href="#">Bảo mật</a>
+</div>
+</footer>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
+
+</body>
+</html>
+```

@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Đặt hàng thành công";
+    Layout = "_LayoutKizuna";
+}
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+    <h2 class="text-3xl font-extrabold tracking-tight text-green-600 dark:text-green-400">Đặt hàng thành công!</h2>
+    <p class="mt-4 text-lg text-gray-600 dark:text-slate-300">
+        Cảm ơn bạn đã đặt hàng. Mã đơn hàng của bạn là: <strong class="font-bold">@ViewBag.OrderId</strong>.
+    </p>
+    <p class="mt-2 text-gray-500 dark:text-slate-400">
+        Chúng tôi sẽ sớm gửi email xác nhận đến hòm thư của bạn.
+    </p>
+    <div class="mt-8">
+        <a asp-controller="Home" asp-action="Index" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+            Tiếp tục mua sắm
+        </a>
+    </div>
+</div>

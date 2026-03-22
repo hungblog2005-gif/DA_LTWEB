@@ -1,0 +1,214 @@
+﻿@{
+    ViewData["Title"] = "Triết lý Wabi-sabi | Japanese Minimalist Fashion";
+    Layout = "_LayoutTailwind"; // <-- Sử dụng layout chung cho các trang có Tailwind
+}
+
+<!-- Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 lg:px-40 py-4 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+    <div class="flex items-center gap-3 text-slate-900 dark:text-slate-100">
+        <div class="size-6 text-primary">
+            <span class="material-symbols-outlined text-3xl">filter_vintage</span>
+        </div>
+        <h2 class="text-xl font-bold leading-tight tracking-tight uppercase">Wabi-sabi</h2>
+    </div>
+    <div class="flex flex-1 justify-end gap-8">
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-primary text-sm font-semibold leading-normal uppercase tracking-wider" href="@Url.Action("Philosophy", "Home")">Triết lý</a> <!-- Link đến chính nó -->
+            <a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="/Shop">Bộ sưu tập</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="@Url.Action("About","Home")">Thủ công</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="@Url.Action("About","Home")">Bền vững</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <button class="flex items-center justify-center rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 transition-all hover:bg-slate-200 dark:hover:bg-slate-700">
+                <span class="material-symbols-outlined">shopping_bag</span>
+            </button>
+            <button class="md:hidden flex items-center justify-center rounded-full h-10 w-10">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="flex-1">
+    <!-- Hero Section -->
+    <section class="relative h-[819px] w-full overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center" data-alt="Serene Japanese zen garden with rocks and raked gravel" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuCOAQXTqDOXObmkAaK3_VjqL0e1XdAziPUgmIPfbcbSlN0q5GtaST1CiwNEoMokN0SP94sNEyAkYYDdKXxm6eEfi_bx_Yo05LhR5NH0eMhVER0AcJhX-5_buYaDdOuioz0tHBMJ-xjGILp0KURZSVOG4Aj1uKbSlAMR0ZnP9MGtHcdj30EtOFDBK-wnyGbfdDEn_J6LeNu92fTWC9vbKVB1tH04FrLBUiN5hIm_oFyAMZNhNJpBjeTLMgHs2h2hCZTVLoJSfPisz_s');"></div>
+        <div class="relative h-full flex flex-col items-center justify-center text-center px-4">
+            <span class="text-white text-sm uppercase tracking-[0.4em] mb-4 opacity-80">Tinh hoa Nhật Bản</span>
+            <h1 class="text-white text-5xl md:text-7xl font-light leading-tight tracking-tight mb-8">
+                Triết lý <span class="font-bold">Wabi-sabi</span>
+            </h1>
+            <div class="w-12 h-px bg-white/50 mb-8"></div>
+            <p class="text-white/90 text-lg md:text-xl font-light max-w-2xl leading-relaxed italic">
+                "Tìm thấy vẻ đẹp trong sự không hoàn hảo, sự vô thường và sự dở dang."
+            </p>
+        </div>
+    </section>
+
+    <!-- Philosophy Core -->
+    <section class="py-24 px-6 md:px-20 lg:px-40 bg-background-light dark:bg-background-dark">
+        <div class="max-w-[1000px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <h2 class="text-slate-900 dark:text-slate-100 text-3xl md:text-4xl font-bold leading-tight">Sự Vẻ Đẹp Trong Sự Khiếm Khuyết</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                        Wabi-sabi không chỉ là một phong cách thiết kế, đó là một cách sống. Chúng tôi trân trọng những nếp nhăn tự nhiên trên vải lanh, những đường may thủ công có chút không đều, và sự phai màu tinh tế qua thời gian.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                        Đối với chúng tôi, mỗi sản phẩm là một thực thể sống, mang trong mình dấu ấn của người thợ và sự chuyển biến của thiên nhiên. Sự khiếm khuyết chính là linh hồn của sự độc bản.
+                    </p>
+                    <div class="pt-4">
+                        <a class="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm group" href="#">
+                            Tìm hiểu thêm
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="aspect-[4/5] bg-slate-200 dark:bg-slate-800 rounded overflow-hidden">
+                        <img alt="" class="w-full h-full object-cover grayscale" data-alt="Close up of textured natural fabric and shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNmasibyq0t9bw3Cd1slSmhArFUQWB0UeuGJ3zTAuOrq7hxFMK4QfVwTB5pC-UZcI1c6pRgVmQMLMTqjPY00FKRM4xmhGR8LMwR-O9Gfe1sXSp4wrCoqTiHtGqcalHyCWTZKpeY5Z3afprxEZKHEd3tPEelptydKJeCPVPFZ6Fy5G-r5MVUA3lU6QXiehXRhWWUpA6KgK5OVpT1VIgkYsYTvrdj38reqsHjGjtcuqFgqDD2-QkzzIaaF-IZOHU9MpDenqfXSgfCBE" />
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 w-32 h-32 border-2 border-primary/20 hidden md:block"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Craftsmanship Section -->
+    <section class="py-24 px-6 md:px-20 lg:px-40 bg-slate-100 dark:bg-slate-900/50">
+        <div class="max-w-[1200px] mx-auto text-center mb-16">
+            <h2 class="text-slate-900 dark:text-slate-100 text-3xl md:text-4xl font-bold mb-4">Nghệ Thuật Thủ Công</h2>
+            <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+            <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto italic">
+                Từng đường kim mũi chỉ là một lời cam kết về chất lượng và sự tận tâm.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="flex flex-col gap-4">
+                <div class="aspect-square bg-white dark:bg-background-dark p-2">
+                    <img alt="" class="w-full h-full object-cover" data-alt="Handcrafted fabric being measured and cut" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdAdD7Dp_x0JiQmWFjJAQwEO_VPtzquD2R-lrSix2QOjx-8INNMhgDtYpkl5o5pAPYlcXsczafBffZ5c2OQHKAr_wz7x4kElrctFrT7S-TlIsW3zCCaZ4GGsrgd2rVK5LWW_o_Iw9Nsmx9VtMzrXBCtfNhFEuGfh0PKRJzL7WVFkZ-LhidrDgmEN3oGIsSR7VEBeSUZ9n5thYik6_mou3z9YzszKXkkgM02gjHCWKdFqSxfwhEKf3wx-P14uLoKWBBrne4GwFx4uY" />
+                </div>
+                <h3 class="text-xl font-bold dark:text-slate-100 mt-2">Tuyển chọn sợi</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm">Chúng tôi chỉ sử dụng sợi tự nhiên từ những nguồn cung ứng bền vững nhất tại các làng nghề truyền thống.</p>
+            </div>
+            <div class="flex flex-col gap-4 md:mt-12">
+                <div class="aspect-square bg-white dark:bg-background-dark p-2">
+                    <img alt="" class="w-full h-full object-cover" data-alt="Old sewing machine and needles on wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM9scYFlv9Sa6wMfn4DSTmwcKwyLBVUC30sizsRkyzzYe_jdkNKBYaaa6BpwTQ3Y8TlgoasqoMKdmrvC0oeZWUWpfQ1BiPuriEOcOadYwiF1mQmlX9rPgYvlKwTrUlPcSm0Dkt1bCShiRkoahcpKmXdteX1hOb_8qugVAxooUO_oQ3PAI0p76kMbjiOCLRemU9JiwpmjdxPveMx2ltq8h3ucMaE_zcpchEvM_IgIbd4W9i6s5eekdIB5vG9sBtCPyZRD6fw9M0eYI" />
+                </div>
+                <h3 class="text-xl font-bold dark:text-slate-100 mt-2">May mặc chậm</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm">Slow-fashion là kim chỉ nam. Mỗi thiết kế mất hàng chục giờ để hoàn thiện thay vì sản xuất công nghiệp.</p>
+            </div>
+            <div class="flex flex-col gap-4">
+                <div class="aspect-square bg-white dark:bg-background-dark p-2">
+                    <img alt="" class="w-full h-full object-cover" data-alt="Traditional Japanese indigo dyeing process" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3fSq2ikkkvVPkRkgjGCfqIujw75JqOPWwYDFH28JcD8PMmok-Aw7C5fuaRIr-7UiklrisRC5Xy_aCHBQS4phkjiUu8Jcm3IPfS7VMWtK6ywcq-9UkKUTlLA2xZLs3wCak4-ITDhl57AnejBjCYy67FCDzlPzmEpUaAzr-M0XEUIchfx_jm0xj-IdNxpjhBsXEzadI8E_SfTCcWQOTlTN0zehj6RgStsyE-rFjnWhTNt9irYETU5A8KS83rfFnS93yBm5tjHp9NS8" />
+                </div>
+                <h3 class="text-xl font-bold dark:text-slate-100 mt-2">Nhuộm thủ công</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm">Sử dụng màu nhuộm thảo mộc, tạo ra những dải màu tự nhiên và an toàn cho làn da con người.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainability Section -->
+    <section class="py-24 px-6 md:px-20 lg:px-40 bg-background-light dark:bg-background-dark overflow-hidden">
+        <div class="flex flex-col md:flex-row gap-16 items-center">
+            <div class="w-full md:w-1/2 relative">
+                <div class="w-full h-[600px] bg-slate-200 dark:bg-slate-800 rounded">
+                    <img alt="" class="w-full h-full object-cover opacity-80" data-alt="Minimalist landscape with natural sea shore" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAFdon3j_JoJuX5iN6ZSAmHNZjWMRdKMMrs-lWX4SqhEu1d-or09-GIfDz0j2uLiC3hqZtJSnpLvT-9k3kkFXtGKpU6oHLUXf28SwqwwxgpKadblY7y0K5gMlqXgRMQYZAvjbPAeEEQlJWGLjdqWqlLExdvr3h_dCIKSo6KfumRYE36XsHFT9Bb6bhGVsDWS8UpFsv_BXsp6F26MtQIyPtvFT_tyFPk2WX-oW9VMCF-WdcPdBUCeJ2P5rSzNgnv0bsh69llluh3f8" />
+                </div>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 border border-white/30 pointer-events-none"></div>
+            </div>
+            <div class="w-full md:w-1/2 space-y-8">
+                <span class="text-primary font-bold tracking-widest uppercase text-xs">Cam kết của chúng tôi</span>
+                <h2 class="text-slate-900 dark:text-slate-100 text-4xl md:text-5xl font-bold leading-tight">Bền Vững &amp; Tối Giản</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                    Chúng tôi tạo ra những món đồ không tuổi, vượt qua các xu hướng thời trang nhanh. Tối giản không phải là sở hữu ít đi, mà là làm cho mỗi món đồ trở nên ý nghĩa hơn.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-4">
+                        <span class="material-symbols-outlined text-primary">eco</span>
+                        <div>
+                            <h4 class="font-bold dark:text-slate-100">100% Nguyên liệu tự nhiên</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Linen, lụa tơ tằm và bông hữu cơ là thành phần cốt lõi.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="material-symbols-outlined text-primary">recycling</span>
+                        <div>
+                            <h4 class="font-bold dark:text-slate-100">Không rác thải nhựa</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Bao bì hoàn toàn bằng giấy tái chế và vải vụn tận dụng.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="material-symbols-outlined text-primary">history</span>
+                        <div>
+                            <h4 class="font-bold dark:text-slate-100">Vòng đời vĩnh cửu</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Chúng tôi hỗ trợ sửa chữa và bảo dưỡng trọn đời cho mọi sản phẩm.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Statement -->
+    <section class="py-32 px-6 text-center bg-primary text-white">
+        <div class="max-w-3xl mx-auto space-y-8">
+            <span class="material-symbols-outlined text-5xl">auto_awesome</span>
+            <h2 class="text-3xl md:text-4xl font-light italic leading-relaxed">
+                "Sứ mệnh của Wabi-sabi là mang hơi thở của thiền định vào tủ đồ của bạn, giúp bạn tìm thấy sự an nhiên trong từng bộ trang phục mặc hàng ngày."
+            </h2>
+            <p class="text-white/70 uppercase tracking-[0.3em] text-sm pt-4">— Founders of Wabi-sabi</p>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-16 px-6 md:px-20 lg:px-40">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="col-span-1 md:col-span-1">
+            <div class="flex items-center gap-3 text-slate-900 dark:text-slate-100 mb-6">
+                <div class="size-5 text-primary">
+                    <span class="material-symbols-outlined">filter_vintage</span>
+                </div>
+                <h2 class="text-lg font-bold leading-tight uppercase">Wabi-sabi</h2>
+            </div>
+            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                Thời trang tối giản từ tâm hồn Nhật Bản.
+            </p>
+        </div>
+        <div>
+            <h4 class="text-slate-900 dark:text-slate-100 font-bold mb-6">Khám phá</h4>
+            <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
+                <li><a class="hover:text-primary transition-colors" href="/Shop">Bộ sưu tập mới</a></li>
+                <li><a class="hover:text-primary transition-colors" href="/Home">Sản phẩm bán chạy</a></li>
+                <li><a class="hover:text-primary transition-colors" href="/Shop">Cửa hàng</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-slate-900 dark:text-slate-100 font-bold mb-6h4>
+                <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
+                <li><a class="hover:text-primary transition-colors" href="@Url.Action("Philosophy", "Home")">Về chúng tôi</a></li> <!-- Giả sử "Về chúng tôi" là link đến trang này -->
+                <li><a class="hover:text-primary transition-colors" href="#">Bền vững</a></li>
+                <li><a class="hover:text-primary transition-colors" href="@Url.Action("Contact", "Home")">Liên hệ</a></li>
+                <li><a class="hover:text-primary transition-colors" href="@Url.Action("PrivacyPolicy", "Home")">Chính sách bảo mật</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-slate-900 dark:text-slate-100 font-bold mb-6">Theo dõi</h4>
+            <div class="flex gap-4">
+                <a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+                    <span class="material-symbols-outlined text-lg">public</span>
+                </a>
+                <a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+                    <span class="material-symbols-outlined text-lg">photo_camera</span>
+                </a>
+                <a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+                    <span class="material-symbols-outlined text-lg">mail</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center text-slate-500 text-xs">
+        © 2024 Wabi-sabi Minimalist. All rights reserved. Design inspired by Zen.
+    </div>
+</footer>
