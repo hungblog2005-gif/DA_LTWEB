@@ -87,4 +87,15 @@ public class OrderService : IOrderService
         order.StripeSessionId = paymentIntentId;
         await _context.SaveChangesAsync();
     }
+
+    public async Task<List<Order>> GetUserOrdersAsync(string userId)
+    {
+        // _context (hoặc _db) là biến ApplicationDbContext của bạn
+        return await _context.Orders
+            .Include(o => o.Items)             // Lấy danh sách chi tiết đơn hàng (OrderItem)
+                .ThenInclude(i => i.Product)   // Lấy luôn thông tin Sản phẩm (để ra View còn hiện tên, ảnh)
+            .Where(o => o.UserId == userId)    // Lọc đúng đơn của User đang đăng nhập
+            .OrderByDescending(o => o.OrderDate) // Sắp xếp: Đơn mới nhất lên đầu
+            .ToListAsync();
+    }
 }

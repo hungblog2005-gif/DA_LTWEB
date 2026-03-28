@@ -8,6 +8,6 @@ public interface IOrderService
     Task<Order?> GetOrderByIdAsync(int orderId);
 
     Task UpdateOrderStatusAsync(int orderId, string status, string? stripeId = null);
-
     Task UpdateStripeIntentAsync(int orderId, string paymentIntentId);
+    Task<List<Order>> GetUserOrdersAsync(string userId);
 }

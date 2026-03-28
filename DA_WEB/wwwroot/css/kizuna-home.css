@@ -1,4 +1,220 @@
-﻿:root {
+﻿
+/* Thêm vào phần đầu của file CSS */
+
+/* Enhanced typography & readability */
+body {
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improved hero section with better depth */
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+}
+
+.hero-left {
+    position: relative;
+    background: linear-gradient(135deg, rgba(26,20,16,0.9) 0%, rgba(26,20,16,0.7) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 80px 64px;
+    z-index: 2;
+}
+
+/* Enhanced marquee with smoother animation */
+.marquee-wrap {
+    background: var(--ink);
+    overflow: hidden;
+    padding: 16px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+}
+
+.marquee-track {
+    display: flex;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+}
+
+/* Improved product grid with better spacing */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 48px 32px;
+    margin-top: 40px;
+}
+
+/* Enhanced philosophy section */
+.section-philosophy {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Improved newsletter with subtle animation */
+.section-newsletter {
+    position: relative;
+    padding: 120px 48px;
+    background: var(--ink);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-blend-mode: overlay;
+}
+
+/* Enhanced footer with better hierarchy */
+footer {
+    background: #0a0807;
+    color: rgba(255,255,255,0.35);
+    padding: 100px 48px 60px;
+    position: relative;
+}
+
+/* Smooth transitions for all interactive elements */
+a, button, .product-card, .featured-card {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Enhanced button hover effects */
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(189, 0, 44, 0.2);
+}
+
+/*@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 80vh;
+    }
+    
+    .hero-left {
+        padding: 120px 24px 60px;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .section-philosophy {
+        grid-template-columns: 1fr;
+    }
+    
+    .featured-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Added subtle background patterns */
+.section-collection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(189, 0, 44, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Enhanced scroll behavior */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+/* Better focus states for accessibility */
+a:focus, button:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Improved loading states */
+.product-img {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.7s cubic-bezier(.16,1,.3,1);
+    opacity: 0;
+    animation: fadeInImage 0.6s ease-in-out forwards;
+}
+
+@keyframes fadeInImage {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Enhanced hover states for cards */
+.product-card:hover,
+.featured-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* Better visual hierarchy in navigation */
+nav a {
+    position: relative;
+    padding-bottom: 4px;
+}
+
+    nav a::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--primary);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        content: '';
+    }
+
+    nav a:hover::after {
+        transform: scaleX(1);
+    }
+
+/* Improved cursor interactions */
+.cursor {
+    transition: transform 0.15s ease, opacity 0.2s, background 0.2s;
+}
+
+.cursor-ring {
+    transition: transform 0.4s cubic-bezier(.16,1,.3,1), opacity 0.3s, border-color 0.2s;
+}
+
+/* Enhanced scroll progress indicator */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary);
+    transform-origin: left;
+    transform: scaleX(0);
+    z-index: 1000;
+    pointer-events: none;
+}
+:root {
     --primary: #bd002c;
     --primary-dark: #8a001f;
     --ink: #1a1410;
@@ -500,8 +716,8 @@ header.scrolled .icon-btn {
 
 .products-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
-    gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 32px;
 }
 
 .product-card {
@@ -515,10 +731,10 @@ header.scrolled .icon-btn {
 
 .product-img-wrap {
     position: relative;
-    aspect-ratio: 3/4;
+    aspect-ratio: 2/3;
     overflow: hidden;
-    margin-bottom: 18px;
-    background: var(--warm-mid);
+    background: var(--paper);
+    margin-bottom: 24px;
 }
 
 .product-img {
@@ -568,10 +784,11 @@ header.scrolled .icon-btn {
 
 .product-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--ink);
     margin-bottom: 6px;
+    letter-spacing: 0.02em;
 }
 
 .product-meta {
@@ -724,7 +941,16 @@ header.scrolled .icon-btn {
 .featured-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
+    gap: 32px;
+}
+/* Xóa bỏ đường viền cứng nhắc của bộ lọc */
+.shop-sidebar {
+    background: white;
+    border-right: none;
+    padding: 40px 48px 40px 0;
+    position: sticky;
+    top: 72px;
+    height: fit-content;
 }
 
 .featured-card {

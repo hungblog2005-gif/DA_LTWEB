@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<DA_WEB.Models.Product>
+@{
     ViewData["Title"] = "Kizuna — Thời Trang Tối Giản Nhật Bản";
     Layout = "~/Views/Shared/_LayoutKizuna.cshtml";
 }
@@ -23,7 +24,7 @@
     </nav>
     <div class="header-actions">
         <button class="icon-btn">Search</button>
-        <button class="icon-btn">Bag <span class="cart-count">0</span></button>
+        <a href="/Cart/Index" class="icon-btn" style="text-decoration:none">Bag <span class="cart-count">0</span></a>
 
         @if (User.Identity != null && User.Identity.IsAuthenticated)
         {
@@ -130,82 +131,41 @@
     </div>
 
     <div class="products-grid">
+        @{
+            int delayIndex = 0;
+        }
+        
+        @foreach (var item in Model)
+        {
+            // Tạo hiệu ứng load dần đều (delay) cực mượt như code gốc của bạn
+            string delayClass = delayIndex > 0 ? $"reveal-delay-{delayIndex}" : "";
+            string defaultImg = "https://via.placeholder.com/400x500?text=Kizuna+Product"; // Ảnh tạm nếu lỡ quên up ảnh
 
-        <!-- Card 1 -->
-        <a href="/Shop" style="text-decoration:none;color:inherit;display:block">
-            <div class="product-card reveal">
-                <div class="product-img-wrap">
-                    <div class="product-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCmIRinGOVevTLvqBzQS8UOdV_0YSKIjISOO9423acQoBbtnbMXRczS8Dhtq3OUjvIYH-uIBsQZlKYrMwpZw3SuFGHO4gNJOo4Wt8rGijgvS7JvKHxi9EMoprRtuaslcnkyeLBD835UF3Kqak44bSScg_smqkFCylJ64IxV_gmjcgcTmz0GELpPRj2pLVksZoa3fzKtHmPJQ5gtZmDcu9rOUKnJFVEc85AL9gWZPz_osVDjynXzZt7IQzqMHLkBmoJSXtZKPalZMis')"></div>
-                    <div class="product-badge">New</div>
-                    <div class="product-quick-add">+ Quick Add</div>
-                </div>
-                <h3 class="product-name">Linen Haori</h3>
-                <div class="product-meta">
-                    <span class="product-price">1.200.000đ</span>
-                    <div class="product-color-swatches">
-                        <span class="swatch" style="background:#e8ddd0"></span>
-                        <span class="swatch" style="background:#2a2520"></span>
-                        <span class="swatch" style="background:#5a6b5e"></span>
+            <a href="/Shop/Detail/@item.Id" style="text-decoration:none;color:inherit;display:block">
+                <div class="product-card reveal @delayClass">
+                    <div class="product-img-wrap">
+                        <div class="product-img" style="background-image:url('@(string.IsNullOrEmpty(item.ImageUrl) ? defaultImg : item.ImageUrl)')"></div>
+                        
+                        @if (delayIndex == 0)
+                        {
+                            <div class="product-badge">New</div>
+                        }
+                        
+                        <div class="product-quick-add">+ Quick Add</div>
+                    </div>
+                    <h3 class="product-name">@item.Name</h3>
+                    <div class="product-meta">
+                        <span class="product-price">@item.Price.ToString("N0")đ</span>
+                        <div class="product-color-swatches">
+                            <span class="swatch" style="background:#e8ddd0"></span>
+                            <span class="swatch" style="background:#2a2520"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
-
-        <!-- Card 2 -->
-        <a href="/Shop" style="text-decoration:none;color:inherit;display:block">
-            <div class="product-card reveal reveal-delay-1">
-                <div class="product-img-wrap">
-                    <div class="product-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBbPBSN4g49aH1geRooT10JRHtLRuQ6fy7LRMXiouv5V1ojRVHRXQBf8eq7232RpCvdRquZroSbdNjxz_woN_zTzn_5QeePxeVa5-Xbw_JcUxb79l0ilyqoczhFJz3eDbn07jAveolejgxjbiF_Ld1-V6sA0GUgQJGktuuA5v-ucMujKaaCbfYUnAQlqKuAJVjcNIwvVXtTR7kSXDB7b1v7MljqNEKZ7DUYleSc2q64A8G1uX4ILBOD_FPN-RmYN2KtnknCw1LH_gI')"></div>
-                    <div class="product-quick-add">+ Quick Add</div>
-                </div>
-                <h3 class="product-name">Wide-Leg Trousers</h3>
-                <div class="product-meta">
-                    <span class="product-price">850.000đ</span>
-                    <div class="product-color-swatches">
-                        <span class="swatch" style="background:#2a2520"></span>
-                        <span class="swatch" style="background:#b8a898"></span>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Card 3 -->
-        <a href="/Shop" style="text-decoration:none;color:inherit;display:block">
-            <div class="product-card reveal reveal-delay-2">
-                <div class="product-img-wrap">
-                    <div class="product-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmYayE3fmmKm_lFTGFKr5aUuSCwJ-fIWttlEZcCTEMWxh5I2fgXvhbqLJNbByVS3bmj4RC9FaCqXUuS8K8tMTVxEi4m-MNl3-IBN0bTZAQlCsJ4g0mVsHf0BD4Ez8w_rN-zabPHR_ZoRp4lYjpz32mvySlxmFua_D02bwaplyTiN64jzO0AGnio6UHfjow_o6txv6M6eaYOWtaDqxJynfRDQl8Q1GdEhPfCAkl8NfDz1G6hmfh_zyFbyJ0kiTohY797RtRCuE_1n4')"></div>
-                    <div class="product-badge">Bestseller</div>
-                    <div class="product-quick-add">+ Quick Add</div>
-                </div>
-                <h3 class="product-name">Minimalist Kimono</h3>
-                <div class="product-meta">
-                    <span class="product-price">2.500.000đ</span>
-                    <div class="product-color-swatches">
-                        <span class="swatch" style="background:#1a1410"></span>
-                        <span class="swatch" style="background:#8a7b6e"></span>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Card 4 -->
-        <a href="/Shop" style="text-decoration:none;color:inherit;display:block">
-            <div class="product-card reveal reveal-delay-3">
-                <div class="product-img-wrap">
-                    <div class="product-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAgunskY3fOKwJhx8tH_DzzjM812jbA0-9r-0yVZD8AkQMtpRid8rO27BfQT-Kbeia_4piwp5bko-KW2QJQSvPIFaakRXtp5Cw89kjmk0jCesUjlLvg7MYgeKRWTfN5P5nJuZcWhMst05fFKXebZRY7wPC-UubEjFAPlUdUowWI7W6zzQ_JIlPHWSVrnxBPmr8t4vrmX05o6S3JzGNZnTsvSx-ih-YxNo6F9Op1XUIAULFxwb_1wBKd9qqU6nn3OjJiQ6XuZ7WljcA')"></div>
-                    <div class="product-quick-add">+ Quick Add</div>
-                </div>
-                <h3 class="product-name">Indigo Work Shirt</h3>
-                <div class="product-meta">
-                    <span class="product-price">1.100.000đ</span>
-                    <div class="product-color-swatches">
-                        <span class="swatch" style="background:#2d4a6e"></span>
-                        <span class="swatch" style="background:#1a1410"></span>
-                    </div>
-                </div>
-            </div>
-        </a>
-
+            </a>
+            
+            delayIndex++;
+        }
     </div>
 </section>
 
@@ -262,37 +222,37 @@
         <h2 class="section-title" style="margin-top:12px">Được Yêu Thích Nhất</h2>
     </div>
     <div class="featured-grid">
-        <a href="/Shop" style="text-decoration:none;display:block">
-            <div class="featured-card reveal">
-                <div class="featured-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuARVgMhyzoI6Smj0oPQvb5EahAIXB_38_56mSOVnghtL235ybJGu_-wqfE09oiqyhoOFeWEJz4GpYWw2gKgr1SzQHi7tZrpfel_S8x1Mz6okOoJCE8DwfKr8JwVSVxj4mcGOb1wbSnhY4vV-Y61xEUc6d3N2_2iekbWWWEY1HQC8UzZMW41fhf-DT0a6vsYnjkULMpji1sl-X6_JYeJP4Du889tsNIxVeABXxevRU_Iz3f-f41XQqxeCuIg6j-yRVai0_bxxnL1e9Y')"></div>
-                <div class="featured-overlay">
-                    <div class="featured-label">Chất Liệu</div>
-                    <div class="featured-name">Premium Linen</div>
-                    <div class="featured-desc">Thoáng mát, thấm hút cho khí hậu nhiệt đới Việt Nam.</div>
-                </div>
-            </div>
-        </a>
-        <a href="/Shop" style="text-decoration:none;display:block;position:relative">
-            <div class="featured-card reveal reveal-delay-1">
-                <div class="featured-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAHa0dGbtnLOGcpLrHULSnKJd8dkRyRY9_ern0WXhaREb8DaFpr-hDNwLKvamyY6Ur2VyvS0YTj7OZzC4bkpjBL3M06s5PSAm0Jaup9Vk4PuhKQucPRv99jA3mF3nFUcgPMNVV25bd6MquffqY6TrMmJpjFmOBwmfgKpGyNov2nnIv2RbZbyA7NNSdr_vAwwW9LR4xO5TZUQuH-IkcrVu0e1fpR-2w_aElSGsrpfQVF9ubJne0SPbJ-pobZhU-ho6dnMr0YDxGHk9o')"></div>
-                <div class="featured-center-badge">Editor's Pick</div>
-                <div class="featured-overlay">
-                    <div class="featured-label">Thiết Kế</div>
-                    <div class="featured-name">Minimalist Cuts</div>
-                    <div class="featured-desc">Đường cắt tinh xảo tạo phom dáng hiện đại và phóng khoáng.</div>
-                </div>
-            </div>
-        </a>
-        <a href="/Shop" style="text-decoration:none;display:block">
-            <div class="featured-card reveal reveal-delay-2">
-                <div class="featured-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBFftwvdpDaHW08YhKcJ2uFrLUrkWNppyhBP7WKvaeUWl5iOxOtnQ9ZHEMouyygxTe_CvtObIn0IRm6OnT-L0VkfsG6ohyoDjC8tfx3vOxQezKtdYXmBHCmps-QozYTnYN5hN95AG1ap56Eyrc0Y3ozjWM3G0mI3M0aQfCy5ynONw43GjIN5A_7gFsr0IAOaBRijVBNAFpqR5rrzfjfyVYTepGv8CKRwLUfq_51Ldu5np80l53tQAuEBMNS_lMy3pVZJizigaQ')"></div>
-                <div class="featured-overlay">
-                    <div class="featured-label">Thủ Công</div>
-                    <div class="featured-name">Artisan Crafted</div>
-                    <div class="featured-desc">Kỹ thuật truyền thống kết hợp quy trình hiện đại.</div>
-                </div>
-            </div>
-        </a>
+        @{
+            var featuredList = ViewBag.FeaturedProducts as List<DA_WEB.Models.Product>;
+            int fIndex = 0;
+        }
+        
+        @if (featuredList != null)
+        {
+            @foreach (var item in featuredList)
+            {
+                string delayClass = fIndex > 0 ? $"reveal-delay-{fIndex}" : "";
+                string imgUrl = string.IsNullOrEmpty(item.ImageUrl) ? "https://via.placeholder.com/600x800" : item.ImageUrl;
+
+                <a href="/Shop/Detail/@item.Id" style="text-decoration:none;display:block;position:relative">
+                    <div class="featured-card reveal @delayClass">
+                        <div class="featured-img" style="background-image:url('@imgUrl')"></div>
+                        
+                        @if (fIndex == 1)
+                        {
+                            <div class="featured-center-badge">Editor's Pick</div>
+                        }
+                        
+                        <div class="featured-overlay">
+                            <div class="featured-label">Nổi Bật</div>
+                            <div class="featured-name">@item.Name</div>
+                            <div class="featured-desc">@item.Price.ToString("N0")₫</div>
+                        </div>
+                    </div>
+                </a>
+                fIndex++;
+            }
+        }
     </div>
 </section>
 
@@ -308,7 +268,7 @@
         </p>
         <div class="newsletter-form">
             <input class="newsletter-input" type="email" placeholder="Email của bạn" />
-            <button href="/Account/Loginn" " class="newsletter-btn">Đăng Ký</button>
+            <a href="/Identity/Account/Login" class="newsletter-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Đăng Ký</a>
         </div>
     </div>
 </section>

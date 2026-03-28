@@ -1,163 +1,152 @@
-﻿@{
+﻿@model DA_WEB.Models.DashboardViewModel
+@{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<!-- PAGE HEADING -->
 <div class="page-heading">
-    <div class="page-eyebrow">Admin Panel</div>
-    <h1 class="page-title">System <em>Overview</em></h1>
-    <p class="page-subtitle">Welcome back. Here's what's happening with Kizuna today.</p>
+    <div class="page-eyebrow">Overview</div>
+    <h1 class="page-title">Admin <em>Dashboard</em></h1>
 </div>
 
-<!-- STAT CARDS -->
-<div class="stats-grid">
-    <div class="stat-card">
-        <div class="stat-header">
-            <span class="stat-label">Total Revenue</span>
-            <span class="material-symbols-outlined stat-icon">payments</span>
-        </div>
-        <div class="stat-value">245,000,000₫</div>
-        <div class="stat-trend trend-up">
-            <span class="material-symbols-outlined">trending_up</span>
-            12.5% vs last month
-        </div>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 32px;">
+    
+    <div class="form-card" style="padding: 24px;">
+        <p style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px;">Total Revenue</p>
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--ink);">
+            @Model.TotalRevenue.ToString("N0")₫
+        </h3>
     </div>
-    <div class="stat-card">
-        <div class="stat-header">
-            <span class="stat-label">New Orders</span>
-            <span class="material-symbols-outlined stat-icon">shopping_bag</span>
-        </div>
-        <div class="stat-value">128</div>
-        <div class="stat-trend trend-down">
-            <span class="material-symbols-outlined">trending_down</span>
-            2.4% vs last month
-        </div>
+
+    <div class="form-card" style="padding: 24px;">
+        <p style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px;">Total Orders</p>
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--ink);">
+            @Model.TotalOrders
+        </h3>
     </div>
-    <div class="stat-card">
-        <div class="stat-header">
-            <span class="stat-label">New Customers</span>
-            <span class="material-symbols-outlined stat-icon">person_add</span>
-        </div>
-        <div class="stat-value">1,420</div>
-        <div class="stat-trend trend-up">
-            <span class="material-symbols-outlined">trending_up</span>
-            5.8% vs last month
-        </div>
+
+    <div class="form-card" style="padding: 24px;">
+        <p style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px;">Products</p>
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--ink);">
+            @Model.TotalProducts
+        </h3>
+    </div>
+
+    <div class="form-card" style="padding: 24px;">
+        <p style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px;">Customers</p>
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--ink);">
+            @Model.TotalCustomers
+        </h3>
     </div>
 </div>
 
-<!-- CONTENT GRID -->
-<div class="content-grid">
-
-    <!-- RECENT ORDERS -->
-    <div class="card">
-        <div class="card-header">
-            <span class="card-title">Recent Orders</span>
-            <a href="#" class="card-link">View all</a>
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+    
+    <div>
+        <div class="form-card" style="margin-bottom: 24px; padding: 24px;">
+            <p style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 16px;">
+                Top Selling Products
+            </p>
+    
+            @if (Model.TopProducts != null && Model.TopProducts.Any())
+            {
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    @foreach (var item in Model.TopProducts)
+                    {
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px dashed var(--paper);">
+                            <div>
+                                <h4 style="font-size: 14px; font-weight: 600; color: var(--ink); margin: 0 0 4px 0;">@item.ProductName</h4>
+                                <span style="font-size: 12px; color: var(--muted);">Đã bán: <strong>@item.TotalSold</strong> chiếc</span>
+                            </div>
+                            <div style="font-size: 14px; font-weight: bold; color: var(--primary);">
+                                @item.Revenue.ToString("N0")₫
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div style="text-align: center; padding: 24px 0; color: var(--muted); font-size: 13px;">
+                    Chưa có dữ liệu bán hàng.
+                </div>
+            }
         </div>
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="td-bold">#KZ-9921</td>
-                    <td>Pham Minh Anh</td>
-                    <td class="td-muted">14:20, 24/05/2025</td>
-                    <td class="td-bold">1,250,000₫</td>
-                    <td><span class="badge badge-pending">Pending</span></td>
-                </tr>
-                <tr>
-                    <td class="td-bold">#KZ-9919</td>
-                    <td>Le Quoc Khanh</td>
-                    <td class="td-muted">12:15, 24/05/2025</td>
-                    <td class="td-bold">3,400,000₫</td>
-                    <td><span class="badge badge-shipping">Shipping</span></td>
-                </tr>
-                <tr>
-                    <td class="td-bold">#KZ-9918</td>
-                    <td>Tran Thu Thao</td>
-                    <td class="td-muted">10:05, 24/05/2025</td>
-                    <td class="td-bold">890,000₫</td>
-                    <td><span class="badge badge-delivered">Delivered</span></td>
-                </tr>
-                <tr>
-                    <td class="td-bold">#KZ-9915</td>
-                    <td>Nguyen Van Nam</td>
-                    <td class="td-muted">09:40, 24/05/2025</td>
-                    <td class="td-bold">2,100,000₫</td>
-                    <td><span class="badge badge-delivered">Delivered</span></td>
-                </tr>
-                <tr>
-                    <td class="td-bold">#KZ-9912</td>
-                    <td>Hoang Bao Chau</td>
-                    <td class="td-muted">08:30, 24/05/2025</td>
-                    <td class="td-bold">1,750,000₫</td>
-                    <td><span class="badge badge-shipping">Shipping</span></td>
-                </tr>
-            </tbody>
-        </table>
+
+        <div class="form-card" style="padding: 24px;">
+            <p style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 16px;">
+                Recent Orders
+            </p>
+            <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--warm-mid); font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.1em;">
+                        <th style="padding: 12px 0;">Order ID</th>
+                        <th style="padding: 12px 0;">Customer</th>
+                        <th style="padding: 12px 0;">Date</th>
+                        <th style="padding: 12px 0;">Status</th>
+                        <th style="padding: 12px 0; text-align: right;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.RecentOrders)
+                    {
+                        <tr style="border-bottom: 1px solid var(--paper); font-size: 13px; color: var(--ink);">
+                            <td style="padding: 12px 0;">
+                                <a href="/Admin/Order/Details/@order.Id" style="color: var(--primary); font-weight: bold; text-decoration: none;">#@order.Id</a>
+                            </td>
+                            <td style="padding: 12px 0;">@order.FullName</td>
+                            <td style="padding: 12px 0;">@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                            <td style="padding: 12px 0;">
+                                @if (order.Status == "Pending")
+                                {
+                                    <span style="background: #fff3cd; color: #856404; padding: 4px 8px; border-radius: 4px; font-size: 10px;">@order.Status</span>
+                                }
+                                else
+                                {
+                                    <span style="background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 4px; font-size: 10px;">@order.Status</span>
+                                }
+                            </td>
+                            <td style="padding: 12px 0; text-align: right;">@order.TotalAmount.ToString("N0")₫</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- TOP PRODUCTS -->
-    <div class="card">
-        <div class="card-header">
-            <span class="card-title">Top Products</span>
+    <div>
+        <div class="form-card" style="margin-bottom: 24px; padding: 24px; border-left: 3px solid #d9534f;">
+            <p style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #d9534f; margin-bottom: 16px;">
+                <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: text-bottom;">warning</span> Low Stock Alert
+            </p>
+            @foreach (var item in Model.LowStockProducts)
+            {
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--paper);">
+                    <div style="font-size: 12px; color: var(--ink);">@item.Name</div>
+                    <div style="font-size: 12px; font-weight: bold; color: #d9534f;">@item.Stock left</div>
+                </div>
+            }
+            @if (!Model.LowStockProducts.Any())
+            {
+                <div style="font-size: 11px; color: var(--muted);">All products are well stocked.</div>
+            }
         </div>
-        <div class="product-list">
-            <div class="product-item">
-                <div class="product-thumb" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCU9rTDTy_9y00UXmc8drvZ_2hWxyPM9y34jHrZwFge9P68Qga6zNSHak00mnz0NggZYsrakFi8AKObfTjZKH_dD4qkmUv9dMN001bQHEW8Sj1getUsiDFXJBuoj0SyLfwiQI_KYgbDntUfqsV9bKrQxO2a8LwjjUmO5SxzcfS05lrSKC_J6QKUpw2ezDfgkikB5a3uojVpaRrZa1cH0BcuHOAe-2wvZqIMLwfWUyu9gXvuaDi-A4oYb-7_3lOw6Uiw4cCpBp3T06k')"></div>
-                <div class="product-info">
-                    <div class="product-name">White Linen Shirt</div>
-                    <div class="product-cat">Menswear</div>
-                </div>
-                <div class="product-stats">
-                    <div class="product-orders">42 orders</div>
-                    <div class="product-growth-up">+12%</div>
-                </div>
-            </div>
-            <div class="product-item">
-                <div class="product-thumb" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJL1EPHZgAUHgxod2WtcbX5b1UfffJIr--CYc2jDlnbWBSOgyr8HQFSs2j2J1wcRT23tmUY-o-NkYVzRAq2THvXC8g-u5TGw13Pu-2hltq9vEQAugKDfze7Hk4IxI3iPQNHQ5jTxSZJ7oCFEG88K9AUMKAaxcOXAWDCvsDH7_tzk5k8DiEF3XNFa1To2bvzOyJ14AJkZqxUEt8xT64rd_ozMPiK4nCMcw01aygJKHTa7wx2YvJ_tAKRHYZF6ZvZV8D6dG-7WxEzoU')"></div>
-                <div class="product-info">
-                    <div class="product-name">Oversized Black T-shirt</div>
-                    <div class="product-cat">Unisex</div>
-                </div>
-                <div class="product-stats">
-                    <div class="product-orders">38 orders</div>
-                    <div class="product-growth-up">+8%</div>
-                </div>
-            </div>
-            <div class="product-item">
-                <div class="product-thumb" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuALehovlPWDab_prwggaR9g7cL4GekeuyYvZZ7iMMT0xClKI8J_fQOF2G2XlSuDwVPhcZUunNVdA5TnAQt85nIqh1ZDJQer_VQ8Tc6fEXIHFVRAMYLYDPWSS8DgQAYYeyefkrdcKUABVx5-qCluGmY3puUNVI9zp7iK8rNA9CHutHFiavr7l03Af5zi9i1Yt82OirVFlwHnIcJ2yiCx_gJa2YpPSQGCUtFWrw23yTO4pOQVcWWuaLJ7N5ZlTrJVJxxpGlsm5zppDBM')"></div>
-                <div class="product-info">
-                    <div class="product-name">Raw Denim Indigo</div>
-                    <div class="product-cat">Menswear</div>
-                </div>
-                <div class="product-stats">
-                    <div class="product-orders">31 orders</div>
-                    <div class="product-growth-down">-3%</div>
-                </div>
-            </div>
-            <div class="product-item">
-                <div class="product-thumb" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBPCAeOBRexe_P7fqidOgpFDyskfH_pHLXctSOeZQhCaMlG6idhf0g4nLVrnNk3NAXFWn3T8zG84y9zuqKKBHy115-I0HYBIhIjO3L4t5cg5_mc_6JoJfiHGW9WXs4y4JJAVQFAlyuau1gzk3_pvOyX5pyfaJbk1F8fnbLpRDshQ7EN6C0Kqriwn9xcttccPjmM6erwY5lVLzY23ZcX9oQACytPzkmFbl6rpHBTVFmBk45yBzaOrhLsajSWihLQnE-BjdphTigLEA')"></div>
-                <div class="product-info">
-                    <div class="product-name">Beige Wool Sweater</div>
-                    <div class="product-cat">Womenswear</div>
-                </div>
-                <div class="product-stats">
-                    <div class="product-orders">25 orders</div>
-                    <div class="product-growth-up">+15%</div>
-                </div>
-            </div>
-        </div>
-        <button class="btn-report">View Full Report</button>
-    </div>
 
+        <div class="form-card" style="padding: 24px; border-left: 3px solid #f0ad4e;">
+            <p style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #f0ad4e; margin-bottom: 16px;">
+                <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: text-bottom;">pending_actions</span> Action Required
+            </p>
+            @foreach (var item in Model.PendingOrders)
+            {
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--paper);">
+                    <div style="font-size: 12px; color: var(--ink);">Order #@item.Id</div>
+                    <div style="font-size: 12px; color: var(--muted);">@item.OrderDate.ToString("dd/MM")</div>
+                </div>
+            }
+            @if (!Model.PendingOrders.Any())
+            {
+                <div style="font-size: 11px; color: var(--muted);">No pending orders.</div>
+            }
+        </div>
+    </div>
 </div>

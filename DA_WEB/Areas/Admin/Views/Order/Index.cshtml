@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DA_WEB.Models.Order>
+@{
+    ViewData["Title"] = "Order Management";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-heading" style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <div class="page-eyebrow">Sales</div>
+        <h1 class="page-title">Manage <em>Orders</em></h1>
+    </div>
+</div>
+
+<div class="form-card">
+    <div class="form-card-body" style="padding: 0;">
+        <table style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--warm-mid); font-size: 11px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.1em; background: var(--paper);">
+                    <th style="padding: 16px 24px;">Order ID</th>
+                    <th style="padding: 16px 24px;">Customer</th>
+                    <th style="padding: 16px 24px;">Date</th>
+                    <th style="padding: 16px 24px;">Total</th>
+                    <th style="padding: 16px 24px;">Payment</th>
+                    <th style="padding: 16px 24px;">Status</th>
+                    <th style="padding: 16px 24px; text-align: center;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="border-bottom: 1px solid var(--paper); font-size: 14px; color: var(--ink);">
+                        <td style="padding: 16px 24px; font-weight: 600;">#@item.Id</td>
+                        <td style="padding: 16px 24px;">
+                            <div>@item.FullName</div>
+                            <div style="font-size: 11px; color: var(--muted);">@item.Phone</div>
+                        </td>
+                        <td style="padding: 16px 24px;">@item.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td style="padding: 16px 24px; font-weight: 600;">@item.TotalAmount.ToString("N0")₫</td>
+                        <td style="padding: 16px 24px;">@item.PaymentMethod</td>
+                        <td style="padding: 16px 24px;">
+                            <span style="padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase;
+                                @(item.Status == "Pending" ? "background: #fff3cd; color: #856404;" :
+                                                                    item.Status == "Processing" ? "background: #cce5ff; color: #004085;" :
+                                                                    item.Status == "Shipped" ? "background: #d1ecf1; color: #0c5460;" :
+                                                                    item.Status == "Delivered" ? "background: #d4edda; color: #155724;" :
+                                                                    "background: #f8d7da; color: #721c24;")">
+                                @item.Status
+                            </span>
+                        </td>
+                        <td style="padding: 16px 24px; text-align: center;">
+                            <a asp-action="Details" asp-route-id="@item.Id" style="color: var(--primary); text-decoration: none; font-weight: bold; font-size: 13px;">View</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model DA_WEB.Models.Category
+@{
+    ViewData["Title"] = "Delete Category";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-heading">
+    <div class="page-eyebrow" style="color: #d9534f;">Warning</div>
+    <h1 class="page-title">Delete <em>Category</em></h1>
+    <p class="page-subtitle">Are you sure you want to delete this category? This action cannot be undone.</p>
+</div>
+
+<div class="form-grid">
+    <div class="form-col-main">
+        <div class="form-card" style="border-color: #f5c6cb;">
+            <div class="form-card-header" style="background-color: #f8d7da; color: #721c24;">Category Information</div>
+            <div class="form-card-body">
+                <dl style="display: grid; grid-template-columns: 120px 1fr; gap: 16px; font-size: 14px;">
+                    <dt style="color: var(--muted); font-weight: 600;">ID:</dt>
+                    <dd style="color: var(--ink); margin: 0;">#@Model.Id</dd>
+
+                    <dt style="color: var(--muted); font-weight: 600;">Name:</dt>
+                    <dd style="color: var(--ink); margin: 0; font-weight: 500;">@Model.Name</dd>
+
+                    <dt style="color: var(--muted); font-weight: 600;">Description:</dt>
+                    <dd style="color: var(--ink); margin: 0;">@(string.IsNullOrEmpty(Model.Description) ? "No description provided." : Model.Description)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-col-side">
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div style="display:flex;flex-direction:column;gap:10px">
+                <button type="submit" class="btn-primary-admin" style="justify-content:center; background-color: #d9534f; border-color: #d9534f;">
+                    <span class="material-symbols-outlined" style="font-size:16px">delete_forever</span>
+                    Confirm Delete
+                </button>
+                <a asp-action="Index" class="btn-secondary-admin">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

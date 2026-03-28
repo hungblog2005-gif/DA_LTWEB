@@ -1,0 +1,164 @@
+﻿@model IEnumerable<DA_WEB.Models.Order>
+@{
+    ViewData["Title"] = "Order History";
+    Layout = "~/Views/Shared/_LayoutKizuna.cshtml";
+}
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <style>
+        .breadcrumb {
+            background: white; padding: 14px 48px; border-bottom: 1px solid var(--warm-mid);
+            display: flex; align-items: center; gap: 8px;
+            font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+        }
+        .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--primary); }
+
+        .history-container {
+            max-width: 1000px; margin: 0 auto; padding: 64px 48px; min-height: 70vh;
+        }
+        .page-title {
+            font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; 
+            color: var(--ink); margin-bottom: 40px; text-align: center;
+        }
+
+        /* Trạng thái trống */
+        .empty-history { text-align: center; padding: 64px 0; }
+        .empty-history .material-symbols-outlined { font-size: 64px; color: var(--warm-mid); margin-bottom: 24px; }
+        .empty-history h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--ink); margin-bottom: 16px; }
+        .empty-history p { font-size: 14px; color: var(--muted); margin-bottom: 32px; letter-spacing: 0.05em; }
+        .btn-continue {
+            display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px;
+            border: 1px solid var(--ink); color: var(--ink); text-decoration: none;
+            font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; transition: all 0.2s;
+        }
+        .btn-continue:hover { background: var(--ink); color: white; }
+
+        /* Danh sách đơn hàng */
+        .order-list { display: flex; flex-direction: column; gap: 32px; }
+        
+        .order-card {
+            background: white; border: 1px solid var(--warm-mid);
+        }
+        
+        /* Header của đơn hàng */
+        .order-header {
+            padding: 24px; background: var(--paper); border-bottom: 1px solid var(--warm-mid);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+        }
+        .order-header-left { display: flex; flex-direction: column; gap: 8px; }
+        .order-id { font-family: 'Josefin Sans', sans-serif; font-size: 16px; font-weight: 600; color: var(--ink); letter-spacing: 0.05em; }
+        .order-date { font-size: 12px; color: var(--muted); letter-spacing: 0.05em; }
+        
+        .order-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+        .order-total { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--ink); font-weight: 600; }
+        
+        /* Nhãn trạng thái */
+        .status-badge {
+            display: inline-block; padding: 6px 12px; font-size: 9px; font-weight: 600;
+            letter-spacing: 0.2em; text-transform: uppercase; border-radius: 2px;
+        }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-paid { background: #e8f5e9; color: #2e7d32; }
+        .status-cancelled { background: #ffebee; color: #c62828; }
+
+        /* Chi tiết món đồ trong đơn */
+        .order-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+        .order-item {
+            display: flex; gap: 16px; align-items: center; padding-bottom: 16px; border-bottom: 1px dashed var(--warm-mid);
+        }
+        .order-item:last-child { padding-bottom: 0; border-bottom: none; }
+        
+        .item-img {
+            width: 64px; aspect-ratio: 3/4; background-size: cover; background-position: center top;
+            background-color: var(--warm-mid); border: 1px solid var(--warm-mid); flex-shrink: 0;
+        }
+        .item-info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+        .item-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--ink); }
+        .item-meta { font-size: 12px; color: var(--muted); }
+        
+        .order-footer {
+            padding: 16px 24px; background: white; border-top: 1px solid var(--warm-mid);
+            font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px;
+        }
+        .order-footer .material-symbols-outlined { font-size: 16px; }
+    </style>
+}
+
+<div class="breadcrumb">
+    <a href="/">Home</a> <span>›</span> <span style="color:var(--ink)">Order History</span>
+</div>
+
+<div class="history-container">
+    <h1 class="page-title">Order <em>History</em></h1>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="empty-history">
+            <span class="material-symbols-outlined">receipt_long</span>
+            <h2>No orders found.</h2>
+            <p>You haven't placed any orders yet. Let's find something you'll love.</p>
+            <a href="/Shop" class="btn-continue">Explore Shop</a>
+        </div>
+    }
+    else
+    {
+        <div class="order-list">
+            @foreach (var order in Model)
+            {
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-header-left">
+                            <span class="order-id">ORDER #@order.Id</span>
+                            <span class="order-date">Placed on @order.OrderDate.ToString("MMM dd, yyyy")</span>
+                        </div>
+                        <div class="order-header-right">
+                            <span class="order-total">@order.TotalAmount.ToString("N0")₫</span>
+                            
+                            @if (order.Status == "Paid")
+                            {
+                                <span class="status-badge status-paid">Paid</span>
+                            }
+                            else if (order.Status == "Cancelled")
+                            {
+                                <span class="status-badge status-cancelled">Cancelled</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge status-pending">Pending</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="order-body">
+                        @if (order.Items != null && order.Items.Any())
+                        {
+                            foreach (var item in order.Items)
+                            {
+                                <div class="order-item">
+                                    <div class="item-img" style="background-image:url('@(item.Product?.ImageUrl ?? "")')"></div>
+                                    <div class="item-info">
+                                        <span class="item-name">@(item.Product?.Name ?? "Unknown Product")</span>
+                                        <span class="item-meta">Qty: @item.Quantity</span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <span style="font-size: 13px; color: var(--muted);">Order details unavailable.</span>
+                        }
+                    </div>
+
+                    <div class="order-footer">
+                        <span class="material-symbols-outlined">
+                            @(order.PaymentMethod == "COD" ? "local_shipping" : (order.PaymentMethod == "VnPay" ? "qr_code_scanner" : "credit_card"))
+                        </span>
+                        Payment Method: @order.PaymentMethod
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

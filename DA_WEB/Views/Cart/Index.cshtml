@@ -1,135 +1,252 @@
-﻿@model Cart
+﻿@model DA_WEB.Models.Cart
 @{
-    ViewData["Title"] = "Giỏ hàng - Phong cách tối giản Nhật Bản";
-    Layout = "_LayoutTailwind";
+    ViewData["Title"] = "Shopping Cart";
+    Layout = "~/Views/Shared/_LayoutKizuna.cshtml";
+    
+    // Lấy tổng tiền từ ViewBag (Controller truyền sang)
+    var totalPrice = ViewBag.TotalPrice != null ? (decimal)ViewBag.TotalPrice : 0;
 }
-<main class="flex-1 max-w-7xl mx-auto w-full px-6 md:px-20 py-12">
-    <div class="mb-10">
-        <h2 class="text-3xl font-light text-slate-900 tracking-tight">Giỏ hàng của bạn</h2>
-        <p class="text-slate-500 mt-2 font-light">Hiện đang có @(Model?.Items.Count ?? 0) sản phẩm trong danh sách</p>
-    </div>
-    @if (Model?.Items.Count > 0)
+
+@section Styles {
+<style>
+    .breadcrumb {
+        background: white; padding: 14px 48px; border-bottom: 1px solid var(--warm-mid);
+        display: flex; align-items: center; gap: 8px;
+        font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--primary); }
+
+    .cart-container {
+        max-width: 1440px; margin: 0 auto; padding: 64px 48px;
+        min-height: 70vh;
+    }
+    .page-title {
+        font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; 
+        color: var(--ink); margin-bottom: 48px;
+    }
+
+    /* Layout chia 2 cột: Danh sách SP và Tóm tắt đơn hàng */
+    .cart-layout {
+        display: grid; grid-template-columns: 7fr 3.5fr; gap: 64px;
+    }
+
+    /* BẢNG GIỎ HÀNG */
+    .cart-table { width: 100%; border-collapse: collapse; }
+    .cart-table th {
+        text-align: left; padding-bottom: 16px; border-bottom: 1px solid var(--warm-mid);
+        font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+        font-weight: 400;
+    }
+    .cart-table td {
+        padding: 32px 0; border-bottom: 1px solid var(--warm-mid); vertical-align: middle;
+    }
+    
+    .item-info { display: flex; gap: 24px; align-items: center; }
+    .item-img {
+        width: 100px; aspect-ratio: 3/4; background-size: cover; background-position: center top;
+        background-color: var(--warm-mid); border: 1px solid var(--warm-mid);
+    }
+    .item-details { display: flex; flex-direction: column; gap: 8px; }
+    .item-name {
+        font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--ink);
+        text-decoration: none; transition: color 0.2s;
+    }
+    .item-name:hover { color: var(--primary); }
+    .item-price { font-size: 14px; color: var(--muted); }
+    
+    .btn-remove {
+        background: none; border: none; color: #d9534f; cursor: pointer;
+        font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+        display: flex; align-items: center; gap: 4px; padding: 0; margin-top: 8px;
+        transition: opacity 0.2s;
+    }
+    .btn-remove:hover { opacity: 0.7; }
+
+    /* BỘ CHỈNH SỐ LƯỢNG */
+    .qty-form { display: flex; align-items: center; border: 1px solid var(--warm-mid); width: fit-content; }
+    .qty-btn {
+        width: 32px; height: 36px; background: none; border: none; cursor: pointer;
+        font-size: 16px; color: var(--muted); display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { color: var(--ink); background: var(--paper); }
+    .qty-input {
+        width: 40px; height: 36px; border: none; border-left: 1px solid var(--warm-mid); border-right: 1px solid var(--warm-mid);
+        text-align: center; font-family: 'Josefin Sans', sans-serif; font-size: 13px; color: var(--ink); outline: none;
+        -moz-appearance: textfield;
+    }
+    .qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+    .item-total { font-size: 16px; color: var(--ink); font-weight: 500; text-align: right; }
+
+    /* KHUNG TÓM TẮT ĐƠN HÀNG (SUMMARY) */
+    .summary-card {
+        background: var(--paper); padding: 40px; height: fit-content; position: sticky; top: 120px;
+    }
+    .summary-title {
+        font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--ink);
+        margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--warm-mid);
+    }
+    .summary-row {
+        display: flex; justify-content: space-between; margin-bottom: 16px;
+        font-size: 13px; color: var(--muted); letter-spacing: 0.05em;
+    }
+    .summary-total {
+        display: flex; justify-content: space-between; margin-top: 24px; padding-top: 24px;
+        border-top: 1px solid var(--warm-mid);
+        font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--ink); font-weight: 300;
+    }
+    .btn-checkout {
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        width: 100%; padding: 18px; margin-top: 32px;
+        background: var(--ink); color: white; border: none; cursor: pointer;
+        font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 600;
+        letter-spacing: 0.3em; text-transform: uppercase; transition: background 0.3s;
+    }
+    .btn-checkout:hover { background: var(--primary); }
+
+    /* TRẠNG THÁI GIỎ HÀNG TRỐNG */
+    .empty-cart {
+        text-align: center; padding: 80px 0;
+    }
+    .empty-cart .material-symbols-outlined {
+        font-size: 64px; color: var(--warm-mid); margin-bottom: 24px;
+    }
+    .empty-cart h2 {
+        font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--ink); margin-bottom: 16px;
+    }
+    .empty-cart p {
+        font-size: 14px; color: var(--muted); margin-bottom: 32px; letter-spacing: 0.05em;
+    }
+    .btn-continue {
+        display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px;
+        border: 1px solid var(--ink); color: var(--ink); text-decoration: none;
+        font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; transition: all 0.2s;
+    }
+    .btn-continue:hover { background: var(--ink); color: white; }
+</style>
+}
+
+<div class="breadcrumb">
+    <a href="/">Home</a> <span>›</span> <span style="color:var(--ink)">Shopping Cart</span>
+</div>
+
+<div class="cart-container">
+    <h1 class="page-title">Your <em>Cart</em></h1>
+
+    @if (Model == null || Model.Items == null || !Model.Items.Any())
     {
-        <div class="flex flex-col lg:flex-row gap-16">
-            <!-- Products List -->
-            <div class="flex-[2] space-y-8">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead class="border-b border-slate-200">
-                            <tr>
-                                <th class="pb-4 font-medium text-sm text-slate-400 uppercase tracking-wider">Sản phẩm</th>
-                                <th class="pb-4 font-medium text-sm text-slate-400 uppercase tracking-wider text-center">Số lượng</th>
-                                <th class="pb-4 font-medium text-sm text-slate-400 uppercase tracking-wider text-right">Thành tiền</th>
-                                <th class="pb-4"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100">
-                            @foreach (var item in Model.Items)
-                            {
-                                <tr class="group">
-                                    <td class="py-8">
-                                        <div class="flex items-center gap-6">
-                                            <div class="size-24 bg-slate-100 rounded-lg overflow-hidden flex-shrink-0">
-                                                @if (!string.IsNullOrEmpty(item.Product.ImageUrl))
-                                                {
-                                                    <img class="w-full h-full object-cover" src="@item.Product.ImageUrl" alt="@item.Product.Name" />
-                                                }
-                                                else
-                                                {
-                                                    <div class="w-full h-full flex items-center justify-center text-gray-400 dark:text-slate-500">[Ảnh]</div>
-                                                }
-                                            </div>
-                                            <div>
-                                                <h3 class="text-lg font-normal text-slate-900">@item.Product.Name</h3>
-                                                <p class="text-slate-500 text-sm mt-1">@item.Product.Description</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-8">
-                                        <div class="flex items-center justify-center">
-                                            <form method="post" asp-action="Update" asp-controller="Cart" style="display:inline;">
-                                                <div class="flex items-center border border-slate-200 rounded-lg bg-white">
-                                                    <button type="submit" name="quantity" value="@(item.Quantity - 1)" class="px-3 py-1 text-slate-400 hover:text-primary">-</button>
-                                                    <span class="px-2 py-1 text-sm font-medium w-8 text-center">@item.Quantity</span>
-                                                    <button type="submit" name="quantity" value="@(item.Quantity + 1)" class="px-3 py-1 text-slate-400 hover:text-primary">+</button>
-                                                    <input type="hidden" name="productId" value="@item.ProductId" />
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </td>
-                                    <td class="py-8 text-right font-medium text-slate-900">
-                                        @((item.Quantity * item.UnitPrice).ToString("N0"))₫
-                                    </td>
-                                    <td class="py-8 text-right">
-                                        <form method="post" asp-action="Remove" asp-controller="Cart" style="display:inline;">
-                                            <input type="hidden" name="productId" value="@item.ProductId" />
-                                            <button type="submit" class="text-slate-300 hover:text-primary transition-colors">
-                                                <span class="material-symbols-outlined">delete</span>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div class="pt-6">
-                    <a class="inline-flex items-center text-sm text-slate-600 hover:text-primary transition-colors gap-2" href="/Shop">
-                        <span class="material-symbols-outlined text-base">arrow_back</span>
-                        Tiếp tục mua sắm
-                    </a>
-                </div>
-            </div>
-            <!-- Order Summary Side Bar -->
-            <div class="flex-1">
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-100 sticky top-32">
-                    <h3 class="text-xl font-medium text-slate-900 mb-8 border-b border-slate-50 pb-4">Tóm tắt đơn hàng</h3>
-                    <div class="space-y-4 mb-8">
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-500 font-light">Tạm tính</span>
-                            <span class="text-slate-900 font-medium">@Model.Items.Sum(i => i.Quantity * i.UnitPrice).ToString("N0")₫</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-500 font-light">Phí vận chuyển</span>
-                            <span class="text-primary font-medium">Miễn phí</span>
-                        </div>
-                        <div class="pt-4 border-t border-slate-50 flex justify-between items-center">
-                            <span class="text-lg font-medium text-slate-900">Tổng cộng</span>
-                            <div class="text-right">
-                                <span class="text-2xl font-bold text-slate-900">@Model.Items.Sum(i => i.Quantity * i.UnitPrice).ToString("N0")₫</span>
-                                <p class="text-xs text-slate-400 mt-1">(Đã bao gồm VAT nếu có)</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="/Order/Checkout" class="w-full bg-primary text-white py-4 rounded-lg font-medium tracking-wide hover:bg-primary/90 transition-all flex items-center justify-center gap-2">
-                        Thanh toán ngay
-                        <span class="material-symbols-outlined text-lg">arrow_forward</span>
-                    </a>
-                    <div class="mt-8 space-y-4">
-                        <div class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-slate-400 text-lg">local_shipping</span>
-                            <p class="text-xs text-slate-500">Giao hàng dự kiến: 2 - 4 ngày làm việc</p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-slate-400 text-lg">verified_user</span>
-                            <p class="text-xs text-slate-500">Thanh toán bảo mật và an toàn qua thẻ tín dụng hoặc chuyển khoản</p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-slate-400 text-lg">replay</span>
-                            <p class="text-xs text-slate-500">Chính sách đổi trả trong vòng 30 ngày cho tất cả sản phẩm</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="empty-cart">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <h2>Your cart is currently empty.</h2>
+            <p>Discover our latest collection and find something beautiful.</p>
+            <a href="/Shop" class="btn-continue">Continue Shopping</a>
         </div>
     }
     else
     {
-        <div class="text-center py-12">
-            <p class="text-lg text-gray-500 dark:text-slate-400">Giỏ hàng của bạn đang trống.</p>
-            <a href="/Shop" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                Tiếp tục mua sắm
-            </a>
+        <div class="cart-layout">
+            <div class="cart-items">
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th style="text-align: center;">Quantity</th>
+                            <th style="text-align: right;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            var currentPrice = item.Product.SalePrice ?? item.Product.Price;
+                            var itemTotal = currentPrice * item.Quantity;
+
+                            <tr>
+                                <td>
+                                    <div class="item-info">
+                                        <div class="item-img" style="background-image:url('@(item.Product.ImageUrl ?? "")')"></div>
+                                        <div class="item-details">
+                                            <a href="/Shop/Detail/@item.ProductId" class="item-name">@item.Product.Name</a>
+                                            <p style="font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: 0.05em;">
+                                                Size: <strong style="color: var(--ink);">
+                                                    @(string.IsNullOrEmpty(item.Size) ? "Free Size" : item.Size)
+                                                </strong>
+                                            </p>
+                                            <span class="item-price">@currentPrice.ToString("N0")₫</span>
+                                        
+                                            <form asp-controller="Cart" asp-action="Remove" method="post">
+                                            <input type="hidden" name="productId" value="@item.ProductId" />
+    
+                                            <input type="hidden" name="size" value="@item.Size" />
+    
+                                            <button type="submit" class="btn-remove">
+                                                <span class="material-symbols-outlined" style="font-size:14px">close</span> Remove
+                                            </button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <form asp-controller="Cart" asp-action="Update" method="post" style="display:flex; justify-content:center;">
+                                    <input type="hidden" name="productId" value="@item.ProductId" />
+    
+                                    <input type="hidden" name="size" value="@item.Size" />
+    
+                                    <div class="qty-form">
+                                        <button type="button" class="qty-btn" onclick="updateQty(this, -1)">−</button>
+                                        <input type="number" name="quantity" class="qty-input" value="@item.Quantity" min="1" onchange="this.form.submit()" />
+                                        <button type="button" class="qty-btn" onclick="updateQty(this, 1)">+</button>
+                                    </div>
+                                </form>
+                                </td>
+                                <td class="item-total">
+                                    @itemTotal.ToString("N0")₫
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <div class="summary-card">
+                    <h3 class="summary-title">Order Summary</h3>
+                    
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span style="color:var(--ink)">@totalPrice.ToString("N0")₫</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span>Calculated at checkout</span>
+                    </div>
+
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span>@totalPrice.ToString("N0")₫</span>
+                    </div>
+
+                    <a href="/Order/Checkout" class="btn-checkout" style="text-decoration:none">
+    Proceed to Checkout <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+                </div>
+            </div>
         </div>
     }
-</main>
+</div>
+
+@section Scripts {
+<script>
+    function updateQty(btn, delta) {
+        const form = btn.closest('form');
+        const input = form.querySelector('.qty-input');
+        let currentVal = parseInt(input.value) || 1;
+        
+        let newVal = currentVal + delta;
+        if (newVal < 1) newVal = 1; 
+        
+        input.value = newVal;
+        form.submit();
+    }
+</script>
+}

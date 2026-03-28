@@ -1,0 +1,49 @@
+﻿@model DA_WEB.Models.Category
+@{
+    ViewData["Title"] = "Create Category";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-heading">
+    <div class="page-eyebrow">Categories</div>
+    <h1 class="page-title">Add <em>Category</em></h1>
+</div>
+
+<form asp-action="Create" method="post">
+    <div class="form-grid">
+        <div class="form-col-main">
+            <div class="form-card">
+                <div class="form-card-header">Category Details</div>
+                <div class="form-card-body">
+                    <div asp-validation-summary="ModelOnly" class="validation-summary-admin"></div>
+
+                    <div class="field-group">
+                        <label asp-for="Name" class="field-label">Category Name</label>
+                        <input asp-for="Name" class="field-input" placeholder="e.g. Outerwear" />
+                        <span asp-validation-for="Name" class="field-error"></span>
+                    </div>
+
+                    <div class="field-group">
+                        <label asp-for="Description" class="field-label">Description (Optional)</label>
+                        <textarea asp-for="Description" class="field-input field-textarea" rows="4" placeholder="Brief description of this category..."></textarea>
+                        <span asp-validation-for="Description" class="field-error"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-col-side">
+            <div style="display:flex;flex-direction:column;gap:10px">
+                <button type="submit" class="btn-primary-admin" style="justify-content:center">
+                    <span class="material-symbols-outlined" style="font-size:16px">save</span>
+                    Save Category
+                </button>
+                <a asp-action="Index" class="btn-secondary-admin">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

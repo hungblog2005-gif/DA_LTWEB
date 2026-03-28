@@ -29,3 +29,223 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* =========================================================
+   NÂNG CẤP NÚT BẤM (UI/UX) - KIZUNA
+   ========================================================= */
+/* 1. Khu vực Header (Giỏ hàng, Đăng nhập, Admin...) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Tăng khoảng cách giữa các nút */
+}
+
+.header-actions .icon-btn {
+    padding: 8px 20px;
+    border: 1px solid var(--warm-mid, #dcd3c6);
+    border-radius: 30px; /* Bo tròn dạng hạt gạo (pill shape) cực kỳ thời trang */
+    background: transparent;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+    /* Hiệu ứng rê chuột: Đảo màu sang trọng */
+    .header-actions .icon-btn:hover {
+        background: var(--ink, #1a1410);
+        color: #fff !important;
+        border-color: var(--ink, #1a1410);
+    }
+
+/* Nút Giỏ Hàng: Bắt buộc phải nổi bật nhất trên Navbar */
+.header-actions a[href="/Cart/Index"] {
+    background: var(--accent-gold, #cfa872);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 10px rgba(207, 168, 114, 0.3);
+}
+
+    .header-actions a[href="/Cart/Index"]:hover {
+        background: var(--ink, #1a1410);
+        box-shadow: 0 4px 15px rgba(26, 20, 16, 0.2);
+    }
+
+/* 2. Nút CTA Chính (Khám phá ngay, Add to cart...) */
+.btn-primary {
+    padding: 16px 36px;
+    background-color: var(--primary, #bd002c); /* Đỏ trầm Kizuna */
+    color: white !important;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(189, 0, 44, 0.25); /* Bóng đổ tạo độ sâu 3D nhẹ */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+    /* Hiệu ứng nảy nhẹ lên khi khách định bấm */
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(189, 0, 44, 0.4);
+        background-color: #9e0025;
+    }
+
+/* 3. Nút phụ (Xem Lookbook) */
+.btn-ghost {
+    padding: 16px 36px;
+    border: 1px solid var(--ink, #1a1410);
+    background: transparent;
+    color: var(--ink) !important;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .btn-ghost:hover {
+        background: var(--ink, #1a1410);
+        color: #fff !important;
+    }
+
+/* 4. Nút Quick Add (Thêm nhanh) lơ lửng trên ảnh sản phẩm */
+.product-quick-add {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(15px);
+    width: 85%;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--ink);
+    padding: 14px 0;
+    text-align: center;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    opacity: 0; /* Ẩn đi khi bình thường */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none; /* Tránh click nhầm khi chưa hiện rõ */
+}
+
+/* Chạm vào thẻ sản phẩm là nút hiện lên đập vào mắt */
+.product-card:hover .product-quick-add {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+.product-quick-add:hover {
+    background: var(--primary, #bd002c);
+    color: white;
+}
+
+/* =========================================================
+   ĐẠI TU GIAO DIỆN HOME & SHOP - KIZUNA THUẦN KHIẾT
+   ========================================================= */
+
+/* 1. Không gian thở cho các Section ở trang Chủ */
+section {
+    padding: 80px 5%;
+}
+
+@media (min-width: 1024px) {
+    section {
+        padding: 120px 8%;
+    }
+}
+
+/* 2. Lưới sản phẩm (Dùng chung cho Home và Shop) */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 60px 32px; /* Khoảng cách siêu thoáng */
+    margin-top: 40px;
+}
+
+/* 3. Thẻ Sản Phẩm - Nâng cấp hiệu ứng Wabi-sabi */
+.product-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.product-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4; /* Tỉ lệ vàng cho ảnh thời trang */
+    overflow: hidden;
+    background-color: var(--paper, #f4f0ea);
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Zoom siêu mượt */
+}
+
+/* Hiệu ứng khi rê chuột vào Card Sản phẩm */
+.product-card:hover .product-img {
+    transform: scale(1.08); /* Phóng to ảnh chậm rãi */
+}
+
+.product-card:hover .product-name {
+    color: var(--primary, #bd002c); /* Đổi màu tên sản phẩm sang đỏ trầm */
+}
+
+/* 4. Thông tin Text của sản phẩm */
+.product-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink, #1a1410);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+    transition: color 0.3s ease;
+}
+
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-price {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted, #666);
+}
+
+/* 5. Nhãn dán (New, Bestseller...) */
+.product-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--ink, #1a1410);
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    z-index: 2;
+}

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DA_WEB.Models.Category>
+@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-heading" style="display:flex; justify-content:space-between; align-items:flex-end;">
+    <div>
+        <div class="page-eyebrow">Store</div>
+        <h1 class="page-title">All <em>Categories</em></h1>
+        <p class="page-subtitle">Manage your product categories here.</p>
+    </div>
+    <a asp-action="Create" class="btn-primary-admin" style="text-decoration:none; display:flex; align-items:center; gap:8px;">
+        <span class="material-symbols-outlined" style="font-size:18px">add</span>
+        New Category
+    </a>
+</div>
+
+<div class="form-card">
+    <div class="form-card-body" style="padding: 0;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--warm-mid); background: var(--paper);">
+                    <th style="padding: 16px 24px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);">ID</th>
+                    <th style="padding: 16px 24px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);">Name</th>
+                    <th style="padding: 16px 24px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);">Description</th>
+                    <th style="padding: 16px 24px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align:right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" style="text-align:center; padding: 40px; color: var(--muted); font-size: 13px;">No categories found.</td>
+                    </tr>
+                }
+                @foreach (var item in Model)
+                {
+                    <tr style="border-bottom: 1px solid var(--warm-mid);">
+                        <td style="padding: 16px 24px; color: var(--ink); font-size: 14px;">#@item.Id</td>
+                        <td style="padding: 16px 24px; color: var(--ink); font-weight: 500; font-size: 15px;">@item.Name</td>
+                        <td style="padding: 16px 24px; color: var(--muted); font-size: 13px;">@(string.IsNullOrEmpty(item.Description) ? "—" : item.Description)</td>
+                        <td style="padding: 16px 24px; text-align: right;">
+                            <a asp-action="Edit" asp-route-id="@item.Id" style="color: var(--primary); text-decoration: none; margin-right: 12px; font-size: 13px;">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" style="color: #d9534f; text-decoration: none; font-size: 13px;">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
