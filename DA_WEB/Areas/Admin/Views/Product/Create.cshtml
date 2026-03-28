@@ -17,10 +17,8 @@
 
     <div class="form-grid">
 
-        <!-- LEFT COLUMN -->
         <div class="form-col-main">
 
-            <!-- Basic Info -->
             <div class="form-card">
                 <div class="form-card-header">Basic Information</div>
                 <div class="form-card-body">
@@ -44,7 +42,6 @@
                 </div>
             </div>
 
-            <!-- Pricing & Stock -->
             <div class="form-card">
                 <div class="form-card-header">Pricing & Inventory</div>
                 <div class="form-card-body">
@@ -85,19 +82,36 @@
                 </div>
             </div>
 
+            <div class="form-card" style="margin-top: 24px;">
+                <div class="form-card-header">Gallery Images (Optional)</div>
+                <div class="form-card-body">
+                    <label class="upload-zone" for="galleryFiles" style="cursor: pointer; display: flex; flex-direction: column; align-items: center; padding: 32px; border: 1px dashed var(--warm-mid); background: var(--paper);">
+                        <span class="material-symbols-outlined" style="font-size:36px;color:var(--muted)">collections</span>
+                        <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:8px">
+                            Upload Gallery Images
+                        </span>
+                        <span style="font-size:10px;color:var(--muted);margin-top:4px">Hold Ctrl/Cmd to select multiple files</span>
+                        
+                        <input type="file" id="galleryFiles" name="galleryFiles" multiple
+                               accept="image/*" style="display:none"
+                               onchange="previewGallery(this)" />
+                    </label>
+                    
+                    <div id="galleryPreviewContainer" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;"></div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- RIGHT COLUMN -->
         <div class="form-col-side">
 
-            <!-- Image Upload -->
             <div class="form-card">
-                <div class="form-card-header">Product Image</div>
+                <div class="form-card-header">Main Product Image</div>
                 <div class="form-card-body">
                     <label class="upload-zone" for="imageFile">
                         <span class="material-symbols-outlined" style="font-size:36px;color:var(--muted)">add_a_photo</span>
                         <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:8px">
-                            Upload Image
+                            Upload Main Image
                         </span>
                         <span style="font-size:10px;color:var(--muted);margin-top:4px">PNG, JPG — max 5MB</span>
                         <input type="file" id="imageFile" name="imageFile"
@@ -109,7 +123,6 @@
                 </div>
             </div>
 
-            <!-- Status -->
             <div class="form-card">
                 <div class="form-card-header">Status</div>
                 <div class="form-card-body">
@@ -122,7 +135,6 @@
                 </div>
             </div>
 
-            <!-- Info -->
             <div class="info-box">
                 <span class="material-symbols-outlined" style="font-size:18px;color:var(--primary);flex-shrink:0">info</span>
                 <p style="font-size:11px;letter-spacing:0.04em;line-height:1.8;color:var(--muted)">
@@ -130,7 +142,6 @@
                 </p>
             </div>
 
-            <!-- Buttons -->
             <div style="display:flex;flex-direction:column;gap:10px">
                 <button type="submit" class="btn-primary-admin" style="justify-content:center">
                     <span class="material-symbols-outlined" style="font-size:16px">save</span>
@@ -147,6 +158,7 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
+        // Xử lý preview cho Ảnh đại diện
         function previewImage(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
@@ -156,6 +168,30 @@
                     preview.style.display = 'block';
                 };
                 reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Xử lý preview cho Danh sách ảnh phụ (Gallery)
+        function previewGallery(input) {
+            const container = document.getElementById('galleryPreviewContainer');
+            container.innerHTML = ''; // Xóa ảnh preview cũ nếu người dùng chọn lại
+
+            if (input.files) {
+                // Biến file list thành mảng và lặp qua từng file
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        // CSS cho từng bức ảnh thu nhỏ
+                        img.style.width = '70px';
+                        img.style.height = '90px';
+                        img.style.objectFit = 'cover';
+                        img.style.border = '1px solid var(--warm-mid)';
+                        container.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
             }
         }
     </script>

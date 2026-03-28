@@ -37,7 +37,11 @@
                     <span class="material-symbols-outlined">inventory_2</span>
                     <span>Products</span>
                 </a>
-
+                <a href="/Admin/Category"
+                       class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Category" ? "active" : "")">
+                    <span class="material-symbols-outlined">category</span>
+                    <span>Categories</span>
+                </a>
                 <a href="/Admin/Order"
                        class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Order" ? "active" : "")">
                     <span class="material-symbols-outlined">shopping_bag</span>

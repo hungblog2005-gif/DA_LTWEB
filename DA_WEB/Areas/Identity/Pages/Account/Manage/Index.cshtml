@@ -1,0 +1,59 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<style>
+    .manage-page-title {
+        font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300;
+        color: var(--ink); margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--warm-mid);
+    }
+    .kizuna-form-group { margin-bottom: 24px; }
+    .kizuna-label {
+        display: block; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+        color: var(--muted); margin-bottom: 8px; font-family: 'Josefin Sans', sans-serif; font-weight: 600;
+    }
+    .kizuna-input {
+        width: 100%; max-width: 400px; padding: 14px 16px; border: 1px solid var(--warm-mid);
+        background: white; font-family: 'Josefin Sans', sans-serif; font-size: 14px;
+        color: var(--ink); outline: none; transition: border-color 0.2s;
+    }
+    .kizuna-input:focus { border-color: var(--ink); }
+    .kizuna-input:disabled { background: var(--paper); color: var(--muted); cursor: not-allowed; }
+    
+    .kizuna-btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 16px 32px; background: var(--ink); color: white; border: none; cursor: pointer;
+        font-family: 'Josefin Sans', sans-serif; font-size: 11px; font-weight: 600;
+        letter-spacing: 0.2em; text-transform: uppercase; transition: background 0.3s;
+        margin-top: 8px;
+    }
+    .kizuna-btn:hover { background: var(--primary); }
+    .text-danger { font-size: 12px; color: #d9534f; margin-top: 6px; display: block; }
+</style>
+
+<h3 class="manage-page-title">My <em>@ViewData["Title"]</em></h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<form id="profile-form" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+    
+    <div class="kizuna-form-group">
+        <label asp-for="Username" class="kizuna-label"></label>
+        <input asp-for="Username" class="kizuna-input" disabled />
+    </div>
+    
+    <div class="kizuna-form-group">
+        <label asp-for="Input.PhoneNumber" class="kizuna-label">Phone Number</label>
+        <input asp-for="Input.PhoneNumber" class="kizuna-input" placeholder="e.g. 090xxxxxxx" />
+        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+    </div>
+    
+    <button id="update-profile-button" type="submit" class="kizuna-btn">Save Changes</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -21,10 +21,8 @@
 
     <div class="form-grid">
 
-        <!-- LEFT COLUMN -->
         <div class="form-col-main">
 
-            <!-- Basic Info -->
             <div class="form-card">
                 <div class="form-card-header">Basic Information</div>
                 <div class="form-card-body">
@@ -48,7 +46,6 @@
                 </div>
             </div>
 
-            <!-- Pricing & Stock -->
             <div class="form-card">
                 <div class="form-card-header">Pricing & Inventory</div>
                 <div class="form-card-body">
@@ -89,14 +86,50 @@
                 </div>
             </div>
 
+            <div class="form-card" style="margin-top: 24px;">
+                <div class="form-card-header">Gallery Images</div>
+                <div class="form-card-body">
+                    
+                    @if (Model.ProductImages != null && Model.ProductImages.Any())
+                    {
+                        <div style="margin-bottom: 24px;">
+                            <p style="font-size:11px; font-weight: 600; text-transform:uppercase; color:var(--muted); margin-bottom: 12px;">Current Gallery</p>
+                            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                                @foreach (var img in Model.ProductImages)
+                                {
+                                    <div style="position: relative; width: 70px; height: 90px; border: 1px solid var(--warm-mid);">
+                                        <img src="@img.ImageUrl" style="width: 100%; height: 100%; object-fit: cover;" />
+                                        <button type="button" class="btn-delete-img" style="position: absolute; top: -8px; right: -8px; background: #d9534f; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Bạn cần nâng cấp Controller để xóa từng ảnh">×</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <hr style="border: 0; border-top: 1px dashed var(--warm-mid); margin-bottom: 24px;" />
+                    }
+
+                    <p style="font-size:11px; font-weight: 600; text-transform:uppercase; color:var(--muted); margin-bottom: 12px;">Add More Images</p>
+                    <label class="upload-zone" for="galleryFiles" style="cursor: pointer; display: flex; flex-direction: column; align-items: center; padding: 32px; border: 1px dashed var(--warm-mid); background: var(--paper);">
+                        <span class="material-symbols-outlined" style="font-size:36px;color:var(--muted)">collections</span>
+                        <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:8px">
+                            Upload Additional Images
+                        </span>
+                        <span style="font-size:10px;color:var(--muted);margin-top:4px">Hold Ctrl/Cmd to select multiple files</span>
+                        
+                        <input type="file" id="galleryFiles" name="galleryFiles" multiple
+                               accept="image/*" style="display:none"
+                               onchange="previewGallery(this)" />
+                    </label>
+                    
+                    <div id="galleryPreviewContainer" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;"></div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- RIGHT COLUMN -->
         <div class="form-col-side">
 
-            <!-- Image Upload -->
             <div class="form-card">
-                <div class="form-card-header">Product Image</div>
+                <div class="form-card-header">Main Product Image</div>
                 <div class="form-card-body">
 
                     @if (!string.IsNullOrEmpty(Model.ImageUrl))
@@ -124,7 +157,6 @@
                 </div>
             </div>
 
-            <!-- Status -->
             <div class="form-card">
                 <div class="form-card-header">Status</div>
                 <div class="form-card-body">
@@ -137,7 +169,6 @@
                 </div>
             </div>
 
-            <!-- Buttons -->
             <div style="display:flex;flex-direction:column;gap:10px">
                 <button type="submit" class="btn-primary-admin" style="justify-content:center">
                     <span class="material-symbols-outlined" style="font-size:16px">save</span>
@@ -163,6 +194,28 @@
                     preview.style.display = 'block';
                 };
                 reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Script xem trước nhiều ảnh phụ
+        function previewGallery(input) {
+            const container = document.getElementById('galleryPreviewContainer');
+            container.innerHTML = '';
+
+            if (input.files) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.width = '70px';
+                        img.style.height = '90px';
+                        img.style.objectFit = 'cover';
+                        img.style.border = '1px solid var(--warm-mid)';
+                        container.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
             }
         }
     </script>

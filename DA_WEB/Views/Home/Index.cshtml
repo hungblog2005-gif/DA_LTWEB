@@ -23,7 +23,7 @@
     </nav>
     <div class="header-actions">
         <button class="icon-btn">Search</button>
-        <button class="icon-btn">Bag <span class="cart-count">0</span></button>
+        <a href="/Cart/Index" class="icon-btn" style="text-decoration:none">Bag <span class="cart-count">0</span></a>
 
         @if (User.Identity != null && User.Identity.IsAuthenticated)
         {
@@ -308,7 +308,7 @@
         </p>
         <div class="newsletter-form">
             <input class="newsletter-input" type="email" placeholder="Email của bạn" />
-            <button href="/Account/Loginn" " class="newsletter-btn">Đăng Ký</button>
+            <a href="/Identity/Account/Login" class="newsletter-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Đăng Ký</a>
         </div>
     </div>
 </section>

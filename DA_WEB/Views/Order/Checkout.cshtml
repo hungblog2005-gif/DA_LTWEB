@@ -1,101 +1,208 @@
-﻿@model Order
-
+﻿@model DA_WEB.Models.Order
 @{
-    ViewData["Title"] = "Thanh toán";
-    Layout = "_LayoutTailwind";
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_LayoutKizuna.cshtml";
 }
 
-<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-        Thông tin thanh toán
-    </h2>
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+<style>
+    .breadcrumb {
+        background: white; padding: 14px 48px; border-bottom: 1px solid var(--warm-mid);
+        display: flex; align-items: center; gap: 8px;
+        font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--primary); }
+
+    .checkout-container {
+        max-width: 1100px; /* Thu gọn lại một chút cho form đỡ bị loãng */
+        margin: 0 auto; padding: 56px 32px; min-height: 70vh;
+    }
+    .page-title {
+        font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; 
+        color: var(--ink); margin-bottom: 40px; text-align: center;
+    }
+
+    .checkout-layout {
+        display: grid; grid-template-columns: 5.5fr 4.5fr; gap: 48px;
+    }
+
+    /* Form Styles */
+    .checkout-section {
+        background: white; padding: 32px; border: 1px solid var(--warm-mid);
+    }
+    .section-title {
+        font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--ink);
+        margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--warm-mid);
+    }
+    
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field-group { margin-bottom: 20px; }
+    .field-label {
+        display: block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--muted); margin-bottom: 8px; font-weight: 600;
+    }
+    .field-input {
+        width: 100%; padding: 12px 16px; border: 1px solid var(--warm-mid); background: var(--paper);
+        font-family: 'Josefin Sans', sans-serif; font-size: 14px; color: var(--ink); outline: none;
+        transition: border-color 0.2s, background 0.2s;
+    }
+    .field-input:focus { border-color: var(--ink); background: white; }
+    .field-error { font-size: 12px; color: #d9534f; margin-top: 6px; display: block; }
+
+    /* Payment Methods - Được làm mịn lại */
+    .payment-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .payment-card {
+        border: 1px solid var(--warm-mid); padding: 16px; cursor: pointer;
+        display: flex; align-items: center; gap: 16px; transition: all 0.2s;
+        background: var(--paper);
+    }
+    .payment-card:hover { border-color: var(--muted); }
+    .payment-card.active { border-color: var(--ink); background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    
+    .payment-radio {
+        width: 20px; height: 20px; border: 1px solid #ccc; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        background: white; transition: border-color 0.2s;
+    }
+    .payment-card.active .payment-radio { border-color: var(--ink); }
+    .payment-card.active .payment-radio::after {
+        content: ''; width: 10px; height: 10px; background: var(--ink); border-radius: 50%;
+    }
+    
+    .payment-info { flex: 1; }
+    .payment-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .payment-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    
+    .payment-icon { font-size: 24px; color: var(--ink); opacity: 0.6; }
+    .payment-card.active .payment-icon { opacity: 1; color: var(--primary); }
+
+    /* Nút Submit */
+    .btn-submit {
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        width: 100%; padding: 18px; background: var(--ink); color: white; border: none; cursor: pointer;
+        font-family: 'Josefin Sans', sans-serif; font-size: 12px; font-weight: 600;
+        letter-spacing: 0.2em; text-transform: uppercase; transition: background 0.3s;
+    }
+    .btn-submit:hover { background: var(--primary); }
+
+    .alert-error {
+        background: #fcf4f4; color: #d9534f; padding: 16px; border: 1px solid #f2dede;
+        margin-bottom: 24px; font-size: 13px; display: flex; align-items: center; gap: 8px;
+    }
+</style>
+}
+
+<div class="breadcrumb">
+    <a href="/">Home</a> <span>›</span> <a href="/Cart/Index">Cart</a> <span>›</span> <span style="color:var(--ink)">Checkout</span>
+</div>
+
+<div class="checkout-container">
+    <h1 class="page-title">Secure <em>Checkout</em></h1>
 
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
+        <div class="alert-error">
+            <span class="material-symbols-outlined" style="font-size: 20px;">error</span>
             @TempData["ErrorMessage"]
         </div>
     }
 
-    <form asp-action="Confirm" asp-controller="Order" method="post" class="mt-8 space-y-6">
+    <form asp-controller="Order" asp-action="Confirm" method="post" id="checkoutForm">
         @Html.AntiForgeryToken()
-        <div class="shadow sm:rounded-md sm:overflow-hidden">
-            <div class="bg-white dark:bg-slate-900 py-6 px-4 sm:p-6">
-                <div class="grid grid-cols-6 gap-6">
-
-                    <!-- Họ và tên -->
-                    <div class="col-span-6">
-                        <label asp-for="FullName" class="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                            Họ và tên
-                        </label>
-                        <input asp-for="FullName" type="text" required
-                               class="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-slate-800 dark:text-white" />
-                        <span asp-validation-for="FullName" class="text-red-600 text-sm"></span>
+        
+        <div class="checkout-layout">
+            <div class="checkout-section">
+                <h2 class="section-title">Shipping Information</h2>
+                
+                <div class="form-grid-2">
+                    <div class="field-group">
+                        <label asp-for="FullName" class="field-label">Full Name</label>
+                        <input asp-for="FullName" class="field-input" placeholder="e.g. Nguyễn Văn A" />
+                        <span asp-validation-for="FullName" class="field-error"></span>
                     </div>
-
-                    <!-- Số điện thoại -->
-                    <div class="col-span-6 sm:col-span-3">
-                        <label asp-for="Phone" class="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                            Số điện thoại
-                        </label>
-                        <input asp-for="Phone" type="tel" required
-                               class="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-slate-800 dark:text-white" />
-                        <span asp-validation-for="Phone" class="text-red-600 text-sm"></span>
+                    <div class="field-group">
+                        <label asp-for="Phone" class="field-label">Phone Number</label>
+                        <input asp-for="Phone" class="field-input" placeholder="e.g. 090xxxxxxx" />
+                        <span asp-validation-for="Phone" class="field-error"></span>
                     </div>
+                </div>
 
-                    <!-- Địa chỉ -->
-                    <div class="col-span-6">
-                        <label asp-for="Address" class="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                            Địa chỉ nhận hàng
-                        </label>
-                        <textarea asp-for="Address" required rows="3"
-                                  class="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-slate-800 dark:text-white"></textarea>
-                        <span asp-validation-for="Address" class="text-red-600 text-sm"></span>
-                    </div>
+                <div class="field-group">
+                    <label asp-for="Email" class="field-label">Email Address</label>
+                    <input asp-for="Email" type="email" class="field-input" placeholder="email@example.com" />
+                    <span asp-validation-for="Email" class="field-error"></span>
+                </div>
 
-                    <!-- Email — tự điền từ model, readonly -->
-                    <div class="col-span-6">
-                        <label asp-for="Email" class="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                            Email
-                        </label>
-                        <input asp-for="Email" type="email" readonly
-                               class="mt-1 block w-full border-0 bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-400 rounded-md py-2 px-3 sm:text-sm cursor-not-allowed" />
-                        <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
-                    </div>
-
-                    <!-- Hình thức thanh toán -->
-                    <div class="col-span-6">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                            Hình thức thanh toán
-                        </label>
-                        <select asp-for="PaymentMethod" required
-                                class="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-slate-800 dark:text-white">
-                            <option value="">-- Chọn --</option>
-                            <option value="COD">Thanh toán khi nhận hàng (COD)</option>
-                            <option value="Stripe">Thẻ Visa/MasterCard (Stripe)</option>
-                        </select>
-                        <span asp-validation-for="PaymentMethod" class="text-red-600 text-sm"></span>
-                    </div>
-
+                <div class="field-group">
+                    <label asp-for="Address" class="field-label">Detailed Address</label>
+                    <input asp-for="Address" class="field-input" placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện, Tỉnh/TP" />
+                    <span asp-validation-for="Address" class="field-error"></span>
                 </div>
             </div>
 
-            <div class="px-4 py-3 bg-gray-50 dark:bg-slate-800 text-right sm:px-6">
-                <a asp-controller="Cart" asp-action="Index"
-                       class="inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-slate-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                    Quay lại giỏ hàng
-                </a>
-                <button type="submit"
-                        class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                    Xác nhận đơn hàng
+            <div class="checkout-section">
+                <h2 class="section-title">Payment Method</h2>
+                
+                <input type="hidden" asp-for="PaymentMethod" id="selectedPaymentMethod" value="" />
+                
+                <div class="payment-options">
+                    
+                    <div class="payment-card" onclick="selectPayment('VnPay', this)">
+                        <div class="payment-radio"></div>
+                        <div class="payment-info">
+                            <div class="payment-name">VNPay (ATM / QR Code)</div>
+                            <div class="payment-desc">Thanh toán an toàn qua cổng VNPay bằng thẻ ATM nội địa hoặc quét mã QR.</div>
+                        </div>
+                        <span class="material-symbols-outlined payment-icon">qr_code_scanner</span>
+                    </div>
+
+                    <div class="payment-card" onclick="selectPayment('Stripe', this)">
+                        <div class="payment-radio"></div>
+                        <div class="payment-info">
+                            <div class="payment-name">Credit / Debit Card</div>
+                            <div class="payment-desc">Thanh toán quốc tế bảo mật qua Stripe (Visa, Mastercard).</div>
+                        </div>
+                        <span class="material-symbols-outlined payment-icon">credit_card</span>
+                    </div>
+
+                    <div class="payment-card" onclick="selectPayment('COD', this)">
+                        <div class="payment-radio"></div>
+                        <div class="payment-info">
+                            <div class="payment-name">Cash on Delivery (COD)</div>
+                            <div class="payment-desc">Thanh toán bằng tiền mặt khi shipper giao hàng tận nơi.</div>
+                        </div>
+                        <span class="material-symbols-outlined payment-icon">local_shipping</span>
+                    </div>
+
+                </div>
+                <span asp-validation-for="PaymentMethod" class="field-error" style="margin-bottom: 24px; display: block;"></span>
+
+                <button type="submit" class="btn-submit">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">lock</span> Complete Order
                 </button>
+                
+                <div style="margin-top: 20px; text-align: center; font-size: 11px; color: var(--muted); line-height: 1.6;">
+                    By completing your order, you agree to our <br/> <a href="#" style="color:var(--ink); text-decoration: underline;">Terms of Service</a> and <a href="#" style="color:var(--ink); text-decoration: underline;">Privacy Policy</a>.
+                </div>
             </div>
         </div>
     </form>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function selectPayment(method, element) {
+            document.getElementById('selectedPaymentMethod').value = method;
+            
+            document.querySelectorAll('.payment-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            element.classList.add('active');
+        }
+    </script>
 }

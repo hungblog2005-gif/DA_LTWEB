@@ -500,8 +500,8 @@ header.scrolled .icon-btn {
 
 .products-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
-    gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 32px;
 }
 
 .product-card {
@@ -515,10 +515,10 @@ header.scrolled .icon-btn {
 
 .product-img-wrap {
     position: relative;
-    aspect-ratio: 3/4;
+    aspect-ratio: 2/3;
     overflow: hidden;
-    margin-bottom: 18px;
-    background: var(--warm-mid);
+    background: var(--paper);
+    margin-bottom: 24px;
 }
 
 .product-img {
@@ -568,10 +568,11 @@ header.scrolled .icon-btn {
 
 .product-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--ink);
     margin-bottom: 6px;
+    letter-spacing: 0.02em;
 }
 
 .product-meta {
@@ -724,7 +725,16 @@ header.scrolled .icon-btn {
 .featured-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
+    gap: 32px;
+}
+/* Xóa bỏ đường viền cứng nhắc của bộ lọc */
+.shop-sidebar {
+    background: white;
+    border-right: none;
+    padding: 40px 48px 40px 0;
+    position: sticky;
+    top: 72px;
+    height: fit-content;
 }
 
 .featured-card {

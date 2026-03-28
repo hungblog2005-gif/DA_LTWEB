@@ -6,7 +6,15 @@
 
 @section Styles {
 <style>
-    /* CSS từ file bạn cung cấp */
+    /* Ép hiển thị lại chuột cho toàn trang */
+    /* body, * {
+        cursor: auto !important;
+    }
+    a, button, .filter-item, .size-btn, .product-card {
+        cursor: pointer !important;
+    } */
+
+    /* CSS gốc */
     .shop-hero {
         background: var(--ink);
         padding: 80px 48px 64px;
@@ -139,10 +147,10 @@
         cursor: pointer;
     }
 
-    .products-grid {
+   .products-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
+        grid-template-columns: repeat(4, 1fr); /* Đổi từ 3 thành 4 cột */
+        gap: 24px; /* Thu nhỏ khoảng cách giữa các thẻ một chút cho vừa vặn */
     }
 
     .product-card {
@@ -180,11 +188,13 @@
         background: var(--ink);
     }
 
-    .product-actions {
-        position: absolute; inset: 0;
-        background: rgba(26,20,16,0.2);
-        display: flex; align-items: center; justify-content: center; gap: 10px;
-        opacity: 0; transition: opacity 0.3s;
+ .product-actions {
+        position: absolute;
+        bottom: 0; left: 0; right: 0; /* Đẩy xuống sát đáy ảnh */
+        padding: 24px;
+        background: linear-gradient(to top, rgba(26,20,16,0.5) 0%, rgba(26,20,16,0) 100%);
+        display: flex; align-items: flex-end; justify-content: center; gap: 12px;
+        opacity: 0; transition: opacity 0.4s;
     }
     .product-card:hover .product-actions { opacity: 1; }
 
@@ -276,7 +286,6 @@
 </style>
 }
 
-<!-- HERO -->
 <div class="shop-hero">
     <div class="shop-eyebrow">Kizuna Clothing</div>
     <h1 class="shop-title">All <em>Products</em></h1>
@@ -286,29 +295,30 @@
     </p>
 </div>
 
-<!-- BREADCRUMB -->
 <div style="background:white;padding:14px 48px;border-bottom:1px solid var(--warm-mid);display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)">
     <a href="/" style="color:var(--muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--muted)'">Home</a>
     <span>›</span>
     <span style="color:var(--ink)">Shop</span>
 </div>
 
-<!-- MAIN LAYOUT -->
 <div class="shop-layout">
 
-    <!-- SIDEBAR -->
-    <aside class="shop-sidebar">
+<form id="filterForm" action="/Shop" method="GET" class="shop-sidebar">
+        
+        <input type="hidden" name="categoryId" id="catInput" value="@ViewBag.SelectedCategory" />
+        <input type="hidden" name="sortOrder" id="sortInput" value="@ViewBag.SortOrder" />
+        <input type="hidden" name="size" id="sizeInput" value="@ViewBag.SelectedSize" />
 
         <div class="filter-section">
             <div class="filter-title">Category</div>
-            <a href="/Shop" class="filter-item @(ViewBag.SelectedCategory == null ? "active" : "")">
+            <a href="javascript:void(0)" onclick="setCategory('')" class="filter-item @(ViewBag.SelectedCategory == null ? "active" : "")">
                 All Products
             </a>
             @if (ViewBag.Categories != null)
             {
                 foreach (var cat in (IEnumerable<DA_WEB.Models.Category>)ViewBag.Categories)
                 {
-                    <a href="/Shop?categoryId=@cat.Id"
+                    <a href="javascript:void(0)" onclick="setCategory('@cat.Id')"
                        class="filter-item @(ViewBag.SelectedCategory?.ToString() == cat.Id.ToString() ? "active" : "")">
                         @cat.Name
                     </a>
@@ -319,39 +329,37 @@
         <div class="filter-section">
             <div class="filter-title">Size</div>
             <div class="size-grid">
-                <button class="size-btn">S</button>
-                <button class="size-btn active">M</button>
-                <button class="size-btn">L</button>
-                <button class="size-btn">XL</button>
+                <button type="button" onclick="setSize('S')" class="size-btn @(ViewBag.SelectedSize?.ToString() == "S" ? "active" : "")">S</button>
+                <button type="button" onclick="setSize('M')" class="size-btn @(ViewBag.SelectedSize?.ToString() == "M" ? "active" : "")">M</button>
+                <button type="button" onclick="setSize('L')" class="size-btn @(ViewBag.SelectedSize?.ToString() == "L" ? "active" : "")">L</button>
+                <button type="button" onclick="setSize('XL')" class="size-btn @(ViewBag.SelectedSize?.ToString() == "XL" ? "active" : "")">XL</button>
             </div>
         </div>
 
         <div class="filter-section">
             <div class="filter-title">Price Range</div>
-            <input type="range" class="price-range" min="0" max="5000000" step="100000" value="5000000"
+            <input type="range" name="maxPrice" class="price-range" min="0" max="5000000" step="100000" value="@ViewBag.MaxPrice"
                    oninput="document.getElementById('priceVal').textContent = Number(this.value).toLocaleString('vi-VN') + '₫'" />
             <div style="display:flex;justify-content:space-between;font-size:9px;letter-spacing:0.1em;color:var(--muted);margin-top:6px">
                 <span>0₫</span>
-                <span id="priceVal">5,000,000₫</span>
+                <span id="priceVal">@(Convert.ToDecimal(ViewBag.MaxPrice).ToString("N0"))₫</span>
             </div>
         </div>
 
-        <button class="btn-filter">Apply Filters</button>
+        <button type="submit" class="btn-filter">Apply Filters</button>
+    </form>
 
-    </aside>
-
-    <!-- PRODUCT GRID -->
     <div class="shop-main">
 
         <div class="shop-toolbar">
             <p class="product-count">
                 Showing <strong>@Model.Count()</strong> products
             </p>
-            <select class="sort-select">
-                <option>Newest</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Most Popular</option>
+            <select class="sort-select" onchange="setSort(this.value)">
+                <option value="newest" selected="@(ViewBag.SortOrder == "newest" || string.IsNullOrEmpty(ViewBag.SortOrder))">Newest</option>
+                <option value="price_asc" selected="@(ViewBag.SortOrder == "price_asc")">Price: Low to High</option>
+                <option value="price_desc" selected="@(ViewBag.SortOrder == "price_desc")">Price: High to Low</option>
+                <option value="popular" selected="@(ViewBag.SortOrder == "popular")">Most Popular</option>
             </select>
         </div>
 
@@ -368,17 +376,15 @@
                 @foreach (var product in Model)
                 {
                     <div class="product-card">
-                        <a href="/Shop/Detail/@product.Id" style="text-decoration:none;color:inherit">
+                        <a href="/Shop/Detail/@product.Id" style="text-decoration:none;color:inherit;display:block;">
                             <div class="product-img-wrap">
                                 @if (!string.IsNullOrEmpty(product.ImageUrl))
                                 {
-                                    <div class="product-img"
-                                         style="background-image:url('@product.ImageUrl')"></div>
+                                    <div class="product-img" style="background-image:url('@product.ImageUrl')"></div>
                                 }
                                 else
                                 {
-                                    <div class="product-img"
-                                         style="background:var(--warm-mid);display:flex;align-items:center;justify-content:center">
+                                    <div class="product-img" style="background:var(--warm-mid);display:flex;align-items:center;justify-content:center">
                                         <span class="material-symbols-outlined" style="font-size:48px;color:var(--muted)">image</span>
                                     </div>
                                 }
@@ -391,21 +397,6 @@
                                 {
                                     <div class="product-badge">New</div>
                                 }
-
-                                <div class="product-actions">
-                                    <button class="action-btn" title="Quick view">
-                                        <span class="material-symbols-outlined">visibility</span>
-                                    </button>
-                                    <!-- FORM CHO NÚT ADD TO CART -->
-                                    <form asp-controller="Cart" asp-action="Add" method="post" style="display:inline;" title="Add to cart">
-                                        <input type="hidden" name="productId" value="@product.Id" />
-                                        <input type="hidden" name="quantity" value="1" />
-                                        <button type="submit" class="action-btn">
-                                            <span class="material-symbols-outlined">add_shopping_cart</span>
-                                        </button>
-                                    </form>
-                                    <!-- HẾT FORM -->
-                                </div>
                             </div>
 
                             @if (product.Category != null)
@@ -425,12 +416,24 @@
                                 }
                             </div>
                         </a>
+
+                        <div class="product-actions" style="pointer-events: none;">
+                            <button class="action-btn" title="Quick view" style="pointer-events: auto;">
+                                <span class="material-symbols-outlined">visibility</span>
+                            </button>
+                            <form asp-controller="Cart" asp-action="Add" method="post" style="display:inline; pointer-events: auto;" title="Add to cart">
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" class="action-btn">
+                                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 }
             }
         </div>
 
-        <!-- PAGINATION -->
         @if (Model.Any())
         {
             <div class="pagination">
@@ -450,5 +453,31 @@
     </div>
 </div>
 
-<!-- MATERIAL ICONS -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+                @section Scripts {
+    <script>
+        // Khi click vào danh mục: Gắn ID vào ô ẩn rồi tự động Submit
+        function setCategory(id) {
+            document.getElementById('catInput').value = id;
+            document.getElementById('filterForm').submit();
+        }
+
+        // Khi click vào Size: Bật/Tắt size và tự động Submit
+        function setSize(size) {
+            var currentSize = document.getElementById('sizeInput').value;
+            if(currentSize === size) {
+                document.getElementById('sizeInput').value = ''; // Nếu click lại thì tắt
+            } else {
+                document.getElementById('sizeInput').value = size; // Bật size mới
+            }
+            document.getElementById('filterForm').submit();
+        }
+
+        // Khi đổi ô Sắp xếp: Gắn value vào ô ẩn rồi tự động Submit
+        function setSort(val) {
+            document.getElementById('sortInput').value = val;
+            document.getElementById('filterForm').submit();
+        }
+    </script>
+}

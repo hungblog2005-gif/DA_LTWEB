@@ -1,19 +1,57 @@
 ﻿@{
-    ViewData["Title"] = "Đặt hàng thành công";
-    Layout = "_LayoutKizuna";
+    ViewData["Title"] = "Order Successful";
+    Layout = "~/Views/Shared/_LayoutKizuna.cshtml";
+    var orderId = ViewBag.OrderId;
 }
 
-<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
-    <h2 class="text-3xl font-extrabold tracking-tight text-green-600 dark:text-green-400">Đặt hàng thành công!</h2>
-    <p class="mt-4 text-lg text-gray-600 dark:text-slate-300">
-        Cảm ơn bạn đã đặt hàng. Mã đơn hàng của bạn là: <strong class="font-bold">@ViewBag.OrderId</strong>.
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <style>
+        .success-container {
+            max-width: 600px; margin: 100px auto; text-align: center;
+            padding: 64px 48px; background: white; border: 1px solid var(--warm-mid);
+        }
+        .success-icon {
+            font-size: 80px; color: #2d7a4f; margin-bottom: 24px;
+        }
+        .success-title {
+            font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; 
+            color: var(--ink); margin-bottom: 16px;
+        }
+        .success-desc {
+            font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 32px;
+        }
+        .order-number {
+            display: inline-block; padding: 12px 24px; background: var(--paper);
+            border: 1px dashed var(--muted); font-family: 'Josefin Sans', sans-serif;
+            font-size: 16px; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 40px;
+        }
+        .btn-group {
+            display: flex; gap: 16px; justify-content: center;
+        }
+        .btn-primary-outline {
+            padding: 16px 32px; border: 1px solid var(--ink); color: var(--ink);
+            text-decoration: none; font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+            text-transform: uppercase; transition: all 0.3s;
+        }
+        .btn-primary-outline:hover { background: var(--ink); color: white; }
+    </style>
+}
+
+<div class="success-container">
+    <span class="material-symbols-outlined success-icon">check_circle</span>
+    <h1 class="success-title">Thank You.</h1>
+    <p class="success-desc">
+        Your order has been successfully placed.<br />
+        We've sent a confirmation email with your order details.
     </p>
-    <p class="mt-2 text-gray-500 dark:text-slate-400">
-        Chúng tôi sẽ sớm gửi email xác nhận đến hòm thư của bạn.
-    </p>
-    <div class="mt-8">
-        <a asp-controller="Home" asp-action="Index" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-            Tiếp tục mua sắm
-        </a>
+    
+    <div class="order-number">
+        ORDER #@orderId
+    </div>
+
+    <div class="btn-group">
+        <a href="/Order/History" class="btn-primary-outline">View Order Status</a>
+        <a href="/Shop" class="btn-primary-outline" style="background: var(--ink); color: white;">Continue Shopping</a>
     </div>
 </div>

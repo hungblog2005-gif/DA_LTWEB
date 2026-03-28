@@ -5,17 +5,18 @@ using Microsoft.EntityFrameworkCore;
 using DA_WEB.Data;
 using DA_WEB.Models;
 using Stripe; // ← THÊM DÒNG NÀY
-
+using DA_WEB.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // MVC + Razor Pages
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 // Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>

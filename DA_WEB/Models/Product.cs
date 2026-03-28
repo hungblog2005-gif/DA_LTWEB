@@ -1,5 +1,4 @@
-﻿// Models/Product.cs
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DA_WEB.Models
@@ -19,6 +18,7 @@ namespace DA_WEB.Models
 
         public decimal? SalePrice { get; set; }
 
+        // Ảnh đại diện chính (Thumbnail)
         public string? ImageUrl { get; set; }
 
         [Range(0, int.MaxValue)]
@@ -33,5 +33,8 @@ namespace DA_WEB.Models
 
         [ForeignKey("CategoryId")]
         public Category? Category { get; set; }
+
+        // DANH SÁCH ẢNH PHỤ (Thêm dòng này)
+        public ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
     }
 }

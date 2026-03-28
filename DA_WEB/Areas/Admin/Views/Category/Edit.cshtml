@@ -1,0 +1,51 @@
+﻿@model DA_WEB.Models.Category
+@{
+    ViewData["Title"] = "Edit Category";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-heading">
+    <div class="page-eyebrow">Categories</div>
+    <h1 class="page-title">Edit <em>Category</em></h1>
+</div>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    
+    <div class="form-grid">
+        <div class="form-col-main">
+            <div class="form-card">
+                <div class="form-card-header">Category Details</div>
+                <div class="form-card-body">
+                    <div asp-validation-summary="ModelOnly" class="validation-summary-admin"></div>
+
+                    <div class="field-group">
+                        <label asp-for="Name" class="field-label">Category Name</label>
+                        <input asp-for="Name" class="field-input" />
+                        <span asp-validation-for="Name" class="field-error"></span>
+                    </div>
+
+                    <div class="field-group">
+                        <label asp-for="Description" class="field-label">Description</label>
+                        <textarea asp-for="Description" class="field-input field-textarea" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="field-error"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-col-side">
+            <div style="display:flex;flex-direction:column;gap:10px">
+                <button type="submit" class="btn-primary-admin" style="justify-content:center">
+                    <span class="material-symbols-outlined" style="font-size:16px">update</span>
+                    Update Category
+                </button>
+                <a asp-action="Index" class="btn-secondary-admin">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -3,26 +3,87 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <title>@ViewData["Title"] - Kizuna</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Josefin+Sans:wght@200;300;400;600&display=swap" rel="stylesheet" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-    <!-- Kizuna CSS -->
     <link rel="stylesheet" href="~/css/kizuna-home.css" asp-append-version="true" />
 
-    <!-- Section dành cho CSS riêng của từng trang (nếu cần) -->
+    <style>
+        body, * {
+            cursor: auto !important;
+        }
+        a, button, input[type="submit"], input[type="button"], label, 
+        .filter-item, .size-btn, .product-card, .thumb, .color-swatch, 
+        .size-opt, .qty-btn, .tab-btn, .related-card {
+            cursor: pointer !important;
+        }
+
+        /* STYLE CHO THANH HEADER MỚI */
+        .kizuna-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 24px 48px; background: white;
+            border-bottom: 1px solid var(--warm-mid);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .header-logo {
+            font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500;
+            color: var(--ink); text-decoration: none; letter-spacing: 0.05em;
+        }
+        .header-nav {
+            display: flex; align-items: center; gap: 32px;
+        }
+        .nav-link {
+            font-family: 'Josefin Sans', sans-serif; font-size: 11px; font-weight: 600;
+            letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink);
+            text-decoration: none; transition: opacity 0.2s;
+        }
+        .nav-link:hover { opacity: 0.6; }
+        .nav-icon {
+            color: var(--ink); text-decoration: none; display: flex; align-items: center;
+            transition: opacity 0.2s;
+        }
+        .nav-icon:hover { opacity: 0.6; }
+    </style>
+
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
+
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() != "Home" || ViewContext.RouteData.Values["action"]?.ToString() != "Index")
+    {
+        <header class="kizuna-header">
+            <a href="/" class="header-logo">KIZUNA</a>
+            
+            <nav class="header-nav">
+                <a href="/Shop" class="nav-link">Shop</a>
+                
+                <a href="/Cart/Index" class="nav-icon" title="Giỏ hàng">
+                    <span class="material-symbols-outlined">shopping_bag</span>
+                </a>
+
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a href="/Order/History" class="nav-icon" title="Lịch sử đơn hàng">
+                        <span class="material-symbols-outlined">receipt_long</span>
+                    </a>
+                }
+                
+                <a href="/Identity/Account/Manage" class="nav-icon" title="Tài khoản">
+                    <span class="material-symbols-outlined">person</span>
+                </a>
+            </nav>
+        </header>
+    }
+
     @RenderBody()
 
-    <!-- Kizuna JS -->
     <script src="~/js/kizuna-home.js" asp-append-version="true"></script>
 
-    <!-- Section dành cho JS riêng của từng trang (nếu cần) -->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
