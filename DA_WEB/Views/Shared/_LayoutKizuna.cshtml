@@ -14,40 +14,70 @@
     <link rel="stylesheet" href="~/css/kizuna-home.css" asp-append-version="true" />
 
     <style>
-        body, * {
-            cursor: auto !important;
-        }
-        a, button, input[type="submit"], input[type="button"], label, 
-        .filter-item, .size-btn, .product-card, .thumb, .color-swatch, 
-        .size-opt, .qty-btn, .tab-btn, .related-card {
-            cursor: pointer !important;
-        }
+            body, * {
+                cursor: auto !important;
+            }
+    
+            a, button, input[type="submit"], input[type="button"], label,
+            .filter-item, .size-btn, .product-card, .thumb, .color-swatch,
+            .size-opt, .qty-btn, .tab-btn, .related-card {
+                cursor: pointer !important;
+            }
 
-        /* STYLE CHO THANH HEADER MỚI */
-        .kizuna-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 24px 48px; background: white;
-            border-bottom: 1px solid var(--warm-mid);
-            position: sticky; top: 0; z-index: 100;
-        }
-        .header-logo {
-            font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500;
-            color: var(--ink); text-decoration: none; letter-spacing: 0.05em;
-        }
-        .header-nav {
-            display: flex; align-items: center; gap: 32px;
-        }
-        .nav-link {
-            font-family: 'Josefin Sans', sans-serif; font-size: 11px; font-weight: 600;
-            letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink);
-            text-decoration: none; transition: opacity 0.2s;
-        }
-        .nav-link:hover { opacity: 0.6; }
-        .nav-icon {
-            color: var(--ink); text-decoration: none; display: flex; align-items: center;
-            transition: opacity 0.2s;
-        }
-        .nav-icon:hover { opacity: 0.6; }
+            /* STYLE CHO THANH HEADER MỚI */
+            .kizuna-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 24px 48px;
+                background: white;
+                border-bottom: 1px solid var(--warm-mid);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+    
+            .header-logo {
+                font-family: 'Cormorant Garamond', serif;
+                font-size: 28px;
+                font-weight: 500;
+                color: var(--ink);
+                text-decoration: none;
+                letter-spacing: 0.05em;
+            }
+    
+            .header-nav {
+                display: flex;
+                align-items: center;
+                gap: 32px;
+            }
+    
+            .nav-link {
+                font-family: 'Josefin Sans', sans-serif;
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                color: var(--ink);
+                text-decoration: none;
+                transition: opacity 0.2s;
+            }
+    
+                .nav-link:hover {
+                    opacity: 0.6;
+                }
+    
+            .nav-icon {
+                color: var(--ink);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                transition: opacity 0.2s;
+            }
+    
+                .nav-icon:hover {
+                    opacity: 0.6;
+                }
     </style>
 
     @await RenderSectionAsync("Styles", required: false)
