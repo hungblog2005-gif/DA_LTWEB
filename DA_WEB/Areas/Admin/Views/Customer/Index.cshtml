@@ -1,0 +1,109 @@
+﻿@model IEnumerable<DA_WEB.Areas.Admin.Models.CustomerViewModel>
+@{
+    ViewData["Title"] = "Quản Lý Khách Hàng — Admin";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="admin-container" style="padding: 32px;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px;">
+        <div>
+            <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 36px; color: var(--ink); margin: 0;">Customer Database</h2>
+            <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">Quản lý và theo dõi hành vi mua sắm của khách hàng Kizuna.</p>
+        </div>
+        <div style="text-align: right;">
+            <div style="font-size: 24px; font-weight: 300; color: var(--ink);">@Model.Count()</div>
+            <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);">Tổng số thành viên</div>
+        </div>
+    </div>
+
+    <div class="form-card" style="padding: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+                <tr style="background: #faf9f7; border-bottom: 1px solid var(--warm-mid);">
+                    <th style="padding: 20px 24px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);">Thành Viên</th>
+                    <th style="padding: 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);">Liên Hệ</th>
+                    <th style="padding: 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); text-align: center;">Đơn Hàng</th>
+                    <th style="padding: 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); text-align: right;">Tổng Chi</th>
+                    <th style="padding: 20px 24px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); text-align: center;">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="border-bottom: 1px solid #f0f0f0; transition: all 0.2s;" onmouseover="this.style.background='#fdfcfb'" onmouseout="this.style.background='transparent'">
+                        
+                        <td style="padding: 16px 24px;">
+                            <div style="display: flex; align-items: center; gap: 14px;">
+                                <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--warm-mid); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink); border: 1px solid #eee;">
+                                    @item.FullName.Substring(0, 1).ToUpper()
+                                </div>
+                                <div>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span style="font-size: 14px; font-weight: 600; color: var(--ink);">@item.FullName</span>
+                                        @if (item.TotalSpent > 5000000) {
+                                            <span style="background: #fff8e1; color: #ffb300; font-size: 9px; padding: 2px 8px; border-radius: 4px; border: 1px solid #ffe082; font-weight: bold; text-transform: uppercase;">VIP</span>
+                                        }
+                                    </div>
+                                    <div style="font-size: 11px; color: var(--muted);">Joined: @item.Email.Substring(0, 4)...</div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="padding: 16px;">
+                            <div style="font-size: 13px; color: var(--ink);">@item.Email</div>
+                            <div style="font-size: 12px; color: var(--muted);">@item.PhoneNumber</div>
+                        </td>
+
+                        <td style="padding: 16px; text-align: center;">
+                            <span style="display: inline-block; min-width: 30px; padding: 4px 8px; background: #f4f0ea; border-radius: 12px; font-size: 12px; font-weight: 600;">@item.TotalOrders</span>
+                        </td>
+
+                        <td style="padding: 16px; text-align: right; font-weight: 600; color: var(--primary);">
+                            @item.TotalSpent.ToString("N0")₫
+                        </td>
+
+                        <td style="padding: 16px 24px; text-align: center;">
+                            <div style="display: flex; gap: 8px; justify-content: center;">
+                                
+                                <a href="/Admin/Order?searchString=@item.Email" class="action-icon-btn" title="Lịch sử mua hàng">
+                                    <span class="material-symbols-outlined">history</span>
+                                </a>
+
+                                <form asp-action="ToggleLock" asp-route-id="@item.Id" method="post">
+                                    <button type="submit" class="action-icon-btn @(item.IsLocked ? "locked" : "")" 
+                                            title="@(item.IsLocked ? "Mở khóa" : "Khóa tài khoản")">
+                                        <span class="material-symbols-outlined">
+                                            @(item.IsLocked ? "lock" : "lock_open")
+                                        </span>
+                                    </button>
+                                </form>
+
+                                <form asp-action="DeleteCustomer" asp-route-id="@item.Id" method="post" 
+                                      onsubmit="return confirm('Xác nhận xóa khách hàng này? Thao tác này chỉ thực hiện được nếu khách chưa có đơn hàng.')">
+                                    <button type="submit" class="action-icon-btn delete" title="Xóa vĩnh viễn">
+                                        <span class="material-symbols-outlined">person_remove</span>
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .action-icon-btn {
+        width: 34px; height: 34px; border-radius: 6px; border: 1px solid #eee;
+        background: white; color: var(--muted); cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.2s; text-decoration: none;
+    }
+    .action-icon-btn:hover { background: #faf9f7; color: var(--ink); border-color: var(--warm-mid); }
+    .action-icon-btn.locked { color: var(--primary); background: #fff5f5; border-color: #feb2b2; }
+    .action-icon-btn.delete:hover { background: #fff5f5; color: #e53e3e; border-color: #feb2b2; }
+    .material-symbols-outlined { font-size: 18px; }
+</style>

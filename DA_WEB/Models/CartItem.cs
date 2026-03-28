@@ -20,4 +20,5 @@ public class CartItem
 
     [Column(TypeName = "decimal(18,2)")]
     public decimal UnitPrice { get; set; }
+    public string? Size { get; set; } // Thêm dòng này vào CartItem.cs
 }

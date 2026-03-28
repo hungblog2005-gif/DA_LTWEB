@@ -4,7 +4,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DA_WEB.Services // Sửa lại namespace cho khớp với dự án của bạn
+namespace DA_WEB.Services
 {
     public class VnPaymentRequestModel
     {

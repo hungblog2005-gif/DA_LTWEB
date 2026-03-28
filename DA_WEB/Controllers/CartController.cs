@@ -30,28 +30,29 @@ public class CartController : Controller
 
     // POST: /Cart/Add
     [HttpPost]
-    public async Task<IActionResult> Add(int productId, int quantity = 1)
+    public async Task<IActionResult> Add(int productId, int quantity = 1, string size = "")
     {
         var userId = _userManager.GetUserId(User);
-        await _cartService.AddToCartAsync(productId, quantity, userId, HttpContext);
+        // Truyền thêm size vào Service
+        await _cartService.AddToCartAsync(productId, quantity, size, userId, HttpContext);
         return RedirectToAction(nameof(Index));
     }
 
     // POST: /Cart/Update
     [HttpPost]
-    public async Task<IActionResult> Update(int productId, int quantity)
+    public async Task<IActionResult> Update(int productId, int quantity, string size)
     {
         var userId = _userManager.GetUserId(User);
-        await _cartService.UpdateQuantityAsync(productId, quantity, userId, HttpContext);
+        await _cartService.UpdateQuantityAsync(productId, quantity, size, userId, HttpContext);
         return RedirectToAction(nameof(Index));
     }
 
     // POST: /Cart/Remove
     [HttpPost]
-    public async Task<IActionResult> Remove(int productId)
+    public async Task<IActionResult> Remove(int productId, string size)
     {
         var userId = _userManager.GetUserId(User);
-        await _cartService.RemoveFromCartAsync(productId, userId, HttpContext);
+        await _cartService.RemoveFromCartAsync(productId, size, userId, HttpContext);
         return RedirectToAction(nameof(Index));
     }
 }

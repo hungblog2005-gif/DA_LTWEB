@@ -257,10 +257,10 @@
         </div>
         <div class="option-label">Size</div>
         <div class="size-row">
-            <button class="size-opt">S</button>
-            <button class="size-opt active">M</button>
-            <button class="size-opt">L</button>
-            <button class="size-opt">XL</button>
+            <button type="button" class="size-opt" onclick="selectSize(this, 'S')">S</button>
+            <button type="button" class="size-opt" onclick="selectSize(this, 'M')">M</button>
+            <button type="button" class="size-opt" onclick="selectSize(this, 'L')">L</button>
+            <button type="button" class="size-opt" onclick="selectSize(this, 'XL')">XL</button>
         </div>
         <a href="#" class="size-guide">Size Guide</a>
         <div class="option-label">Quantity</div>
@@ -271,13 +271,13 @@
         </div>
         @if (Model.Stock > 0)
         {
-            <form asp-controller="Cart" asp-action="Add" method="post" style="width:100%;">
-                <input type="hidden" name="productId" value="@Model.Id" />
-                <input type="hidden" name="quantity" id="finalQty" value="1" />
-                <button type="submit" class="btn-cart">
-                    <span class="material-symbols-outlined">shopping_cart</span> Add to Cart
-                </button>
-            </form>
+           <form asp-controller="Cart" asp-action="Add" method="post" style="width:100%;" onsubmit="return validateSize()">
+    <input type="hidden" name="productId" value="@Model.Id" />
+    <input type="hidden" name="quantity" id="finalQty" value="1" />
+    <input type="hidden" name="size" id="selectedSize" value="" /> <button type="submit" class="btn-cart">
+        <span class="material-symbols-outlined">shopping_cart</span> Add to Cart
+    </button>
+</form>
         }
         else { <button class="btn-cart" disabled style="background:var(--muted);cursor:not-allowed">Out of Stock</button> }
         <button class="btn-wishlist"> <span class="material-symbols-outlined">favorite_border</span> Add to Wishlist </button>
@@ -293,7 +293,9 @@
     <div class="tabs-nav">
         <button class="tab-btn active" onclick="switchTab('details', this)">Product Details</button>
         <button class="tab-btn" onclick="switchTab('sizing', this)">Size Guide</button>
-        <button class="tab-btn" onclick="switchTab('reviews', this)">Reviews (0)</button>
+        <button class="tab-btn" onclick="switchTab('reviews', this)">
+    Reviews (@((ViewBag.Reviews as List<DA_WEB.Models.ProductReview>)?.Count ?? 0))
+</button>
     </div>
     <div id="tab-details" class="tab-content active">
         <div class="detail-grid-2">
@@ -308,10 +310,21 @@
             </div>
             <div>
                 <div class="spec-table">
-                    <div class="spec-row"> <div class="spec-key">Material</div> <div class="spec-val">100% Linen</div> </div>
-                    <div class="spec-row"> <div class="spec-key">Care</div> <div class="spec-val">Hand wash</div> </div>
-                    <div class="spec-row"> <div class="spec-key">SKU</div> <div class="spec-val">KZ-@Model.Id.ToString("D4")</div> </div>
-                </div>
+    <div class="spec-row"> 
+        <div class="spec-key">Material</div> 
+        <div class="spec-val">@(Model.Material ?? "Natural Fabric")</div> 
+    </div>
+
+    <div class="spec-row"> 
+        <div class="spec-key">Care</div> 
+        <div class="spec-val">@(Model.CareInstructions ?? "Hand wash recommended")</div> 
+    </div>
+
+    <div class="spec-row"> 
+        <div class="spec-key">SKU</div> 
+        <div class="spec-val">@(string.IsNullOrEmpty(Model.SKU) ? $"KZ-{Model.Id.ToString("D4")}" : Model.SKU)</div> 
+    </div>
+</div>
             </div>
         </div>
     </div>
@@ -319,8 +332,99 @@
         <p style="font-size:13px;color:var(--muted);">Oversized Japanese fit.</p>
     </div>
     <div id="tab-reviews" class="tab-content">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--muted)">No reviews yet.</p>
+    <div class="review-section">
+        
+        <div class="review-summary-box">
+            <div class="review-score">
+                <h2 class="score-number">4.8</h2> <div class="score-stars">
+                    <span class="material-symbols-outlined filled">star</span>
+                    <span class="material-symbols-outlined filled">star</span>
+                    <span class="material-symbols-outlined filled">star</span>
+                    <span class="material-symbols-outlined filled">star</span>
+                    <span class="material-symbols-outlined half">star_half</span>
+                </div>
+                <p class="score-count">Dựa trên @((ViewBag.Reviews as List<DA_WEB.Models.ProductReview>)?.Count ?? 0) đánh giá</p>
+            </div>
+
+            <div class="review-action-area">
+                <p style="font-size: 13px; color: var(--muted); margin-bottom: 12px; line-height: 1.5;">
+                    Bạn đã trải nghiệm sản phẩm này? Hãy chia sẻ cảm nhận để giúp những khách hàng khác nhé.
+                </p>
+                @if (ViewBag.CanReview == true) {
+                    <button type="button" class="btn-primary" onclick="openReviewModal()">Viết Đánh Giá</button>
+                } else if (!User.Identity.IsAuthenticated) {
+                    <a href="/Identity/Account/Login" class="btn-ghost" style="text-decoration: none; display: inline-block;">Đăng nhập để đánh giá</a>
+                } else {
+                    <div style="padding: 8px 16px; background: var(--paper); font-size: 12px; color: var(--muted); border-radius: 4px;">
+                        Chỉ khách hàng đã nhận sản phẩm mới có thể đánh giá.
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="reviews-list">
+            @{ var reviews = ViewBag.Reviews as List<DA_WEB.Models.ProductReview>; }
+            @if (reviews != null && reviews.Any()) {
+                @foreach (var r in reviews) {
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="review-user-info">
+                                <div class="user-avatar">@(r.User?.FullName?.Substring(0, 1).ToUpper() ?? "K")</div>
+                                <div>
+                                    <strong class="user-name">@r.User?.FullName</strong>
+                                    <span class="verified-badge"><span class="material-symbols-outlined" style="font-size: 12px;">verified</span> Đã mua hàng</span>
+                                </div>
+                            </div>
+                            <span class="review-date">@r.CreatedAt.ToString("dd/MM/yyyy")</span>
+                        </div>
+                        <div class="review-stars-display">
+                            @for(int i=1; i<=5; i++) {
+                                <span class="material-symbols-outlined @(i <= r.Rating ? "filled" : "")">star</span>
+                            }
+                        </div>
+                        <p class="review-comment">@r.Comment</p>
+                    </div>
+                }
+            } else {
+                <div style="text-align: center; padding: 60px 0;">
+                    <span class="material-symbols-outlined" style="font-size: 48px; color: var(--paper);">rate_review</span>
+                    <p style="color: var(--muted); font-size: 14px; margin-top: 16px;">Sản phẩm chưa có đánh giá nào.<br/>Hãy là người đầu tiên trải nghiệm và chia sẻ!</p>
+                </div>
+            }
+        </div>
     </div>
+</div>
+
+<div id="reviewModal" class="kizuna-modal">
+    <div class="kizuna-modal-content">
+        <span class="close-modal" onclick="closeReviewModal()">&times;</span>
+        <h3 class="modal-title">Đánh giá sản phẩm</h3>
+        <p class="modal-subtitle">@Model.Name</p>
+        
+        <form asp-action="PostReview" method="post">
+            <input type="hidden" name="productId" value="@Model.Id" />
+            
+            <div class="rating-input-group">
+                <label>Chất lượng sản phẩm</label>
+                <div class="star-rating-select">
+                    <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="5 sao"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 sao"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 sao"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 sao"></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 sao"></label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Chia sẻ trải nghiệm của bạn</label>
+                <textarea name="comment" class="field-input" placeholder="Phom dáng có vừa vặn không? Chất liệu vải thế nào?..." required rows="4"></textarea>
+            </div>
+            
+            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 16px;">Gửi Đánh Giá</button>
+        </form>
+    </div>
+</div>
+</div>
 </div>
 
 @if (ViewBag.RelatedProducts != null)
@@ -350,77 +454,140 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
 @section Scripts {
-<script>
-    // -----------------------------------------------------------------
-    // KHU VỰC SCRIPT ĐÃ ĐƯỢC ĐẠI TU ĐỂ CHẠY MƯỢT MÀ
-    // -----------------------------------------------------------------
-    const slider = document.getElementById('mainImageSlider');
-    const thumbs = document.querySelectorAll('.thumb');
-    
-    // 1. Khi CLICK vào thumbnail: Trượt slider đến ảnh tương ứng
-    function slideToImage(index, thumb) {
-        // Lấy chiều rộng của một slide
-        const slideWidth = slider.querySelector('.slide').offsetWidth;
-        
-        // Dùng lệnh scrollTo để slider TỰ TRƯỢT mượt mà đến vị trí index
-        slider.scrollTo({
-            left: index * slideWidth,
-            behavior: 'smooth' // Rất quan trọng để mượt
-        });
-        
-        // Cập nhật trạng thái active cho thumbnail
-        updateActiveThumb(thumb);
-    }
-    
-    // 2. Khi KÉO/VUỐT slider: Đồng bộ lại thumbnail tương ứng (Reverse Sync)
-    slider.addEventListener('scroll', function() {
-        const slideWidth = slider.querySelector('.slide').offsetWidth;
-        
-        // Tính toán xem đang ở slide thứ mấy dựa trên vị trí cuộn
-        // Thêm + slideWidth/2 để tính toán chính xác khi kéo được 1 nửa ảnh
-        const currentIndex = Math.floor((slider.scrollLeft + slideWidth / 2) / slideWidth);
-        
-        // Cập nhật lại thumbnail active dựa trên index vừa kéo đến
-        updateActiveThumb(thumbs[currentIndex]);
-    });
-    
-    // Hàm phụ để cập nhật class Active cho Thumbnail
-    function updateActiveThumb(activeThumb) {
-        if (!activeThumb) return;
-        thumbs.forEach(t => t.classList.remove('active'));
-        activeThumb.classList.add('active');
-    }
+    <style>
+        /* KHỐI THỐNG KÊ */
+        .review-section { max-width: 800px; margin: 0 auto; padding: 40px 0; }
+        .review-summary-box { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: #faf9f7; padding: 40px; border-radius: 8px; margin-bottom: 48px; }
+        .review-score { text-align: center; border-right: 1px solid var(--warm-mid); }
+        .score-number { font-family: 'Cormorant Garamond', serif; font-size: 56px; line-height: 1; color: var(--ink); margin-bottom: 8px; font-weight: 300; }
+        .score-stars .material-symbols-outlined { color: #e0e0e0; font-size: 20px; }
+        .score-stars .filled, .score-stars .half { color: var(--accent-gold, #cfa872); }
+        .score-count { font-size: 12px; color: var(--muted); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .review-action-area { display: flex; flex-direction: column; justify-content: center; }
 
-    // --- Các hàm phụ khác (Giữ nguyên) ---
-    function changeQty(delta) {
-        const input = document.getElementById('qtyInput');
-        const max = parseInt(input.max) || 999;
-        let val = parseInt(input.value) + delta;
-        if (val < 1) val = 1;
-        if (val > max) val = max;
-        input.value = val;
-        document.getElementById('finalQty').value = val;
-    }
-    document.getElementById('qtyInput').addEventListener('input', function() {
-        document.getElementById('finalQty').value = this.valueAsNumber || 1;
-    });
-    function switchTab(name, btn) {
-        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('tab-' + name).classList.add('active');
-        btn.classList.add('active');
-    }
-    document.querySelectorAll('.size-opt').forEach(btn => {
-        btn.addEventListener('click', function () {
+        /* DANH SÁCH ITEM */
+        .review-item { border-bottom: 1px solid var(--paper); padding: 32px 0; }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .review-user-info { display: flex; align-items: center; gap: 12px; }
+        .user-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--warm-mid); color: var(--ink); display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: 'Cormorant Garamond', serif; font-size: 18px; }
+        .user-name { font-size: 14px; color: var(--ink); display: block; }
+        .verified-badge { font-size: 11px; color: #3b82f6; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+        .review-date { font-size: 12px; color: var(--muted); }
+        .review-stars-display .material-symbols-outlined { font-size: 14px; color: #e0e0e0; }
+        .review-stars-display .filled { color: var(--accent-gold, #cfa872); }
+        .review-comment { font-size: 14px; line-height: 1.6; color: var(--ink); margin-top: 12px; }
+
+        /* MODAL POPUP */
+        .kizuna-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+        .kizuna-modal-content { background-color: #fff; margin: 10% auto; padding: 40px; border-radius: 8px; width: 90%; max-width: 500px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .close-modal { position: absolute; right: 24px; top: 24px; color: var(--muted); font-size: 28px; font-weight: 300; cursor: pointer; line-height: 1; }
+        .close-modal:hover { color: var(--ink); }
+        .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--ink); margin-bottom: 4px; }
+        .modal-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--paper); }
+        
+        /* HIỆU ỨNG CHỌN SAO NGHỆ THUẬT */
+        .rating-input-group { margin-bottom: 24px; text-align: center; }
+        .rating-input-group label { display: block; font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.1em; }
+        .star-rating-select { display: inline-flex; flex-direction: row-reverse; gap: 8px; }
+        .star-rating-select input { display: none; }
+        .star-rating-select label { cursor: pointer; color: #e0e0e0; font-size: 32px; transition: color 0.2s; }
+        .star-rating-select label:before { content: '★'; }
+        .star-rating-select input:checked ~ label { color: var(--accent-gold, #cfa872); }
+        .star-rating-select label:hover, .star-rating-select label:hover ~ label { color: var(--accent-gold, #cfa872); opacity: 0.7; }
+        .form-group label { display: block; font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.1em; }
+    </style>
+
+    <script>
+        // --- CODE MỚI: XỬ LÝ MODAL ĐÁNH GIÁ ---
+        var modal = document.getElementById("reviewModal");
+        
+        function openReviewModal() { 
+            if(modal) modal.style.display = "block"; 
+        }
+        
+        function closeReviewModal() { 
+            if(modal) modal.style.display = "none"; 
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == modal) { 
+                closeReviewModal(); 
+            }
+        }
+
+        // --- CODE CŨ: GIỮ NGUYÊN HOÀN TOÀN CỦA TIẾN ---
+        const slider = document.getElementById('mainImageSlider');
+        const thumbs = document.querySelectorAll('.thumb');
+        
+        function slideToImage(index, thumb) {
+            if(!slider) return; // Tránh lỗi nếu không có slider
+            const slideWidth = slider.querySelector('.slide').offsetWidth;
+            slider.scrollTo({
+                left: index * slideWidth,
+                behavior: 'smooth' 
+            });
+            updateActiveThumb(thumb);
+        }
+        
+        if(slider) {
+            slider.addEventListener('scroll', function() {
+                const slideWidth = slider.querySelector('.slide').offsetWidth;
+                const currentIndex = Math.floor((slider.scrollLeft + slideWidth / 2) / slideWidth);
+                updateActiveThumb(thumbs[currentIndex]);
+            });
+        }
+        
+        function updateActiveThumb(activeThumb) {
+            if (!activeThumb) return;
+            thumbs.forEach(t => t.classList.remove('active'));
+            activeThumb.classList.add('active');
+        }
+
+        function changeQty(delta) {
+            const input = document.getElementById('qtyInput');
+            if(!input) return;
+            const max = parseInt(input.max) || 999;
+            let val = parseInt(input.value) + delta;
+            if (val < 1) val = 1;
+            if (val > max) val = max;
+            input.value = val;
+            document.getElementById('finalQty').value = val;
+        }
+
+        const qtyInput = document.getElementById('qtyInput');
+        if(qtyInput) {
+            qtyInput.addEventListener('input', function() {
+                document.getElementById('finalQty').value = this.valueAsNumber || 1;
+            });
+        }
+
+        function switchTab(name, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + name).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        document.querySelectorAll('.color-swatch').forEach(sw => {
+            sw.addEventListener('click', function () {
+                document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        function selectSize(btn, sizeValue) {
             document.querySelectorAll('.size-opt').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-    document.querySelectorAll('.color-swatch').forEach(sw => {
-        sw.addEventListener('click', function () {
-            document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-</script>
+            btn.classList.add('active');
+            document.getElementById('selectedSize').value = sizeValue;
+        }
+
+        function validateSize() {
+            var size = document.getElementById('selectedSize').value;
+            if (!size) {
+                alert("Vui lòng chọn Size trước khi thêm vào giỏ hàng!");
+                return false; 
+            }
+            return true;
+        }
+    </script>
 }

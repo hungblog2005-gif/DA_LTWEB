@@ -167,26 +167,37 @@
                                         <div class="item-img" style="background-image:url('@(item.Product.ImageUrl ?? "")')"></div>
                                         <div class="item-details">
                                             <a href="/Shop/Detail/@item.ProductId" class="item-name">@item.Product.Name</a>
+                                            <p style="font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: 0.05em;">
+                                                Size: <strong style="color: var(--ink);">
+                                                    @(string.IsNullOrEmpty(item.Size) ? "Free Size" : item.Size)
+                                                </strong>
+                                            </p>
                                             <span class="item-price">@currentPrice.ToString("N0")₫</span>
-                                            
+                                        
                                             <form asp-controller="Cart" asp-action="Remove" method="post">
-                                                <input type="hidden" name="productId" value="@item.ProductId" />
-                                                <button type="submit" class="btn-remove">
-                                                    <span class="material-symbols-outlined" style="font-size:14px">close</span> Remove
-                                                </button>
-                                            </form>
+                                            <input type="hidden" name="productId" value="@item.ProductId" />
+    
+                                            <input type="hidden" name="size" value="@item.Size" />
+    
+                                            <button type="submit" class="btn-remove">
+                                                <span class="material-symbols-outlined" style="font-size:14px">close</span> Remove
+                                            </button>
+                                        </form>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <form asp-controller="Cart" asp-action="Update" method="post" style="display:flex; justify-content:center;">
-                                        <input type="hidden" name="productId" value="@item.ProductId" />
-                                        <div class="qty-form">
-                                            <button type="button" class="qty-btn" onclick="updateQty(this, -1)">−</button>
-                                            <input type="number" name="quantity" class="qty-input" value="@item.Quantity" min="1" onchange="this.form.submit()" />
-                                            <button type="button" class="qty-btn" onclick="updateQty(this, 1)">+</button>
-                                        </div>
-                                    </form>
+                                    <input type="hidden" name="productId" value="@item.ProductId" />
+    
+                                    <input type="hidden" name="size" value="@item.Size" />
+    
+                                    <div class="qty-form">
+                                        <button type="button" class="qty-btn" onclick="updateQty(this, -1)">−</button>
+                                        <input type="number" name="quantity" class="qty-input" value="@item.Quantity" min="1" onchange="this.form.submit()" />
+                                        <button type="button" class="qty-btn" onclick="updateQty(this, 1)">+</button>
+                                    </div>
+                                </form>
                                 </td>
                                 <td class="item-total">
                                     @itemTotal.ToString("N0")₫

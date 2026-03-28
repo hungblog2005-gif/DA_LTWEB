@@ -36,5 +36,11 @@ namespace DA_WEB.Models
 
         // DANH SÁCH ẢNH PHỤ (Thêm dòng này)
         public ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
+        public string? Material { get; set; } // Ví dụ: 100% Linen
+        public string? CareInstructions { get; set; } // Ví dụ: Hand wash only
+        public string? SKU { get; set; } // Ví dụ: KZ-0003
+
+        public ICollection<ProductReview> ProductReviews { get; set; } = new List<ProductReview>();
+        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }

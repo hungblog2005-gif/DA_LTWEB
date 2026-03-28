@@ -4,6 +4,7 @@ using DA_WEB.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DA_WEB.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260328114658_AddProductReviewTable")]
+    partial class AddProductReviewTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -514,7 +517,7 @@ namespace DA_WEB.Migrations
                         .IsRequired();
 
                     b.HasOne("DA_WEB.Models.Product", "Product")
-                        .WithMany("OrderItems")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -547,7 +550,7 @@ namespace DA_WEB.Migrations
             modelBuilder.Entity("DA_WEB.Models.ProductReview", b =>
                 {
                     b.HasOne("DA_WEB.Models.Product", "Product")
-                        .WithMany("ProductReviews")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -626,11 +629,7 @@ namespace DA_WEB.Migrations
 
             modelBuilder.Entity("DA_WEB.Models.Product", b =>
                 {
-                    b.Navigation("OrderItems");
-
                     b.Navigation("ProductImages");
-
-                    b.Navigation("ProductReviews");
                 });
 #pragma warning restore 612, 618
         }
