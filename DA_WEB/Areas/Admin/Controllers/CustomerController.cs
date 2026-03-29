@@ -10,6 +10,7 @@ namespace DA_WEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+
     public class CustomerController : Controller
     {
         private readonly AppDbContext _db;

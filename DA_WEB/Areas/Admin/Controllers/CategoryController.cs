@@ -8,6 +8,7 @@ namespace DA_WEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)] // Bỏ comment dòng này nếu bạn đã cấu hình role
+
     public class CategoryController : Controller
     {
         private readonly AppDbContext _db;
