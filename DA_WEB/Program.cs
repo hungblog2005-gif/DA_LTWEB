@@ -9,7 +9,21 @@ using DA_WEB.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // MVC + Razor Pages
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        // Chặn lỗi lặp vô tận khi API trả về dữ liệu có khóa ngoại (Foreign Key)
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    // Lọc thông minh: Chỉ cho phép Swagger quét và tạo tài liệu cho các Endpoint bắt đầu bằng "api"
+    c.DocInclusionPredicate((docName, apiDesc) =>
+    {
+        return apiDesc.RelativePath != null && apiDesc.RelativePath.StartsWith("api", StringComparison.OrdinalIgnoreCase);
+    });
+});
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 // Database
@@ -66,6 +80,17 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
+// --- THÊM ĐOẠN NÀY ĐỂ BẬT SWAGGER TRONG MÔI TRƯỜNG DEV ---
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kizuna API V1");
+        // Để Swagger là trang mặc định khi chạy (tùy chọn)
+        // c.RoutePrefix = string.Empty; 
+    });
+}
 app.UseRouting();
 
 app.UseAuthentication();
@@ -74,7 +99,7 @@ app.UseSession();
 
 // Routing
 app.MapRazorPages();
-
+app.MapControllers(); // <--- THÊM DÒNG NÀY ĐỂ HỆ THỐNG NHẬN DIỆN ĐƯỜNG DẪN API
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
@@ -86,11 +111,11 @@ app.MapControllerRoute(
 // ===== SEED ROLE + ADMIN =====
 using (var scope = app.Services.CreateScope())
 {
-    var roleManager = scope.ServiceProvider
-        .GetRequiredService<RoleManager<IdentityRole>>();
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DbInitializer.Initialize(context);
 
-    var userManager = scope.ServiceProvider
-        .GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
     foreach (var role in new[] { SD.Role_Admin, SD.Role_Customer })
     {

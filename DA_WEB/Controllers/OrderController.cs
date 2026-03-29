@@ -9,6 +9,7 @@ using Stripe;
 namespace DA_WEB.Controllers
 {
     [Authorize]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DA_WEB.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ShopController : Controller
     {
         private readonly AppDbContext _db;

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 [Route("[controller]/[action]")] // Dễ nhớ route, ví dụ: /Cart/Index
 public class CartController : Controller
 {
+
     private readonly ICartService _cartService;
     private readonly UserManager<ApplicationUser> _userManager; // Để lấy UserId nếu đăng nhập
 

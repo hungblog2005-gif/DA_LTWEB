@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 namespace DA_WEB.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
         private readonly AppDbContext _db;

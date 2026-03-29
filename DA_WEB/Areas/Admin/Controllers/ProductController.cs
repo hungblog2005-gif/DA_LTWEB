@@ -9,6 +9,7 @@ namespace DA_WEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)] // (Nếu có lỗi ở SD thì bạn hãy kiểm tra lại file chứa hằng số nhé)
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ProductController : Controller
     {
         private readonly AppDbContext _db;
